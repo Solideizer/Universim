@@ -8,7 +8,7 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
     protected static float hungerAmount = 0f;
     protected static float thirstAmount = 0f;
     protected float hungerThreshold = 50f;
-    protected float thirstThreshold = 50f;    
+    protected float thirstThreshold = 50f;
     protected float reproduceDuration;
     protected float pregnancyDuration;
     protected float movementSpeed = 2f;
@@ -20,6 +20,7 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
     protected virtual void Update () {
         GetHungry ();
         GetThirsty ();
+        Reproduce ("",null);
 
     }
 
@@ -36,10 +37,10 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
     }
 
     public virtual void GetHungry () {
-        hungerAmount += Time.deltaTime ;
-        Debug.Log("hunger amount "+ hungerAmount);
+        hungerAmount += Time.deltaTime;
+        Debug.Log ("hunger amount " + hungerAmount);
         //Debug.Log("hunger threshold "+ hungerThreshold);
-        if (hungerAmount > hungerThreshold / 3 && hungerAmount > thirstAmount) {            
+        if (hungerAmount > hungerThreshold / 3 && hungerAmount > thirstAmount) {
             FindFood ();
             //Debug.Log ("Finding Food");
         } else if (hungerAmount >= hungerThreshold) {
@@ -48,35 +49,33 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
     }
     public virtual void Eat (Transform food) {
         hungerAmount = 0f;
-        food.localScale -= Vector3.one * Time.deltaTime;    
-        Destroy(food.gameObject,3f);
-        Debug.Log("eating");
-        
+        food.localScale -= Vector3.one * Time.deltaTime;
+        Destroy (food.gameObject, 3f);
+        Debug.Log ("eating");
+
     }
     public virtual void Drink (Transform water) {
         thirstAmount = 0f;
-        Debug.Log("drinking");
-        
+        Debug.Log ("drinking");
+
     }
     public virtual void FindFood () {
         Transform closestFood = FindClosest ("Plant");
         Move (closestFood);
-        float dist = Vector3.Distance(closestFood.position, _transform.position);
-        if(dist < 3f)
-        {
-            Eat(closestFood);
+        float dist = Vector3.Distance (closestFood.position, _transform.position);
+        if (dist < 3f) {
+            Eat (closestFood);
         }
-       
+
     }
     public virtual void FindWater () {
         Transform closestWater = FindClosest ("Water");
         Move (closestWater);
-        float dist = Vector3.Distance(closestWater.position, _transform.position);
-        if(dist < 3f)
-        {
-            Drink(closestWater);
+        float dist = Vector3.Distance (closestWater.position, _transform.position);
+        if (dist < 3f) {
+            Drink (closestWater);
         }
-        
+
     }
     public virtual void Move (Transform destination) {
         float step = movementSpeed * Time.deltaTime;
@@ -88,7 +87,24 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
             Die ();
         }
     }
-    public abstract void Reproduce ();
+
+    protected void Reproduce (string tag, GameObject prefab) {
+
+        if (thirstAmount < thirstThreshold / 2 && hungerAmount < hungerThreshold / 2)
+        {
+            Transform partner = FindClosest (tag);
+            Move (partner);
+
+            float dist = Vector3.Distance (partner.position, _transform.position);
+
+            if (dist < 1f)
+            {
+                StartCoroutine (ReproduceDuration ());
+                Instantiate (prefab, _transform.position, Quaternion.identity);
+            }
+        }
+
+    }
     public virtual void Die () {
         Destroy (gameObject);
     }
@@ -99,8 +115,7 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = _transform.position;
 
-        foreach (GameObject potentialTarget in objects)
-        {
+        foreach (GameObject potentialTarget in objects) {
             Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr) {
@@ -112,7 +127,7 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
         return bestTarget;
     }
 
-    public IEnumerator ReproduceDuration(){
-        yield return new WaitForSeconds(reproduceDuration);
+    public IEnumerator ReproduceDuration () {
+        yield return new WaitForSeconds (reproduceDuration);
     }
 }

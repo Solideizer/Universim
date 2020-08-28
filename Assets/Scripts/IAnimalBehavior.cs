@@ -9,7 +9,7 @@ interface IAnimalBehavior {
     void Drink(Transform water);  
     void Move(Transform destination);  
     //void TakeDamage(float amount);
-    void Reproduce();   
+    //void Reproduce(string tag,GameObject prefab);   
     IEnumerator ReproduceDuration(); 
     void Die();
 }
