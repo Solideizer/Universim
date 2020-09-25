@@ -7,13 +7,16 @@ public class Fox : Animal {
     protected override void Update () {
          GetHungry ();
          GetThirsty ();
-         Reproduce (fox, foxPrefab);
+         
      }
     public override void FindFood () {
         Transform closestFood = FindClosest ("Chicken");
         Move (closestFood);
 
     }
-    
+    protected override void  Reproduce (string fox,GameObject foxPrefab)
+    {
+        ;
+    }
 
  }

@@ -10,6 +10,7 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
     protected float hungerThreshold = 50f;
     protected float thirstThreshold = 50f;
     protected float reproduceDuration;
+    protected float reproductiveUrge = 0f;
     protected float pregnancyDuration;
     protected float movementSpeed = 2f;
     protected float visionRadius = 20f;
@@ -20,30 +21,35 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
     protected virtual void Update () {
         GetHungry ();
         GetThirsty ();
-        Reproduce ("",null);
-
     }
 
     public virtual void GetThirsty () {
         thirstAmount += Time.deltaTime * 0.5f;
         //Debug.Log("thirst amount "+ thirstAmount);
         //Debug.Log("thirst threshold "+ thirstThreshold);
-        if (thirstAmount > thirstThreshold / 3 && thirstAmount > hungerAmount) {
+        if (thirstAmount > thirstThreshold / 3 && thirstAmount > hungerAmount) 
+        {
             FindWater ();
             //Debug.Log ("Finding Water");
-        } else if (thirstAmount >= thirstThreshold) {
-            Die ();
         }
+         if (thirstAmount >= thirstThreshold) 
+         {
+            Die ();
+         }
+         
     }
 
     public virtual void GetHungry () {
         hungerAmount += Time.deltaTime;
         Debug.Log ("hunger amount " + hungerAmount);
         //Debug.Log("hunger threshold "+ hungerThreshold);
-        if (hungerAmount > hungerThreshold / 3 && hungerAmount > thirstAmount) {
+        if (hungerAmount > hungerThreshold / 3 && hungerAmount > thirstAmount) 
+        {
             FindFood ();
             //Debug.Log ("Finding Food");
-        } else if (hungerAmount >= hungerThreshold) {
+        } 
+        if (hungerAmount >= hungerThreshold) 
+        {
             Die ();
         }
     }
@@ -63,7 +69,7 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
         Transform closestFood = FindClosest ("Plant");
         Move (closestFood);
         float dist = Vector3.Distance (closestFood.position, _transform.position);
-        if (dist < 3f) {
+        if (dist < 2f) {
             Eat (closestFood);
         }
 
@@ -72,39 +78,27 @@ public abstract class Animal : MonoBehaviour, IAnimalBehavior {
         Transform closestWater = FindClosest ("Water");
         Move (closestWater);
         float dist = Vector3.Distance (closestWater.position, _transform.position);
-        if (dist < 3f) {
+        if (dist < 2f) {
             Drink (closestWater);
         }
 
     }
-    public virtual void Move (Transform destination) {
-        float step = movementSpeed * Time.deltaTime;
-        _transform.position = Vector3.MoveTowards (transform.position, destination.position, step);
-    }
-    public virtual void TakeDamage (float damageAmount) {
-        health -= damageAmount;
-        if (health <= 0f) {
-            Die ();
-        }
-    }
-
-    protected void Reproduce (string tag, GameObject prefab) {
-
-        if (thirstAmount < thirstThreshold / 2 && hungerAmount < hungerThreshold / 2)
+    public virtual void Move (Transform destination)
+    {
+        Vector3 direction = destination.position - _transform.position;
+        Debug.DrawRay(_transform.position,direction,Color.red);
+        _transform.rotation = Quaternion.Slerp(
+            _transform.rotation, Quaternion.LookRotation(destination.position), 5 * Time.deltaTime);
+        
+        if (direction.magnitude > 2f)
         {
-            Transform partner = FindClosest (tag);
-            Move (partner);
-
-            float dist = Vector3.Distance (partner.position, _transform.position);
-
-            if (dist < 1f)
-            {
-                StartCoroutine (ReproduceDuration ());
-                Instantiate (prefab, _transform.position, Quaternion.identity);
-            }
+            _transform.Translate(direction.normalized * movementSpeed * Time.deltaTime,Space.World);
         }
 
     }
+
+    protected abstract void Reproduce(string tag, GameObject prefab);
+   
     public virtual void Die () {
         Destroy (gameObject);
     }
