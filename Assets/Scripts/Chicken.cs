@@ -6,13 +6,14 @@
      private string chicken = "Chicken";
      protected override void Update () {
          base.Update();
-         Reproduce (chicken, chickenPrefab);
+         //Reproduce (chicken, chickenPrefab);
+         //Debug.Log(ReproductiveUrge);
      }
 
      protected override void Reproduce(string tag,GameObject prefab)
      {
-         reproductiveUrge += Time.deltaTime * 2;
-         if (reproductiveUrge > hungerAmount && reproduceDuration > thirstAmount)
+         ReproductiveUrge += Time.deltaTime * 2;
+         if (ReproductiveUrge > HungerAmount && ReproductiveUrge > ThirstAmount)
          {
              Transform partner = FindClosest (tag);
              Move (partner);
@@ -21,10 +22,10 @@
 
              if (dist < 1f)
              {
-                 StartCoroutine (ReproduceDuration ());
-                 Instantiate (prefab, _transform.position + new Vector3(1f,0f,1f), Quaternion.identity);
-                 reproductiveUrge = 0f;
+                 StartCoroutine (StartReproducing ());
+                 Instantiate (prefab, _transform.position + new Vector3(5f,0f,5f), Quaternion.identity);
              }
+             ReproductiveUrge = 0f;
          }
      }
  }

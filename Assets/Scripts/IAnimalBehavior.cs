@@ -1,15 +1,14 @@
 using UnityEngine;
 using System.Collections;
 interface IAnimalBehavior {
+    void Wander();
     void GetHungry();
     void GetThirsty();
     void FindFood();
     void FindWater();
-    void Eat(Transform food);
-    void Drink(Transform water);  
-    void Move(Transform destination);  
-    //void TakeDamage(float amount);
-    //void Reproduce(string tag,GameObject prefab);   
-    IEnumerator ReproduceDuration(); 
+    IEnumerator Eat(Transform food);
+    IEnumerator Drink(Transform water);  
+    void Move(Transform destination);
+    IEnumerator StartReproducing(); 
     void Die();
 }
