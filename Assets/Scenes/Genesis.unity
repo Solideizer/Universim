@@ -240,6 +240,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1672175281}
     m_Modifications:
+    - target: {fileID: 1570900217067286, guid: 153286bf9085bef4b90e7b5b87438b8c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1570900217067286, guid: 153286bf9085bef4b90e7b5b87438b8c, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1623876917276176, guid: 153286bf9085bef4b90e7b5b87438b8c, type: 3}
       propertyPath: m_Name
       value: Tree
@@ -579,8 +587,55 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toon Chicken (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 608ce7d70de64464fba802b9582ccf83, type: 2}
+    m_RemovedComponents:
+    - {fileID: 5233500403163174164, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
+--- !u!1 &737381356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2632685237579238185, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 737381355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &737381357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737381356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcaa54c3c4d1d614191642a75a6e57cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &737381359 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 737381355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &737381360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737381356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64e95fac20a78949adfddef51842a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hungerAmount: 0
+  thirstAmount: 0
+  fsm: {fileID: 737381359}
+  thirstThreshold: 300
+  hungerThreshold: 500
 --- !u!4 &872444956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5789551229035586210, guid: 875be9225ca018c44a5e1d0cfa752c50,
@@ -734,8 +789,55 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toon Chicken (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 608ce7d70de64464fba802b9582ccf83, type: 2}
+    m_RemovedComponents:
+    - {fileID: 5233500403163174164, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
+--- !u!1 &1024290130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2632685237579238185, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1024290129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1024290131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024290130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcaa54c3c4d1d614191642a75a6e57cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1024290133 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1024290129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1024290134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024290130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64e95fac20a78949adfddef51842a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hungerAmount: 0
+  thirstAmount: 0
+  fsm: {fileID: 1024290133}
+  thirstThreshold: 300
+  hungerThreshold: 500
 --- !u!4 &1032508123 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5789551229035586210, guid: 875be9225ca018c44a5e1d0cfa752c50,
@@ -848,8 +950,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2234336988901144752}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -987,6 +1088,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1542947139}
     m_Modifications:
+    - target: {fileID: 1165502016, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2630893315954773543, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1047,8 +1152,55 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toon Chicken (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 608ce7d70de64464fba802b9582ccf83, type: 2}
+    m_RemovedComponents:
+    - {fileID: 5233500403163174164, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
+--- !u!1 &1604616232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2632685237579238185, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1604616231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1604616233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604616232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcaa54c3c4d1d614191642a75a6e57cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1604616235 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1604616231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1604616236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604616232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64e95fac20a78949adfddef51842a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hungerAmount: 0
+  thirstAmount: 0
+  fsm: {fileID: 1604616235}
+  thirstThreshold: 300
+  hungerThreshold: 500
 --- !u!1 &1672175280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,12 +1711,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60.8, y: 0, z: 0}
---- !u!4 &2234336988901144752 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-    type: 3}
-  m_PrefabInstance: {fileID: 6761528363259836181}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2891039981088002513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5789551229035586210, guid: 875be9225ca018c44a5e1d0cfa752c50,
@@ -1640,81 +1786,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
---- !u!1001 &6761528363259836181
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1344307822}
-    m_Modifications:
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 18.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815530662329274277, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5305208695315174681, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: foxPrefab
-      value: 
-      objectReference: {fileID: 5305208695315174687, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-    - target: {fileID: 5305208695315174687, guid: 347b9eb3925df61438828bdd607e03a3,
-        type: 3}
-      propertyPath: m_Name
-      value: Red Fox
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 347b9eb3925df61438828bdd607e03a3, type: 3}
 --- !u!4 &6976000759780640821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2630893315954773543, guid: 1bfc8a408048a1f48a34b7d72ce092fb,

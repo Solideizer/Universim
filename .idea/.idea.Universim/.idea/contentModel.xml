@@ -6,19 +6,32 @@
     <e p="E:\Solideizer\Universim" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="Environment" t="Include">
-          <e p="Cartoon_Farm_Crops" t="Include">
-            <e p="Readme.txt" t="Include" />
-          </e>
-          <e p="Fantasy Skybox FREE" t="Include">
-            <e p="Readme.txt" t="Include" />
+        <e p="_Import" t="Include">
+          <e p="Environment" t="Include">
+            <e p="Cartoon_Farm_Crops" t="Include">
+              <e p="Readme.txt" t="Include" />
+            </e>
+            <e p="Fantasy Skybox FREE" t="Include">
+              <e p="Readme.txt" t="Include" />
+            </e>
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="Animal.cs" t="Include" />
-          <e p="Chicken.cs" t="Include" />
-          <e p="Fox.cs" t="Include" />
-          <e p="IAnimalBehavior.cs" t="Include" />
+          <e p="eski" t="Include">
+            <e p="Animal.cs" t="Include" />
+            <e p="Chicken.cs" t="Include" />
+            <e p="FindFood.cs" t="Include" />
+            <e p="FindWater.cs" t="Include" />
+            <e p="IAnimalBehavior.cs" t="Include" />
+            <e p="State.cs" t="Include" />
+            <e p="StateMachine.cs" t="Include" />
+            <e p="Wander.cs" t="Include" />
+          </e>
+          <e p="FindFoodState.cs" t="Include" />
+          <e p="FindWaterState.cs" t="Include" />
+          <e p="HerbivoreAI.cs" t="Include" />
+          <e p="StateManager.cs" t="Include" />
+          <e p="WanderState.cs" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />

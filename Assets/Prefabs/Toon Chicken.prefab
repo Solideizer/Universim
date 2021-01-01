@@ -196,9 +196,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2630893315954773543}
   - component: {fileID: 2727314622241583125}
-  - component: {fileID: 5233500403163174164}
-  - component: {fileID: 4921717731755484928}
   - component: {fileID: 1165502016}
+  - component: {fileID: 4921717730798437908}
+  - component: {fileID: 4921717730798437911}
   m_Layer: 0
   m_Name: Toon Chicken
   m_TagString: Chicken
@@ -235,7 +235,7 @@ Animator:
   m_GameObject: {fileID: 2632685237579238185}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d623cd35a78380d4eb0457c4e483abed, type: 3}
-  m_Controller: {fileID: 9100000, guid: 84dd067921f4e0045bb3a9a6e8fb7789, type: 2}
+  m_Controller: {fileID: 9100000, guid: 608ce7d70de64464fba802b9582ccf83, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -244,35 +244,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5233500403163174164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2632685237579238185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b659d146ede0947964cabe6ab26cf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chickenPrefab: {fileID: 2632685237579238185}
---- !u!54 &4921717731755484928
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2632685237579238185}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 1
 --- !u!195 &1165502016
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -287,14 +258,44 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 300
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.39
+  m_Height: 0.4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4921717730798437908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632685237579238185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcaa54c3c4d1d614191642a75a6e57cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4921717730798437911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632685237579238185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64e95fac20a78949adfddef51842a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiAgent: {fileID: 1165502016}
+  fsm: {fileID: 2727314622241583125}
+  hungerAmount: 0
+  thirstAmount: 0
+  thirstThreshold: 300
+  hungerThreshold: 500
 --- !u!1 &2632688489045833195
 GameObject:
   m_ObjectHideFlags: 0
