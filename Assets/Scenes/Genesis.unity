@@ -592,50 +592,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 608ce7d70de64464fba802b9582ccf83, type: 2}
+    - target: {fileID: 4921717730798437908, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+        type: 3}
+      propertyPath: wanderTimer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5233500403163174164, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
---- !u!1 &737381356 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2632685237579238185, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 737381355}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &737381357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737381356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcaa54c3c4d1d614191642a75a6e57cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &737381359 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 737381355}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &737381360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737381356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e64e95fac20a78949adfddef51842a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hungerAmount: 0
-  thirstAmount: 0
-  fsm: {fileID: 737381359}
-  thirstThreshold: 300
-  hungerThreshold: 500
 --- !u!4 &872444956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5789551229035586210, guid: 875be9225ca018c44a5e1d0cfa752c50,
@@ -794,50 +758,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 608ce7d70de64464fba802b9582ccf83, type: 2}
+    - target: {fileID: 4921717730798437908, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+        type: 3}
+      propertyPath: wanderTimer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5233500403163174164, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
---- !u!1 &1024290130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2632685237579238185, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1024290129}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1024290131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024290130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcaa54c3c4d1d614191642a75a6e57cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &1024290133 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1024290129}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1024290134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024290130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e64e95fac20a78949adfddef51842a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hungerAmount: 0
-  thirstAmount: 0
-  fsm: {fileID: 1024290133}
-  thirstThreshold: 300
-  hungerThreshold: 500
 --- !u!4 &1032508123 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5789551229035586210, guid: 875be9225ca018c44a5e1d0cfa752c50,
@@ -1157,50 +1085,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 608ce7d70de64464fba802b9582ccf83, type: 2}
+    - target: {fileID: 4921717730798437908, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+        type: 3}
+      propertyPath: wanderTimer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5233500403163174164, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
---- !u!1 &1604616232 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2632685237579238185, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1604616231}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1604616233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604616232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcaa54c3c4d1d614191642a75a6e57cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &1604616235 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2727314622241583125, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1604616231}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1604616236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604616232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e64e95fac20a78949adfddef51842a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hungerAmount: 0
-  thirstAmount: 0
-  fsm: {fileID: 1604616235}
-  thirstThreshold: 300
-  hungerThreshold: 500
 --- !u!1 &1672175280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1675,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Toon Chicken
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921717730798437908, guid: 1bfc8a408048a1f48a34b7d72ce092fb,
+        type: 3}
+      propertyPath: wanderTimer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}

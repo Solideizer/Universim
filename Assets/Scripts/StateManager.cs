@@ -6,10 +6,11 @@ public class StateManager : MonoBehaviour
 {
 	public float hungerAmount;
 	public float thirstAmount;
-
-	[SerializeField] private Animator fsm;
+	public Animator fsm;
+#pragma warning disable 0649
 	[SerializeField] private float thirstThreshold = 300f;
 	[SerializeField] private float hungerThreshold = 500f;
+#pragma warning restore 0649
 
 	private float _wanderDuration = 5f;
 
@@ -40,6 +41,7 @@ public class StateManager : MonoBehaviour
 			StartCoroutine (Idling (idleDuration));
 
 			_wanderDuration = Random.Range (5.0f, 10.0f);
+			fsm.SetBool (IsWandering, true);
 		}
 	}
 
@@ -53,7 +55,7 @@ public class StateManager : MonoBehaviour
 	private void GetThirsty ()
 	{
 		thirstAmount += Time.deltaTime;
-		if (thirstAmount > 50)
+		if (thirstAmount > 20)
 		{
 			fsm.SetBool (IsThirsty, true);
 			fsm.SetBool (IsWandering, false);
@@ -73,8 +75,8 @@ public class StateManager : MonoBehaviour
 	}
 	private void GetHungry ()
 	{
-		hungerAmount += Time.deltaTime;
-		if (hungerAmount > 100)
+		hungerAmount += Time.deltaTime * 0.5f;
+		if (hungerAmount > 20)
 		{
 			fsm.SetBool (IsHungry, true);
 			fsm.SetBool (IsWandering, false);
