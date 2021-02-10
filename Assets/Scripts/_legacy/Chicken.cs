@@ -1,7 +1,8 @@
  using UnityEngine;
- public class Chicken : Animal {
-     [SerializeField] private GameObject chickenPrefab;
-     private string chicken = "Chicken";
+ public class Chicken : Animal
+ {
+     //[SerializeField] private GameObject chickenPrefab;
+     // string chicken = "Chicken";
 
      // protected override void Reproduce(string tag,GameObject prefab)
      // {
@@ -22,4 +23,3 @@
      //     }
      // }
  }
- 
