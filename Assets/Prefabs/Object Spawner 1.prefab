@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6749842429391192338}
   - component: {fileID: 3236252019424759131}
   m_Layer: 0
-  m_Name: Object Spawner
+  m_Name: Object Spawner 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects:
-  - {fileID: 940133805199188250, guid: b94a5e59419c04740b51b51a6c240a94, type: 3}
-  - {fileID: 5788575054419358844, guid: 875be9225ca018c44a5e1d0cfa752c50, type: 3}
-  - {fileID: 2111322763519636804, guid: 57fb350edc2960345acf310416e949a2, type: 3}
-  scaleRange: {x: 1, y: 1.5}
+  - {fileID: 2632685237579238185, guid: 1bfc8a408048a1f48a34b7d72ce092fb, type: 3}
+  scaleRange: {x: 10, y: 15}

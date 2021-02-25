@@ -1,3 +1,4 @@
+using UnityEditor.AI;
 using UnityEngine;
 
 public class ProceduralTerrainGenerator : MonoBehaviour
@@ -15,6 +16,7 @@ public class ProceduralTerrainGenerator : MonoBehaviour
     {
         Terrain terrain = GetComponent<Terrain> ();
         terrain.terrainData = GenerateTerrain (terrain.terrainData);
+        NavMeshBuilder.BuildNavMesh ();
     }
 
     TerrainData GenerateTerrain (TerrainData terrainData)

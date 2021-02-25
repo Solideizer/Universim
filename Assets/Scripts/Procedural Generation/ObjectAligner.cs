@@ -32,5 +32,6 @@ public class ObjectAligner : MonoBehaviour
                 Instantiate (randomObjectSpawnerPrefab, hitInfo.point, spawnRot);
             }
         }
+        GameObject.Destroy (this.gameObject);
     }
 }

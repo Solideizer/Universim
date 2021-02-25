@@ -8,6 +8,7 @@ TagManager:
   - Fox
   - Plant
   - Water
+  - Procedural Gen Object Holder
   layers:
   - Default
   - TransparentFX
