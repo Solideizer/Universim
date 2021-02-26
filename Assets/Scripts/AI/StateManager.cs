@@ -13,6 +13,8 @@ public class StateManager : MonoBehaviour
 #pragma warning restore 0649
 
 	private float _wanderDuration = 5f;
+	private float _criticalThirst;
+	private float _criticalHunger;
 
 	private static readonly int IsWandering = Animator.StringToHash ("isWandering");
 	private static readonly int IsThirsty = Animator.StringToHash ("isThirsty");
@@ -22,7 +24,6 @@ public class StateManager : MonoBehaviour
 	private void Start ()
 	{
 		_wanderDuration = 5f;
-
 	}
 
 	private void FixedUpdate ()
@@ -30,6 +31,57 @@ public class StateManager : MonoBehaviour
 		GetThirsty ();
 		GetHungry ();
 
+		Wander ();
+	}
+
+	private void GetThirsty ()
+	{
+		_criticalThirst = Random.Range (15, 30);
+		thirstAmount += Time.deltaTime;
+		if (thirstAmount > _criticalThirst)
+		{
+			fsm.SetBool (IsThirsty, true);
+			fsm.SetBool (IsWandering, false);
+		}
+		else
+		{
+			fsm.SetBool (IsWandering, true);
+		}
+		if (thirstAmount >= thirstThreshold)
+		{
+			fsm.SetBool (IsDead, true);
+		}
+		if (thirstAmount < 1)
+		{
+			fsm.SetBool (IsThirsty, false);
+		}
+	}
+	private void GetHungry ()
+	{
+		_criticalHunger = Random.Range (15, 30);
+		hungerAmount += Time.deltaTime * 0.5f;
+		if (hungerAmount > _criticalHunger)
+		{
+			fsm.SetBool (IsHungry, true);
+			fsm.SetBool (IsWandering, false);
+		}
+		else
+		{
+			fsm.SetBool (IsWandering, true);
+		}
+		if (hungerAmount >= hungerThreshold)
+		{
+			fsm.SetBool (IsDead, true);
+		}
+
+		if (hungerAmount < 1)
+		{
+			fsm.SetBool (IsHungry, false);
+		}
+	}
+
+	private void Wander ()
+	{
 		if (_wanderDuration > 0)
 		{
 			fsm.SetBool (IsWandering, true);
@@ -51,48 +103,5 @@ public class StateManager : MonoBehaviour
 		fsm.SetBool (IsWandering, false);
 		yield return new WaitForSeconds (idleDuration);
 
-	}
-	private void GetThirsty ()
-	{
-		thirstAmount += Time.deltaTime;
-		if (thirstAmount > 20)
-		{
-			fsm.SetBool (IsThirsty, true);
-			fsm.SetBool (IsWandering, false);
-		}
-		else
-		{
-			fsm.SetBool (IsWandering, true);
-		}
-		if (thirstAmount >= thirstThreshold)
-		{
-			fsm.SetBool (IsDead, true);
-		}
-		if (thirstAmount < 1)
-		{
-			fsm.SetBool (IsThirsty, false);
-		}
-	}
-	private void GetHungry ()
-	{
-		hungerAmount += Time.deltaTime * 0.5f;
-		if (hungerAmount > 20)
-		{
-			fsm.SetBool (IsHungry, true);
-			fsm.SetBool (IsWandering, false);
-		}
-		else
-		{
-			fsm.SetBool (IsWandering, true);
-		}
-		if (hungerAmount >= hungerThreshold)
-		{
-			fsm.SetBool (IsDead, true);
-		}
-
-		if (hungerAmount < 1)
-		{
-			fsm.SetBool (IsHungry, false);
-		}
 	}
 }

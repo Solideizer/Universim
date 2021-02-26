@@ -24,11 +24,8 @@ public class HerbivoreAI : MonoBehaviour
     public void FindFood ()
     {
         _stateManager.fsm.SetBool ("isWandering", false);
-        // if (_stateManager.fsm.GetBool("isThirsty"))
-        // {
-        //     _stateManager.fsm.SetBool("isWandering", false);
-        // }
         _agent.isStopped = false;
+
         var closestFood = FindClosestThing ("Plant");
         _agent.transform.LookAt (closestFood);
         Move (closestFood);
@@ -78,20 +75,6 @@ public class HerbivoreAI : MonoBehaviour
         }
 
     }
-    #region Utility Functions
-    public static Vector3 RandomNavSphere (Vector3 origin, float dist, int layermask)
-    {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
-
-        randDirection += origin;
-
-        NavMeshHit navHit;
-
-        NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
-
-        return navHit.position;
-    }
-
     public Transform FindClosestThing (string tag)
     {
         var objects = GameObject.FindGameObjectsWithTag (tag);
@@ -112,6 +95,8 @@ public class HerbivoreAI : MonoBehaviour
 
         return bestTarget;
     }
+
+    #region Utilities
 
     public void Move (Transform destination)
     {
@@ -140,7 +125,7 @@ public class HerbivoreAI : MonoBehaviour
 
         var direction = destination - _transform.position;
         Debug.DrawRay (_transform.position, direction, Color.red);
-        _transform.rotation = Quaternion.Slerp (
+        _transform.rotation = Quaternion.Lerp (
             _transform.rotation, Quaternion.LookRotation (destination), 20 * Time.deltaTime);
 
         if (direction.magnitude > 2f)
@@ -156,7 +141,18 @@ public class HerbivoreAI : MonoBehaviour
             }
         }
     }
+    public static Vector3 RandomNavSphere (Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
 
+        randDirection += origin;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
+
+        return navHit.position;
+    }
     #endregion
 
 }
