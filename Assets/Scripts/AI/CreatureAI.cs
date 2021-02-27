@@ -9,7 +9,7 @@ public abstract class CreatureAI : MonoBehaviour
     private Transform _transform;
     private StateManager _stateManager;
 
-    private void Start() 
+    private void Awake() 
     {
         _agent = GetComponent<NavMeshAgent>();
         _transform = GetComponent<Transform>();
@@ -38,7 +38,7 @@ public abstract class CreatureAI : MonoBehaviour
             }
         }
     }
-    
+
     public void Move(Vector3 destination)
     {
 

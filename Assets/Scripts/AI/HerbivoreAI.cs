@@ -13,13 +13,7 @@ public class HerbivoreAI : CreatureAI
     private const float VisionRadius = 40f;
 
     #endregion
-    private void Awake ()
-    {
-        _stateManager = GetComponent<StateManager> ();
-        _transform = GetComponent<Transform> ();
-        _agent = GetComponent<NavMeshAgent> ();
-
-    }
+    
 
     public void FindFood ()
     {
