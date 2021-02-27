@@ -250,9 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da3420121ad2bb45befc5a6f2338203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 500
+  Notes: Width and Height must be power of two
+  width: 512
   depth: 25
-  height: 500
+  height: 512
   scale: 8
 --- !u!1 &535827111
 GameObject:
