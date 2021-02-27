@@ -6,14 +6,10 @@ public class HerbivoreAI : CreatureAI
 {
     #region Variable Declarations
     public float wanderTimer;
-    private Transform _transform;
-    private NavMeshAgent _agent;
-    private StateManager _stateManager;
     private float timer;
     private const float VisionRadius = 40f;
 
     #endregion
-    
 
     public void FindFood ()
     {

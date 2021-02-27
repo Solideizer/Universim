@@ -6,9 +6,6 @@ public class CarnivoreAI : CreatureAI
 {
     #region Variable Declarations
     public float wanderTimer;
-    private Transform _transform;
-    private NavMeshAgent _agent;
-    private StateManager _stateManager;
     private float timer;
     private const float VisionRadius = 40f;
 
@@ -69,6 +66,7 @@ public class CarnivoreAI : CreatureAI
         }
 
     }
+
     public Transform FindClosestThing (string tag)
     {
         var objects = GameObject.FindGameObjectsWithTag (tag);

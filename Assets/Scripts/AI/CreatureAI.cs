@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public abstract class CreatureAI : MonoBehaviour
 {
-    private NavMeshAgent _agent;
-    private Transform _transform;
-    private StateManager _stateManager;
+    protected NavMeshAgent _agent;
+    protected Transform _transform;
+    protected StateManager _stateManager;
 
     private void Awake() 
     {
