@@ -16,7 +16,8 @@ public class HerbivoreAI : CreatureAI
         _stateManager.fsm.SetBool ("isWandering", false);
         _agent.isStopped = false;
 
-        var closestFood = FindClosestThing ("Plant");
+        //var closestFood = FindClosestThing ("Plant");
+        var closestFood = FindClosestThing(11, VisionRadius);
         _agent.transform.LookAt (closestFood);
         Move (closestFood);
         var foodDist = Vector3.Distance (closestFood.position, transform.position);
@@ -33,7 +34,11 @@ public class HerbivoreAI : CreatureAI
         _stateManager.fsm.SetBool ("isWandering", false);
         _agent.isStopped = false;
 
-        var closestWater = FindClosestThing ("Water");
+        //var closestWater = FindClosestThing ("Water");
+        var closestWater = FindClosestThing(4, VisionRadius);
+
+        if(closestWater == null) return;
+
         _agent.transform.LookAt (closestWater);
         Move (closestWater);
         var waterDist = Vector3.Distance (closestWater.position, transform.position);
@@ -85,21 +90,5 @@ public class HerbivoreAI : CreatureAI
 
         return bestTarget;
     }
-
-    #region Utilities
-
-    public static Vector3 RandomNavSphere (Vector3 origin, float dist, int layermask)
-    {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
-
-        randDirection += origin;
-
-        NavMeshHit navHit;
-
-        NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
-
-        return navHit.position;
-    }
-    #endregion
 
 }

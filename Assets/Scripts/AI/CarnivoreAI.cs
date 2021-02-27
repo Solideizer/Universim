@@ -7,7 +7,7 @@ public class CarnivoreAI : CreatureAI
     #region Variable Declarations
     public float wanderTimer;
     private float timer;
-    private const float VisionRadius = 40f;
+    private const float visionRadius = 40f;
 
     #endregion
 
@@ -16,7 +16,9 @@ public class CarnivoreAI : CreatureAI
         _stateManager.fsm.SetBool ("isWandering", false);
         _agent.isStopped = false;
 
-        var closestFood = FindClosestThing ("Chicken");
+        //var closestFood = FindClosestThing ("Chicken");
+        Transform closestFood = FindClosestThing(9, visionRadius);
+        
         _agent.transform.LookAt (closestFood);
         Move (closestFood);
         var foodDist = Vector3.Distance (closestFood.position, transform.position);
@@ -29,12 +31,17 @@ public class CarnivoreAI : CreatureAI
 
         }
     }
+
     public void FindWater ()
     {
         _stateManager.fsm.SetBool ("isWandering", false);
         _agent.isStopped = false;
 
-        var closestWater = FindClosestThing ("Water");
+        //var closestWater = FindClosestThing ("Water");
+        Transform closestWater = FindClosestThing(4, visionRadius);
+
+        if (closestWater == null) return;
+
         _agent.transform.LookAt (closestWater);
         Move (closestWater);
         var waterDist = Vector3.Distance (closestWater.position, transform.position);
@@ -53,7 +60,7 @@ public class CarnivoreAI : CreatureAI
 
         if (timer >= wanderTimer)
         {
-            Vector3 newPos = RandomNavSphere (transform.position, VisionRadius, 1);
+            Vector3 newPos = RandomNavSphere (transform.position, visionRadius, 1);
             Move (newPos);
 
             var dist = Vector3.Distance (newPos, transform.position);
@@ -87,21 +94,5 @@ public class CarnivoreAI : CreatureAI
 
         return bestTarget;
     }
-
-    #region Utilities
-
-    public static Vector3 RandomNavSphere (Vector3 origin, float dist, int layermask)
-    {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
-
-        randDirection += origin;
-
-        NavMeshHit navHit;
-
-        NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
-
-        return navHit.position;
-    }
-    #endregion
 
 }

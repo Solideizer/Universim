@@ -18,7 +18,6 @@ public abstract class CreatureAI : MonoBehaviour
 
     public void Move(Transform destination)
     {
-
         var direction = destination.position - _transform.position;
         Debug.DrawRay(_transform.position, direction, Color.red);
         _transform.rotation = Quaternion.Slerp(
@@ -60,5 +59,41 @@ public abstract class CreatureAI : MonoBehaviour
             }
         }
     }
+
+    // TODO Bu tekrardan ayarlanabilir. 
+    protected Transform FindClosestThing(int layerMask, float radius)
+    {
+        Collider[] colliders = CheckColliders(transform.position, radius, layerMask);
+        print(colliders.Length);
+        for (var i = 0; i < colliders.Length; i++)
+        {
+            if (Vector3.Distance(colliders[i].transform.position, transform.position) < radius)
+                return colliders[i].transform;
+        }
+
+        return null;
+    }
+
+    #region Utilities
+
+    protected Collider[] CheckColliders(Vector3 position, float radius, int layerMask)
+    {
+        Collider[] cols = Physics.OverlapSphere(position, radius, layerMask);
+        return cols;
+    }
+
+    protected Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+
+        randDirection += origin;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+
+        return navHit.position;
+    }
+    #endregion
 
 }
