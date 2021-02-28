@@ -4,13 +4,12 @@ using UnityEngine;
 public class ProceduralTerrainGenerator : MonoBehaviour
 {
     #region Variable Declarations
-#pragma warning disable 0649
 
-    [TextArea(1, 3)]
-    [Tooltip("Doesn't do anything. Just comments shown in inspector")]
+    [TextArea (1, 3)]
+    [Tooltip ("Doesn't do anything. Just comments shown in inspector")]
     public string Notes = "Width and Height must be power of two.";
 
-
+#pragma warning disable 0649
     [SerializeField] private int width = 500; // x
     [SerializeField] private int depth = 20; // y
     [SerializeField] private int height = 500; // z

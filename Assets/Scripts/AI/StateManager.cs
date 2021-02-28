@@ -20,6 +20,7 @@ public class StateManager : MonoBehaviour
 	private static readonly int IsThirsty = Animator.StringToHash ("isThirsty");
 	private static readonly int IsDead = Animator.StringToHash ("isDead");
 	private static readonly int IsHungry = Animator.StringToHash ("isHungry");
+	private static readonly int IsIdling = Animator.StringToHash ("isIdling");
 
 	private void Start ()
 	{
@@ -30,7 +31,6 @@ public class StateManager : MonoBehaviour
 	{
 		GetThirsty ();
 		GetHungry ();
-
 		Wander ();
 	}
 
@@ -101,6 +101,7 @@ public class StateManager : MonoBehaviour
 	{
 		//starts idling
 		fsm.SetBool (IsWandering, false);
+		fsm.SetBool (IsIdling, true);
 		yield return new WaitForSeconds (idleDuration);
 
 	}

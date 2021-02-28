@@ -46,7 +46,4 @@ MonoBehaviour:
   randomObjectSpawnerPrefab: {fileID: 7954763881731417648, guid: 43e6afdbb4a8ba243b89da0b9c620a6c,
     type: 3}
   raycastDistance: 100
-  spawnedObjectLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  overlapTestBoxSize: 30
+  overlapTestBoxSize: 3

@@ -6,7 +6,7 @@ public class ObjectAligner : MonoBehaviour
 #pragma warning disable 0649
     [SerializeField] GameObject randomObjectSpawnerPrefab;
     [SerializeField] public float raycastDistance = 100f;
-    [SerializeField] private LayerMask spawnedObjectLayer;
+    //[SerializeField] private LayerMask spawnedObjectLayer;
     [SerializeField] private float overlapTestBoxSize = 5f;
 #pragma warning restore 0649
     #endregion
@@ -22,15 +22,15 @@ public class ObjectAligner : MonoBehaviour
         {
             Quaternion spawnRot = Quaternion.FromToRotation (Vector3.up, hitInfo.normal);
             //overlap avoidance
-            Vector3 overlapTestBoxScale = new Vector3 (overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
-            Collider[] collidersInsideOverlapBox = new Collider[1];
-            int numberOfCollidersFound = Physics.OverlapBoxNonAlloc (hitInfo.point, overlapTestBoxScale, collidersInsideOverlapBox,
-                spawnRot, spawnedObjectLayer);
+            // Vector3 overlapTestBoxScale = new Vector3 (overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+            // Collider[] collidersInsideOverlapBox = new Collider[1];
+            // int numberOfCollidersFound = Physics.OverlapBoxNonAlloc (hitInfo.point, overlapTestBoxScale, collidersInsideOverlapBox,
+            //     spawnRot);
 
-            if (numberOfCollidersFound == 0)
-            {
-                Instantiate (randomObjectSpawnerPrefab, hitInfo.point, spawnRot);
-            }
+            // if (numberOfCollidersFound == 0)
+            // {
+            Instantiate (randomObjectSpawnerPrefab, hitInfo.point, spawnRot);
+            //}
         }
         GameObject.Destroy (this.gameObject);
     }

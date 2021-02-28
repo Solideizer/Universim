@@ -8,65 +8,85 @@ public class CarnivoreAI : CreatureAI
     public float wanderTimer;
     private float timer;
     private const float visionRadius = 40f;
+    private int herbivoreLayerMask;
+    private int waterLayerMask;
 
     #endregion
-
+    protected override void Awake ()
+    {
+        base.Awake ();
+        herbivoreLayerMask = LayerMask.GetMask ("Herbivore");
+        waterLayerMask = LayerMask.GetMask ("Water");
+    }
     public void FindFood ()
     {
+        _stateManager.fsm.SetBool ("isIdling", false);
         _stateManager.fsm.SetBool ("isWandering", false);
         _agent.isStopped = false;
 
         //var closestFood = FindClosestThing ("Chicken");
-        Transform closestFood = FindClosestThing(9, visionRadius);
-        
-        _agent.transform.LookAt (closestFood);
-        Move (closestFood);
-        var foodDist = Vector3.Distance (closestFood.position, transform.position);
-
-        if (foodDist < 10f)
+        if (FindClosestThing (herbivoreLayerMask, visionRadius))
         {
-            //fsm.setBool("isEating",true);
-            _stateManager.hungerAmount = 0f;
-            Destroy (closestFood.gameObject);
+            var closestFood = FindClosestThing (herbivoreLayerMask, visionRadius);
+            _agent.transform.LookAt (closestFood);
+            Move (closestFood);
+            var foodDist = Vector3.Distance (closestFood.position, _transform.position);
+            if (foodDist < 10f)
+            {
+                //fsm.setBool("isDrinking",true);
+                _stateManager.hungerAmount = 0f;
 
+            }
+        }
+        else
+        {
+            Wander ();
         }
     }
 
     public void FindWater ()
     {
+        _stateManager.fsm.SetBool ("isIdling", false);
         _stateManager.fsm.SetBool ("isWandering", false);
         _agent.isStopped = false;
 
         //var closestWater = FindClosestThing ("Water");
-        Transform closestWater = FindClosestThing(4, visionRadius);
 
-        if (closestWater == null) return;
-
-        _agent.transform.LookAt (closestWater);
-        Move (closestWater);
-        var waterDist = Vector3.Distance (closestWater.position, transform.position);
-        if (waterDist < 10f)
+        if (FindClosestThing (waterLayerMask, visionRadius))
         {
-            //fsm.setBool("isDrinking",true);
-            _stateManager.thirstAmount = 0f;
+            var closestWater = FindClosestThing (waterLayerMask, visionRadius);
+            _agent.transform.LookAt (closestWater);
+            Move (closestWater);
+            var waterDist = Vector3.Distance (closestWater.position, _transform.position);
+            if (waterDist < 10f)
+            {
+                //fsm.setBool("isDrinking",true);
+                _stateManager.thirstAmount = 0f;
 
+            }
         }
+        else
+        {
+            Wander ();
+        }
+
     }
 
     public void Wander ()
     {
-
         timer += Time.deltaTime;
 
         if (timer >= wanderTimer)
         {
-            Vector3 newPos = RandomNavSphere (transform.position, visionRadius, 1);
-            Move (newPos);
+            Vector3 newPos = RandomNavSphere (_transform.position, visionRadius);
+            _agent.SetDestination (newPos);
 
-            var dist = Vector3.Distance (newPos, transform.position);
-            if (dist < 10f)
+            var dist = Vector3.Distance (newPos, _transform.position);
+            if (dist < 5f)
             {
+                _agent.isStopped = true;
                 _stateManager.fsm.SetBool ("isWandering", false);
+                _stateManager.fsm.SetBool ("isIdling", true);
 
             }
             timer = 0;
@@ -80,7 +100,7 @@ public class CarnivoreAI : CreatureAI
         Transform bestTarget = null;
         var closestDistanceSqr = Mathf.Infinity;
 
-        var currentPosition = transform.position;
+        var currentPosition = _transform.position;
         foreach (GameObject potentialTarget in objects)
         {
             var directionToTarget = potentialTarget.transform.position - currentPosition;

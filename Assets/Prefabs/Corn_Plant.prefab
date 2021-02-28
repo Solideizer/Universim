@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5774624637813233380}
   - component: {fileID: 5766610515188446376}
   - component: {fileID: 5815823313379768284}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Corn_Plant
   m_TagString: Plant
   m_Icon: {fileID: 0}

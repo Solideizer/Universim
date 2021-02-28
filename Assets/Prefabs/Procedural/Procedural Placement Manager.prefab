@@ -46,6 +46,6 @@ MonoBehaviour:
   raycastAligner: {fileID: 3854862787806526631, guid: ec78efce6f9da1c4294a438c3db7228c,
     type: 3}
   objectAmount: 200
-  itemXSpread: 250
+  itemXSpread: 512
   itemYSpread: 0
-  itemZSpread: 250
+  itemZSpread: 512
