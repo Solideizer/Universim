@@ -1,59 +1,61 @@
 using UnityEditor.AI;
 using UnityEngine;
 
-public class ProceduralTerrainGenerator : MonoBehaviour
+namespace Procedural_Generation
 {
-    #region Variable Declarations
+    public class ProceduralTerrainGenerator : MonoBehaviour
+    {
+        #region Variable Declarations
 
-    [TextArea (1, 3)]
-    [Tooltip ("Doesn't do anything. Just comments shown in inspector")]
-    public string Notes = "Width and Height must be power of two.";
+        [TextArea (1, 3)]
+        public string note = "Width and Height must be power of two.";
 
 #pragma warning disable 0649
-    [SerializeField] private int width = 500; // x
-    [SerializeField] private int depth = 20; // y
-    [SerializeField] private int height = 500; // z
-    [SerializeField] private float scale = 20f;
+        [SerializeField] private int width = 500; // x
+        [SerializeField] private int depth = 20; // y
+        [SerializeField] private int height = 500; // z
+        [SerializeField] private float scale = 20f;
 #pragma warning restore 0649
-    #endregion
+        #endregion
 
-    private void Awake ()
-    {
-        Terrain terrain = GetComponent<Terrain> ();
-        terrain.terrainData = GenerateTerrain (terrain.terrainData);
-        NavMeshBuilder.BuildNavMesh ();
-    }
-
-    TerrainData GenerateTerrain (TerrainData terrainData)
-    {
-        terrainData.heightmapResolution = width + 1;
-        terrainData.size = new Vector3 (width, depth, height);
-        terrainData.SetHeights (0, 0, GenerateHeights ());
-
-        return terrainData;
-    }
-
-    float[, ] GenerateHeights ()
-    {
-        float[, ] heights = new float[width, height];
-
-        for (int x = 0; x < width; x++)
+        private void Awake ()
         {
-            for (int y = 0; y < height; y++)
-            {
-                heights[x, y] = CalculateHeight (x, y);
-            }
+            Terrain terrain = GetComponent<Terrain> ();
+            terrain.terrainData = GenerateTerrain (terrain.terrainData);
+            NavMeshBuilder.BuildNavMesh ();
         }
 
-        return heights;
-    }
+        TerrainData GenerateTerrain (TerrainData terrainData)
+        {
+            terrainData.heightmapResolution = width + 1;
+            terrainData.size = new Vector3 (width, depth, height);
+            terrainData.SetHeights (0, 0, GenerateHeights ());
 
-    float CalculateHeight (int x, int y)
-    {
-        float xCoord = (float) x / width * scale;
-        float yCoord = (float) y / height * scale;
+            return terrainData;
+        }
 
-        return Mathf.PerlinNoise (xCoord, yCoord);
+        float[, ] GenerateHeights ()
+        {
+            float[, ] heights = new float[width, height];
 
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    heights[x, y] = CalculateHeight (x, y);
+                }
+            }
+
+            return heights;
+        }
+
+        float CalculateHeight (int x, int y)
+        {
+            float xCoord = (float) x / width * scale;
+            float yCoord = (float) y / height * scale;
+
+            return Mathf.PerlinNoise (xCoord, yCoord);
+
+        }
     }
 }

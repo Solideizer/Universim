@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField] private TextMeshProUGUI numberOfChickenText;
     [SerializeField] private TextMeshProUGUI numberOfFoxText;
+#pragma warning restore 0649
     private int numberOfFoxes;
     private int numberOfChickens;
     private void Update ()

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Properties")]
+[CreateAssetMenu (menuName = "ScriptableObject/Properties")]
 public class Properties : ScriptableObject
 {
     public string _name;

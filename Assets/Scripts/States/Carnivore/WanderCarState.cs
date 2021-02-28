@@ -1,8 +1,8 @@
+using AI;
 using UnityEngine;
 
 public class WanderCarState : StateMachineBehaviour
 {
-
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     // override public void OnStateEnter (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     // {
@@ -10,9 +10,8 @@ public class WanderCarState : StateMachineBehaviour
     // }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
         CarnivoreAI carnivoreAI = animator.gameObject.GetComponent<CarnivoreAI> ();
         carnivoreAI.Wander ();
     }

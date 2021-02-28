@@ -1,3 +1,4 @@
+using AI;
 using UnityEngine;
 
 public class FindWaterStateCar : StateMachineBehaviour
@@ -10,7 +11,7 @@ public class FindWaterStateCar : StateMachineBehaviour
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CarnivoreAI carnivoreAI = animator.gameObject.GetComponent<CarnivoreAI> ();
         carnivoreAI.FindWater ();

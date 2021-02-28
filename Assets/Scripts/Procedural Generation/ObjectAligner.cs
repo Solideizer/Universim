@@ -1,37 +1,40 @@
 using UnityEngine;
 
-public class ObjectAligner : MonoBehaviour
+namespace Procedural_Generation
 {
-    #region Variable Declarations
+    public class ObjectAligner : MonoBehaviour
+    {
+        #region Variable Declarations
 #pragma warning disable 0649
-    [SerializeField] GameObject randomObjectSpawnerPrefab;
-    [SerializeField] public float raycastDistance = 100f;
-    //[SerializeField] private LayerMask spawnedObjectLayer;
-    [SerializeField] private float overlapTestBoxSize = 5f;
+        [SerializeField] GameObject randomObjectSpawnerPrefab;
+        [SerializeField] public float raycastDistance = 100f;
+        //[SerializeField] private LayerMask spawnedObjectLayer;
+        //[SerializeField] private float overlapTestBoxSize = 5f;
 #pragma warning restore 0649
-    #endregion
+        #endregion
 
-    private void Start ()
-    {
-        RaycastObjectAligner ();
-    }
-    private void RaycastObjectAligner ()
-    {
-        RaycastHit hitInfo;
-        if (Physics.Raycast (transform.position, Vector3.down, out hitInfo, raycastDistance))
+        private void Start ()
         {
-            Quaternion spawnRot = Quaternion.FromToRotation (Vector3.up, hitInfo.normal);
-            //overlap avoidance
-            // Vector3 overlapTestBoxScale = new Vector3 (overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
-            // Collider[] collidersInsideOverlapBox = new Collider[1];
-            // int numberOfCollidersFound = Physics.OverlapBoxNonAlloc (hitInfo.point, overlapTestBoxScale, collidersInsideOverlapBox,
-            //     spawnRot);
-
-            // if (numberOfCollidersFound == 0)
-            // {
-            Instantiate (randomObjectSpawnerPrefab, hitInfo.point, spawnRot);
-            //}
+            RaycastObjectAligner ();
         }
-        GameObject.Destroy (this.gameObject);
+        private void RaycastObjectAligner ()
+        {
+            RaycastHit hitInfo;
+            if (Physics.Raycast (transform.position, Vector3.down, out hitInfo, raycastDistance))
+            {
+                Quaternion spawnRot = Quaternion.FromToRotation (Vector3.up, hitInfo.normal);
+                //overlap avoidance
+                // Vector3 overlapTestBoxScale = new Vector3 (overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+                // Collider[] collidersInsideOverlapBox = new Collider[1];
+                // int numberOfCollidersFound = Physics.OverlapBoxNonAlloc (hitInfo.point, overlapTestBoxScale, collidersInsideOverlapBox,
+                //     spawnRot);
+
+                // if (numberOfCollidersFound == 0)
+                // {
+                Instantiate (randomObjectSpawnerPrefab, hitInfo.point, spawnRot);
+                //}
+            }
+            GameObject.Destroy (this.gameObject);
+        }
     }
 }

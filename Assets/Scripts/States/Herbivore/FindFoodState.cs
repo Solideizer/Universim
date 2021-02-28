@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AI;
+using UnityEngine;
 
 public class FindFoodState : StateMachineBehaviour
 {
@@ -7,7 +8,7 @@ public class FindFoodState : StateMachineBehaviour
 
     //}
 
-    override public void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         HerbivoreAI herbivoreAI = animator.gameObject.GetComponent<HerbivoreAI> ();
         herbivoreAI.FindFood ();

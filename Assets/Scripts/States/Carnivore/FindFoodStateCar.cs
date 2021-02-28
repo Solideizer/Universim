@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using AI;
 using UnityEngine;
 
 public class FindFoodStateCar : StateMachineBehaviour
@@ -9,7 +10,7 @@ public class FindFoodStateCar : StateMachineBehaviour
     //{
     //
     //}
-    override public void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CarnivoreAI carnivoreAI = animator.gameObject.GetComponent<CarnivoreAI> ();
         carnivoreAI.FindFood ();
