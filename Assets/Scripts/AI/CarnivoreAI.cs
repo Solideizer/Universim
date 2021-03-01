@@ -6,18 +6,12 @@ namespace AI
     {
         #region Variable Declarations
         public float wanderTimer;
-        private const float VisionRadius = 40f;
         private float timer;
-        private int herbivoreLayerMask;
-        private int waterLayerMask;
-        private static readonly int IsIdling = Animator.StringToHash ("isIdling");
-        private static readonly int IsWandering = Animator.StringToHash ("isWandering");
-
         #endregion
         protected override void Awake ()
         {
             base.Awake ();
-            herbivoreLayerMask = LayerMask.GetMask ("Herbivore");
+            foodLayerMask = LayerMask.GetMask ("Herbivore");
             waterLayerMask = LayerMask.GetMask ("Water");
         }
         public void FindFood ()
@@ -26,24 +20,11 @@ namespace AI
             _stateManager.fsm.SetBool (IsWandering, false);
             _agent.isStopped = false;
 
-            if (FindClosestThing (herbivoreLayerMask, VisionRadius))
-            {
-                var closestFood = FindClosestThing (herbivoreLayerMask, VisionRadius);
-                _agent.transform.LookAt (closestFood);
-                _agent.SetDestination (closestFood.position);
-                //Move (closestFood);
-
-                var foodDist = Vector3.Distance (closestFood.position, _transform.position);
-                if (foodDist < 10f)
-                {
-                    //fsm.setBool("isDrinking",true);
-                    _stateManager.hungerAmount = 0f;
-                }
-            }
+            var closestFood = FindClosestThing(foodLayerMask, visionRadius);
+            if (closestFood != null)
+                ExecuteState(closestFood, hungryState);
             else
-            {
                 Wander ();
-            }
         }
 
         public void FindWater ()
@@ -52,20 +33,11 @@ namespace AI
             _stateManager.fsm.SetBool (IsWandering, false);
             _agent.isStopped = false;
 
-            if (FindClosestThing (waterLayerMask, VisionRadius))
+            var closestWater = FindClosestThing(waterLayerMask, visionRadius);
+
+            if (closestWater != null)
             {
-                var closestWater = FindClosestThing (waterLayerMask, VisionRadius);
-                _agent.transform.LookAt (closestWater);
-                _agent.SetDestination (closestWater.position);
-                //Move (closestWater);
-
-                var waterDist = Vector3.Distance (closestWater.position, _transform.position);
-                if (waterDist < 10f)
-                {
-                    //fsm.setBool("isDrinking",true);
-                    _stateManager.thirstAmount = 0f;
-
-                }
+                ExecuteState(closestWater, thirstyState);
             }
             else
             {
@@ -81,7 +53,7 @@ namespace AI
 
             if (timer >= wanderTimer)
             {
-                Vector3 newPos = RandomNavSphere (_transform.position, VisionRadius);
+                Vector3 newPos = RandomNavSphere (_transform.position, visionRadius);
                 _agent.SetDestination (newPos);
 
                 var dist = Vector3.Distance (newPos, _transform.position);
