@@ -6,13 +6,13 @@ public class Entity : MonoBehaviour
     [SerializeField] private Properties properties;
 #pragma warning restore 0649
 
-    private string entityName;
+    private int memorySize;
 
-    public string EntityName { get => entityName; set => entityName = value; }
+    public int MemorySize { get => memorySize; set => memorySize = value; }
 
     private void Start ()
     {
-        entityName = properties._name;
+        memorySize = properties.memorySize;
     }
 
 }

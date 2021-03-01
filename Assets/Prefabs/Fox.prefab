@@ -783,6 +783,7 @@ GameObject:
   - component: {fileID: 6908285866303389414}
   - component: {fileID: 8991598260057891914}
   - component: {fileID: 8932875154317216073}
+  - component: {fileID: -8742572251689951441}
   m_Layer: 10
   m_Name: Fox
   m_TagString: Fox
@@ -892,7 +893,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0783dfea1736f344187b3da8cca3679e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderTimer: 4
+  agent: {fileID: 0}
+  tform: {fileID: 0}
+  stateManager: {fileID: 0}
+  wanderTimer: 5
+--- !u!114 &-8742572251689951441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020983980232809014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aeea7fcaa8cb964f8a4e5f46d7d1c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  properties: {fileID: 11400000, guid: 7cd00907bf497b14690f034483816cc8, type: 2}
 --- !u!1 &4246927435662846628
 GameObject:
   m_ObjectHideFlags: 0

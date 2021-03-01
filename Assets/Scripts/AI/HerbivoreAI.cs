@@ -1,85 +1,104 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace AI
 {
     public class HerbivoreAI : CreatureAI
     {
         #region Variable Declarations
-        public float wanderTimer;
-        private float timer;
+        //public float wanderTimer;
+        private float _timer;
+        private List<Transform> _waterLocations;
 
         #endregion
         protected override void Awake ()
         {
             base.Awake ();
+            _waterLocations = new List<Transform> (entity.MemorySize);
             foodLayerMask = LayerMask.GetMask ("Food");
             waterLayerMask = LayerMask.GetMask ("Water");
         }
         public void FindFood ()
         {
-            _stateManager.fsm.SetBool ("isWandering", false);
-            _agent.isStopped = false;
+            agent.isStopped = false;
 
-            var closestFood = FindClosestThing(foodLayerMask, visionRadius);
+            var closestFood = FindClosestThing (foodLayerMask, visionRadius);
             if (closestFood != null)
-                ExecuteState(closestFood, hungryState);
+            {
+                ExecuteState (closestFood, hungryState);
+            }
             else
+            {
                 Wander ();
+            }
         }
+
         public void FindWater ()
         {
-            _stateManager.fsm.SetBool ("isWandering", false);
-            _agent.isStopped = false;
-            
-            var closestWater = FindClosestThing(waterLayerMask, visionRadius);
+            agent.isStopped = false;
+
+            var closestWater = FindClosestThing (waterLayerMask, visionRadius);
             if (closestWater != null)
-                ExecuteState(closestWater, thirstyState);
+            {
+                _waterLocations.Add (closestWater.transform);
+                ExecuteState (closestWater, thirstyState);
+            }
             else
-                Wander ();
+            {
+                //check if there is a location in memory
+                if (_waterLocations.Count != 0)
+                {
+                    for (int i = 0; i < _waterLocations.Count; i++)
+                    {
+                        var waterMemoryLocation = _waterLocations[i];
+                        ExecuteState (waterMemoryLocation, thirstyState);
+                    }
+                }
+                else
+                {
+                    Wander ();
+                }
+
+            }
 
         }
 
         public void Wander ()
         {
-            //_stateManager.fsm.SetBool (IsWandering, true);
-            //_stateManager.fsm.SetBool (IsIdling, false);
-            timer += Time.deltaTime;
+            _timer += Time.deltaTime;
+            var wanderTimer = Random.Range (4, 11);
 
-            if (timer >= wanderTimer)
+            if (_timer >= wanderTimer)
             {
-                Vector3 newPos = RandomNavSphere (_transform.position, visionRadius);
-                _agent.SetDestination (newPos);
+                Vector3 newPos = RandomNavSphere (tform.position, visionRadius);
+                agent.SetDestination (newPos);
 
-                var dist = Vector3.Distance (newPos, _transform.position);
-                if (dist < 10f)
+                var dist = Vector3.Distance (newPos, tform.position);
+                if (dist < 5f)
                 {
-                    _stateManager.fsm.SetBool ("isWandering", false);
-                    _stateManager.fsm.SetBool ("isIdling", true);
-
+                    Idle ();
                 }
-                timer = 0;
+                _timer = 0;
             }
 
         }
-        public Transform FindClosestThing (string tag)
+        public void Idle ()
         {
-            var objects = GameObject.FindGameObjectsWithTag (tag);
-            Transform bestTarget = null;
-            var closestDistanceSqr = Mathf.Infinity;
+            var idleDuration = Random.Range (2.0f, 5.0f);
+            StartCoroutine (Idling (idleDuration));
+        }
 
-            var currentPosition = _transform.position;
-            foreach (GameObject potentialTarget in objects)
-            {
-                var directionToTarget = potentialTarget.transform.position - currentPosition;
-                var dSqrToTarget = directionToTarget.sqrMagnitude;
-                if (dSqrToTarget < closestDistanceSqr)
-                {
-                    closestDistanceSqr = dSqrToTarget;
-                    bestTarget = potentialTarget.transform;
-                }
-            }
+        private IEnumerator Idling (float idleDuration)
+        {
+            //starts idling
+            agent.isStopped = true;
+            yield return new WaitForSeconds (idleDuration);
+            agent.isStopped = false;
 
-            return bestTarget;
+            wanderDuration = Random.Range (4.0f, 10.0f);
+            stateManager.fsm.SetBool (IsIdling, false);
+
         }
 
     }
