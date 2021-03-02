@@ -14,7 +14,6 @@ namespace AI
             var foodDist = Vector3.Distance (closestFood.position, creature.tform.position);
             if (foodDist < 10f)
             {
-                //fsm.setBool("isDrinking",true);
                 creature.stateManager.hungerAmount = 0f;
             }
         }

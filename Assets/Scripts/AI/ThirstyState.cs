@@ -1,5 +1,4 @@
-﻿using AI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AI
 {
@@ -15,7 +14,6 @@ namespace AI
             var waterDist = Vector3.Distance (closestWater.position, creature.tform.position);
             if (waterDist < 10f)
             {
-                //fsm.setBool("isDrinking",true);
                 creature.stateManager.thirstAmount = 0f;
 
             }
