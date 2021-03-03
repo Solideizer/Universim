@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da3420121ad2bb45befc5a6f2338203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  note: Width and Height must be power of two.
+  Notes: Width and Height must be power of two
   width: 512
   depth: 25
   height: 512
@@ -1137,16 +1137,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 47787378950322910, guid: e0ae401b12c362c4aa895f6d0b7225ed,
-        type: 3}
-      propertyPath: itemXSpread
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 47787378950322910, guid: e0ae401b12c362c4aa895f6d0b7225ed,
-        type: 3}
-      propertyPath: itemZSpread
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 47787378950322911, guid: e0ae401b12c362c4aa895f6d0b7225ed,
         type: 3}
       propertyPath: m_Name
@@ -1161,16 +1151,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 284345938}
     m_Modifications:
-    - target: {fileID: 6395385906240990482, guid: f01faff2517c7674b84b4b2b6d8e1d60,
-        type: 3}
-      propertyPath: itemXSpread
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 6395385906240990482, guid: f01faff2517c7674b84b4b2b6d8e1d60,
-        type: 3}
-      propertyPath: itemZSpread
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 6395385906240990483, guid: f01faff2517c7674b84b4b2b6d8e1d60,
         type: 3}
       propertyPath: m_Name
@@ -1240,16 +1220,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 284345938}
     m_Modifications:
-    - target: {fileID: 6052622861416870712, guid: 6e6ac64b32e1398409dcc1bcf2b9cbcc,
-        type: 3}
-      propertyPath: itemXSpread
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 6052622861416870712, guid: 6e6ac64b32e1398409dcc1bcf2b9cbcc,
-        type: 3}
-      propertyPath: itemZSpread
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 6052622861416870713, guid: 6e6ac64b32e1398409dcc1bcf2b9cbcc,
         type: 3}
       propertyPath: m_Name

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace AI
@@ -25,21 +26,22 @@ namespace AI
 		{
 			GetThirsty ();
 			GetHungry ();
+			Wander ();
 		}
+
 		private void GetThirsty ()
 		{
 			_criticalThirst = Random.Range (15, 30);
 			thirstAmount += Time.deltaTime;
 			if (thirstAmount > _criticalThirst)
 			{
+				fsm.SetBool (IsThirsty, true);
 				fsm.SetBool (IsWandering, false);
 				fsm.SetBool (IsIdling, false);
-				fsm.SetBool (IsThirsty, true);
 			}
 			else
 			{
 				fsm.SetBool (IsWandering, true);
-				fsm.SetBool (IsThirsty, false);
 			}
 			if (thirstAmount >= thirstThreshold)
 			{
@@ -56,13 +58,12 @@ namespace AI
 			hungerAmount += Time.deltaTime * 0.5f;
 			if (hungerAmount > _criticalHunger)
 			{
+				fsm.SetBool (IsHungry, true);
 				fsm.SetBool (IsWandering, false);
 				fsm.SetBool (IsIdling, false);
-				fsm.SetBool (IsHungry, true);
 			}
 			else
 			{
-				fsm.SetBool (IsHungry, false);
 				fsm.SetBool (IsWandering, true);
 			}
 			if (hungerAmount >= hungerThreshold)
@@ -74,6 +75,11 @@ namespace AI
 			{
 				fsm.SetBool (IsHungry, false);
 			}
+		}
+		private void Wander ()
+		{
+			fsm.SetBool (IsWandering, true);
+			fsm.SetBool (IsIdling, false);
 		}
 
 	}

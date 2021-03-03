@@ -7,6 +7,7 @@ namespace AI
     public class CarnivoreAI : CreatureAI
     {
         #region Variable Declarations
+        private float _timer;
         private List<Transform> _waterLocations;
         #endregion
         protected override void Awake ()
@@ -58,19 +59,23 @@ namespace AI
 
         public void Wander ()
         {
-            stateManager.fsm.SetBool (IsWandering, true);
-            stateManager.fsm.SetBool (IsIdling, false);
+            _timer += Time.deltaTime;
+            var wanderTimer = Random.Range (4, 11);
 
-            Vector3 newPos = RandomNavSphere (tform.position, visionRadius);
-            agent.SetDestination (newPos);
-
-            var dist = Vector3.Distance (newPos, tform.position);
-            if (dist < 10f)
+            if (_timer >= wanderTimer)
             {
-                stateManager.fsm.SetBool (IsWandering, false);
-                stateManager.fsm.SetBool (IsIdling, true);
+                Vector3 newPos = RandomNavSphere (tform.position, visionRadius);
+                agent.SetDestination (newPos);
+
+                var dist = Vector3.Distance (newPos, tform.position);
+                if (dist < 5f)
+                {
+                    Idle ();
+                }
+                _timer = 0;
             }
         }
+
         public void Idle ()
         {
             var idleDuration = Random.Range (2.0f, 5.0f);
@@ -79,12 +84,13 @@ namespace AI
 
         private IEnumerator Idling (float idleDuration)
         {
+            //starts idling
             agent.isStopped = true;
             yield return new WaitForSeconds (idleDuration);
             agent.isStopped = false;
 
+            wanderDuration = Random.Range (5.0f, 10.0f);
             stateManager.fsm.SetBool (IsIdling, false);
-            stateManager.fsm.SetBool (IsWandering, false);
 
         }
 
