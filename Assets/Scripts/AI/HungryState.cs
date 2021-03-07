@@ -16,6 +16,10 @@ namespace AI
             {
                 //fsm.setBool("isDrinking",true);
                 creature.stateManager.hungerAmount = 0f;
+                if (closestFood.gameObject.CompareTag ("Chicken"))
+                {
+                    GameObject.Destroy (closestFood.gameObject);
+                }
             }
         }
 

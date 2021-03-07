@@ -10,20 +10,22 @@ namespace AI
         //public float wanderTimer;
         private float _timer;
         private List<Transform> _waterLocations;
+        private int _plantLayerMask;
+        private int _waterLayerMask;
 
         #endregion
         protected override void Awake ()
         {
             base.Awake ();
             _waterLocations = new List<Transform> (entity.MemorySize);
-            foodLayerMask = LayerMask.GetMask ("Food");
-            waterLayerMask = LayerMask.GetMask ("Water");
+            _plantLayerMask = LayerMask.GetMask ("Food");
+            _waterLayerMask = LayerMask.GetMask ("Water");
         }
         public void FindFood ()
         {
             agent.isStopped = false;
 
-            var closestFood = FindClosestThing (foodLayerMask, visionRadius);
+            var closestFood = FindClosestThing (_plantLayerMask, visionRadius);
             if (closestFood != null)
             {
                 ExecuteState (closestFood, hungryState);
@@ -38,7 +40,7 @@ namespace AI
         {
             agent.isStopped = false;
 
-            var closestWater = FindClosestThing (waterLayerMask, visionRadius);
+            var closestWater = FindClosestThing (_waterLayerMask, visionRadius);
             if (closestWater != null)
             {
                 _waterLocations.Add (closestWater.transform);
