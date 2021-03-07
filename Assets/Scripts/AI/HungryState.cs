@@ -6,7 +6,7 @@ namespace AI
     {
         public void Execute (Transform closestFood, CreatureAI creature)
         {
-            if (closestFood == null) return;
+            //if (closestFood == null) return;
 
             creature.agent.transform.LookAt (closestFood);
             creature.agent.SetDestination (closestFood.position);
