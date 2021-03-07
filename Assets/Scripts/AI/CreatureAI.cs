@@ -8,6 +8,9 @@ namespace AI
         [HideInInspector] public NavMeshAgent agent;
         [HideInInspector] public Transform tform;
         [HideInInspector] public StateManager stateManager;
+
+        protected int foodLayerMask;
+        protected int waterLayerMask;
         protected const float visionRadius = 60f;
         protected readonly int IsIdling = Animator.StringToHash ("isIdling");
 
@@ -62,7 +65,7 @@ namespace AI
         private void OnDrawGizmosSelected ()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere (transform.position, visionRadius);
+            Gizmos.DrawWireSphere (base.transform.position, 40f);
         }
 
         protected Vector3 RandomNavSphere (Vector3 origin, float dist)
@@ -77,9 +80,9 @@ namespace AI
         }
         protected Transform FindClosestThing (int layerMask, float radius)
         {
-            if (CheckColliders (transform.position, radius, layerMask))
+            if (CheckColliders (base.transform.position, radius, layerMask))
             {
-                Collider closestThingCollider = CheckColliders (transform.position, radius, layerMask);
+                Collider closestThingCollider = CheckColliders (base.transform.position, radius, layerMask);
                 return closestThingCollider.transform;
             }
             else

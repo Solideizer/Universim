@@ -8,35 +8,24 @@ namespace AI
     {
         #region Variable Declarations
         private float _timer;
-        protected int herbivoreLayerMask;
-
-        protected int waterLayerMask;
         private List<Transform> _waterLocations;
         #endregion
         protected override void Awake ()
         {
             base.Awake ();
             _waterLocations = new List<Transform> (entity.MemorySize);
-            herbivoreLayerMask = LayerMask.GetMask ("Herbivore");
+            foodLayerMask = LayerMask.GetMask ("Herbivore");
             waterLayerMask = LayerMask.GetMask ("Water");
         }
         public void FindFood ()
         {
             agent.isStopped = false;
 
-            var closestFood = FindClosestThing (herbivoreLayerMask, visionRadius);
-
+            var closestFood = FindClosestThing (foodLayerMask, visionRadius);
             if (closestFood != null)
-            {
                 ExecuteState (closestFood, hungryState);
-
-            }
             else
-            {
                 Wander ();
-
-            }
-
         }
 
         public void FindWater ()
