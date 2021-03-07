@@ -2,39 +2,41 @@
 
 public class MoveCamera : MonoBehaviour
 {
-    [SerializeField] private int speed;
-    private Vector3 moveVector;
-    private Vector3 riseVector;
-    private CharacterController characterController;
+#pragma warning disable 0649
+    [SerializeField] private int _speed;
+#pragma warning restore 0649
+    private Vector3 _moveVector;
+    private Vector3 _riseVector;
+    private CharacterController _characterController;
 
-    void Start()
+    void Start ()
     {
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController> ();
     }
 
-    void Update()
+    void Update ()
     {
-        Move();
+        Move ();
     }
 
-    private void Move()
+    private void Move ()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = Input.GetAxis ("Horizontal");
+        float z = Input.GetAxis ("Vertical");
 
-        moveVector = transform.right * x + transform.forward * z;
-        characterController.Move(moveVector * speed * Time.deltaTime);
+        _moveVector = transform.right * x + transform.forward * z;
+        _characterController.Move (_moveVector * _speed * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKey (KeyCode.C))
         {
-            riseVector.y = speed * Time.deltaTime;
-            characterController.Move(riseVector);
+            _riseVector.y = _speed * Time.deltaTime;
+            _characterController.Move (_riseVector);
         }
 
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetKey (KeyCode.V))
         {
-            riseVector.y = speed * Time.deltaTime * -1;
-            characterController.Move(riseVector);
+            _riseVector.y = _speed * Time.deltaTime * -1;
+            _characterController.Move (_riseVector);
         }
     }
 }
