@@ -20,8 +20,8 @@ In the end of the simulation, the metrics we will observe and collect will be en
 ## **Implemented Features** 
 *  Finite State Machine System for AI agents
 *  Event Based Decision Maker
-*  Procedurally Generated terrain (Perlin Noise) 
-*  Procedurally Placed objects 
+*  Procedurally Generated Terrain (Perlin Noise) 
+*  Procedurally Placed Objects 
 *  Hunger / Searching Food
 *  Thirst / Searching Water
 
