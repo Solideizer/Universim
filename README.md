@@ -1,7 +1,7 @@
 # **Universim**
-
 Universim is our senior design project. Our advisor is [Assoc.Prof. Zeynep Orman](https://profil.istanbulc.edu.tr/tr/p/ormanz)
 
+![screenshot](https://github.com/Solideizer/Universim/blob/master/Frame001_0105.jpg)
 ## Summary
  
 #### Simulating the fundamental interactions of Carnivore – Herbivore AI Agents in a procedurally generated environment with the help of Unity Engine
