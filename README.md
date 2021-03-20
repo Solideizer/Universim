@@ -1,8 +1,10 @@
 # **Universim**
 
 Universim is our senior design project. Our advisor is [Assoc.Prof. Zeynep Orman](https://profil.istanbulc.edu.tr/tr/p/ormanz)
+
+## Summary
  
-# Simulating the fundamental interactions of Carnivore – Herbivore Artificial Intelligence Agents in a procedurally generated environment with the help of Unity Engine
+#### Simulating the fundamental interactions of Carnivore – Herbivore AI Agents in a procedurally generated environment with the help of Unity Engine
 
 We have 2 kinds of artificial intelligence agents: Carnivore and Herbivore agents. We are simulating fundamental urges such as thirst and hunger for every artificial intelligence agent. Reproduction will be added at a later date.
 
@@ -14,4 +16,17 @@ After adding a reproduction system our goal is to collect statistics about the s
 
 In the end of the simulation, the metrics we will observe and collect will be enlightening when it comes to understanding the complex behaviors of different creatures on different ecosystems. Those metrics will also shed light to ecosystems populations and the interactions between different creatures and the ecosystem which they live in. 
 
+
+## **Implemented Features :** 
+*  Finite State Machine System for AI agents
+*  Event Based Decision Maker
+*  Procedurally Generated terrain (Perlin Noise) 
+*  Procedurally Placed objects 
+*  Hunger / Searching Food
+*  Thirst / Searching Water
+
+
+## **Planned Features :**
+* Reproduction System
+* Natural Selection
 
