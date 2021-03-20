@@ -17,7 +17,7 @@ After adding a reproduction system our goal is to collect statistics about the s
 In the end of the simulation, the metrics we will observe and collect will be enlightening when it comes to understanding the complex behaviors of different creatures on different ecosystems. Those metrics will also shed light to ecosystems populations and the interactions between different creatures and the ecosystem which they live in. 
 
 
-## **Implemented Features ** 
+## **Implemented Features** 
 *  Finite State Machine System for AI agents
 *  Event Based Decision Maker
 *  Procedurally Generated terrain (Perlin Noise) 
@@ -26,7 +26,7 @@ In the end of the simulation, the metrics we will observe and collect will be en
 *  Thirst / Searching Water
 
 
-## **Planned Features **
+## **Planned Features**
 * Reproduction System
 * Natural Selection
 
