@@ -262,6 +262,8 @@ GameObject:
   - component: {fileID: 3508928677465238292}
   - component: {fileID: 3508928677465238295}
   - component: {fileID: 3508928677465238293}
+  - component: {fileID: 7033927096291220401}
+  - component: {fileID: 5696290405411488093}
   - component: {fileID: 3508928677465238280}
   m_Layer: 9
   m_Name: Chickenn
@@ -341,6 +343,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   currentState: 0
+  animalIdentity:
+    sex: 0
+    canReproduce: 0
+    isPregnant: 0
 --- !u!114 &3508928677465238294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +418,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleTime: 2
+  isRunning: 0
+--- !u!114 &7033927096291220401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508928677465238290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3b99f1650956842afff2e3ddd38cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRunning: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
+  reproductionTreshold: 40
+  targetRange: 10
+  vision: 40
+  reproductionUrge: 0
+  alerted: 0
+--- !u!114 &5696290405411488093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508928677465238290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7dfdf90c0ad8ad4faa83cc9ce4afc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childPrefab: {fileID: 0}
+  pregnancyTime: 22
   isRunning: 0
 --- !u!136 &3508928677465238280
 CapsuleCollider:

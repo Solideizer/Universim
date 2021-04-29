@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7954763881731417648
+--- !u!1 &1796226866726158566
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6749842429391192338}
-  - component: {fileID: 3236252019424759131}
+  - component: {fileID: 1796226866726158552}
+  - component: {fileID: 1796226866726158553}
   m_Layer: 0
-  m_Name: Carnivore Spawner
+  m_Name: Animal Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6749842429391192338
+--- !u!4 &1796226866726158552
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7954763881731417648}
+  m_GameObject: {fileID: 1796226866726158566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,18 +31,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3236252019424759131
+--- !u!114 &1796226866726158553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7954763881731417648}
+  m_GameObject: {fileID: 1796226866726158566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5627b5eae49414597251944597ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: 3db27bcd2657ddf45bbc34bef394967f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objects:
-  - {fileID: 6828734618895329937, guid: 5a5b2f656bf7caa458ae6aecc4239981, type: 3}
-  scaleRange: {x: 2, y: 4}
+  herbivorCub: {fileID: 0}
+  carnivoreCub: {fileID: 0}

@@ -13,4 +13,4 @@ public class CaseChangedEventArgs : EventArgs
     public Case state;
 }
 
-public enum Case { AVAILABLE, IDLE, WANDER, HUNGER, THIRST }
+public enum Case { AVAILABLE, IDENTITY_UPDATE, IDLE, WANDER, HUNGER, THIRST, REPRODUCTION, PREGNANCY, GROWTH }

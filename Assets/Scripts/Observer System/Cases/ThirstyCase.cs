@@ -1,26 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HungryCase : MonoBehaviour, ICase
+public class ThirstyCase : MonoBehaviour, ICase
 {
     [SerializeField] LayerMask targetMask;
-    [SerializeField, Range(10f, 30f)] float hungerTreshold = 0f;
+    [SerializeField, Range(10f, 30f)] float thirstTreshold = 0f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
 
-    public float hunger = 0;
+    public float thirst = 0;
     public bool alerted;
 
+    Transform tForm;
     Transform target;
     AnimalAI ai;
     
-    private void Start()
+    private void Start() 
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold));
+        ai.caseDatas.Add(new CaseContainer(Case.THIRST, thirst, thirstTreshold));
+        tForm = transform;
 
         isRunning = false;
         alerted = false;
@@ -28,51 +31,50 @@ public class HungryCase : MonoBehaviour, ICase
 
     private void Update()
     {
-        hunger += Time.deltaTime;
+        thirst += Time.deltaTime;
 
         if (isRunning)
         {
-            ai.Move(target.position);
-            if (target != null && Vector3.Distance(target.position, transform.position) < targetRange)
+            if(target != null && Vector3.Distance(target.position, tForm.position) < targetRange)
             {
-                hunger = 0;
+                thirst = 0;
                 isRunning = false;
                 alerted = false;
                 target = null;
+                
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
             }
         }
 
-        if (!alerted && hunger > hungerTreshold)
+        if(!alerted && thirst > thirstTreshold)
         {
             alerted = true;
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
         }
     }
 
-    private Transform FindFood()
+    private Transform FindWater()
     {
         return ai.FindClosestThing(ai.transform.position, targetMask, vision);
     }
 
     public void OnCaseChanged(object sender, CaseChangedEventArgs e)
     {
-        if (e.state == Case.HUNGER)
+        if (e.state == Case.THIRST)
         {
-            target = FindFood();
+            target = FindWater();
 
             if(target != null)
             {
-                ai.currentState = Case.HUNGER;
+                ai.currentState = Case.THIRST;
                 Run();
-                
+                ai.Move(target.position);
             }
             else
-                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
-
+                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));    
         }
-        else if (e.state == Case.AVAILABLE)
-            CaseContainer.Adjust(ai.caseDatas, Case.HUNGER, hunger);
+        else if(e.state == Case.AVAILABLE)
+            CaseContainer.Adjust(ai.caseDatas, Case.THIRST, thirst);
     }
 
     public bool IsRunning() { return isRunning; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,20 +8,57 @@ public class AnimalAI : MonoBehaviour
 {
     [HideInInspector] public NavMeshAgent agent;
 
-    private Entity entity;
-    private DecisionMaker decisionMaker;
-
     public Case currentState = Case.AVAILABLE;
+
+    private DecisionMaker decisionMaker;
+    public Identity animalIdentity;
+
+    public Identity AnimalIdentity { get => animalIdentity; }
+    public DecisionMaker DecisionMaker { get => decisionMaker; }
+
     public event EventHandler<CaseChangedEventArgs> CaseChanged;
     public List<CaseContainer> caseDatas = new List<CaseContainer>();
+
+    [SerializeField] bool isBaby;
 
     private void Start() 
     {
         decisionMaker = new DecisionMaker(this);
         agent = GetComponent<NavMeshAgent>();
+        CreateIdentity();
 
+        Subscribe();
         decisionMaker.Decision();
     }
+
+    public virtual void OnCaseChanged(CaseChangedEventArgs e)
+    {
+        EventHandler<CaseChangedEventArgs> handler = CaseChanged;
+        if(handler != null)
+            handler(this, e);
+    }
+
+    public void CreateIdentity()
+    {
+        int rand = UnityEngine.Random.Range(0, 2);
+        Sex sex = (Sex)rand;
+        Identity identity = new Identity(sex, isBaby);
+        animalIdentity = identity;
+
+        OnCaseChanged(new CaseChangedEventArgs(null, Case.IDENTITY_UPDATE));
+    }
+
+    public void Subscribe()
+    {
+        AnimalManager.Instance.animals.Add(gameObject.GetInstanceID(), this);
+    }
+
+    public void Unsubscribe()
+    {
+        AnimalManager.Instance.animals.Remove(gameObject.GetInstanceID());
+    }
+
+    #region NavMeshAgent
 
     public void Move(Vector3 target)
     {
@@ -35,12 +72,7 @@ public class AnimalAI : MonoBehaviour
         agent.isStopped = true;
     }
 
-    public virtual void OnCaseChanged(CaseChangedEventArgs e)
-    {
-        EventHandler<CaseChangedEventArgs> handler = CaseChanged;
-        if(handler != null)
-            handler(this, e);
-    }
+    #endregion
 
     #region Utilities
 
@@ -64,9 +96,8 @@ public class AnimalAI : MonoBehaviour
 
     private Collider CheckColliders(Vector3 currentPosition, float radius, int layerMask)
     {
-        int maxColliders = 10;
-        Collider[] hitColliders = new Collider[maxColliders];
-        int numColliders = Physics.OverlapSphereNonAlloc(currentPosition, radius, hitColliders, layerMask);
+        Collider[] hitColliders;
+        int numColliders = GetColliders(currentPosition, radius, layerMask, out hitColliders);
 
         Collider closestTarget = null;
         var closestDistanceSqr = Mathf.Infinity;
@@ -86,6 +117,13 @@ public class AnimalAI : MonoBehaviour
         }
 
         return null;
+    }
+
+    public static int GetColliders(Vector3 currentPosition, float radius, int layerMask, out Collider[] hitColliders)
+    {
+        int maxColliders = 10;
+        hitColliders = new Collider[maxColliders];
+        return Physics.OverlapSphereNonAlloc(currentPosition, radius, hitColliders, layerMask);
     }
 
     #endregion
