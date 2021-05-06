@@ -746,7 +746,7 @@ PrefabInstance:
     - target: {fileID: 1796226866726158553, guid: f1425b73def1a4b4898d80c9d134d8ed,
         type: 3}
       propertyPath: herbivoreCount
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1796226866726158566, guid: f1425b73def1a4b4898d80c9d134d8ed,
         type: 3}

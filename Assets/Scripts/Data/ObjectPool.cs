@@ -30,20 +30,14 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     public T Pop()
     {
+        T obj;
         if (objectPool.Count > 0)
-        {
-            T obj = objectPool.Pop();
-            obj.gameObject.SetActive(true);
-
-            return obj;
-        }
+            obj = objectPool.Pop();
         else
-        {
-            T obj = Object.Instantiate(prefab);
-            obj.gameObject.SetActive(false);
-            return obj;
-        }
-        
+            obj = Object.Instantiate(prefab);
+            
+        obj.gameObject.SetActive(true);
+        return obj;
     }
 
     public void Push(T obj)

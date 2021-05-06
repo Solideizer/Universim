@@ -63,6 +63,9 @@ public class ReproductionCase : MonoBehaviour, ICase
     private Transform FindPartner()
     {
         Transform partnerTransform = ai.FindClosestThing(transform.position, targetMask, vision);
+
+        if(partnerTransform == null || partnerTransform.gameObject == null) return null;
+
         AnimalAI partner = AnimalManager.Instance.animals[partnerTransform.gameObject.GetInstanceID()]; 
         Identity identity = partner.AnimalIdentity;
 
