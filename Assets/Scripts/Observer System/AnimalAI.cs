@@ -27,6 +27,7 @@ public class AnimalAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         CreateIdentity();
 
+        print("2");
         Subscribe();
         decisionMaker.Decision();
     }

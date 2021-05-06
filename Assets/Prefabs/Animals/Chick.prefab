@@ -436,21 +436,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695632154700739700}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb3b99f1650956842afff2e3ddd38cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 512
   reproductionTreshold: 5
   targetRange: 10
   vision: 40
-  reproductionUrge: 0
-  alerted: 0
-  target: {fileID: 0}
 --- !u!114 &7695632154700739711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,14 +469,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695632154700739700}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7dfdf90c0ad8ad4faa83cc9ce4afc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pregnancyTime: 15
-  isRunning: 0
-  pregnancy: 0
 --- !u!136 &7695632154700739694
 CapsuleCollider:
   m_ObjectHideFlags: 0

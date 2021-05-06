@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class ReproductionCase : MonoBehaviour, ICase
 {
-    [SerializeField] bool isRunning;
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(5f, 75f)] float reproductionTreshold = 40f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     
-    public float reproductionUrge = 0;
-    public bool alerted;
-
-    [SerializeField] Transform target;
-    AnimalAI ai;
-    Sex sex;
+    private float reproductionUrge = 0;
+    private bool alerted;
+    private bool isRunning;
+    private Transform target;
+    private AnimalAI ai;
+    private Sex sex;
+    private bool canReproduce;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +32,8 @@ public class ReproductionCase : MonoBehaviour, ICase
     // Update is called once per frame
     void Update()
     {
+        if(!canReproduce) return;
+
         reproductionUrge += Time.deltaTime;
         if(isRunning && target != null)
         {
@@ -102,9 +104,9 @@ public class ReproductionCase : MonoBehaviour, ICase
         sex = identity.sex;
 
         if(identity.canReproduce)
-            this.enabled = true;
+            canReproduce = true;
         else
-            this.enabled = false;
+            canReproduce = false;
     }
 
     public bool IsRunning() { return isRunning; }

@@ -568,7 +568,7 @@ PrefabInstance:
     - target: {fileID: 5696290405411488093, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
       propertyPath: pregnancyTime
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7033927096291220401, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
