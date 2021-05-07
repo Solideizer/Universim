@@ -50,7 +50,7 @@ public class ReproductionCase : MonoBehaviour, ICase
                 if(sex == Sex.FEMALE)
                     ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.PREGNANCY));
                 else
-                    ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
+                    ai.OnCaseChanged(new CaseChangedEventArgs(new IdleCaseData(10f), Case.IDLE));
             }
         }
 

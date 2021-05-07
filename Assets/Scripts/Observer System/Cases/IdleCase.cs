@@ -11,11 +11,15 @@ public class IdleCase : MonoBehaviour, ICase
     float idle = 0;
     AnimalAI ai;
 
+    float defaultTime;
+    [HideInInspector] public float tempTime;
+
     private void Start()
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
 
+        defaultTime = idleTime;
         isRunning = false;
     }
 
@@ -24,7 +28,7 @@ public class IdleCase : MonoBehaviour, ICase
         if(isRunning)
         {
             idle += Time.deltaTime;
-            if(idle > idleTime)
+            if(idle > tempTime)
             {
                 idle = 0;
                 isRunning = false;
@@ -37,6 +41,13 @@ public class IdleCase : MonoBehaviour, ICase
     {
         if(e.state == Case.IDLE)
         {
+            defaultTime = idleTime;
+
+            if(e.data != null)
+                e.data.SetData(this);
+            else
+                tempTime = defaultTime;
+
             ai.currentState = Case.IDLE;
             ai.Stop();
             Run();
