@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class CaseChangedEventArgs : EventArgs
 {
-    public CaseChangedEventArgs(Transform transform, Case c)
+    public CaseChangedEventArgs(CaseData data, Case c)
     {
-        this.transform = transform;
+        this.data = data;
         this.state = c;
     }
 
-    public Transform transform;
     public Case state;
+    public CaseData data;
 }
 
 public enum Case { AVAILABLE, IDENTITY_UPDATE, IDLE, WANDER, HUNGER, THIRST, REPRODUCTION, PREGNANCY, GROWTH }

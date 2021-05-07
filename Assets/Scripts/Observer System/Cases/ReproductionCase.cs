@@ -13,10 +13,11 @@ public class ReproductionCase : MonoBehaviour, ICase
     private float reproductionUrge = 0;
     private bool alerted;
     private bool isRunning;
-    private Transform target;
     private AnimalAI ai;
     private Sex sex;
     private bool canReproduce;
+
+    [HideInInspector] public Transform target;
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +72,7 @@ public class ReproductionCase : MonoBehaviour, ICase
 
         if(partner != null && identity.sex != sex && identity.canReproduce && partner.currentState != Case.HUNGER && partner.currentState != Case.THIRST) 
         {
-            partner.OnCaseChanged(new CaseChangedEventArgs(this.transform, Case.REPRODUCTION));
+            partner.OnCaseChanged(new CaseChangedEventArgs(new ReproductionCaseData(this.transform), Case.REPRODUCTION));
             return partnerTransform;
         }
         else
@@ -82,10 +83,11 @@ public class ReproductionCase : MonoBehaviour, ICase
     {
         if(e.state == Case.REPRODUCTION)
         {
-            if(e.transform == null)
+            if(e.data != null)
+                e.data.SetData(this);
+
+            if(target == null)
                 target = FindPartner();
-            else
-                target = e.transform;
 
             if(target != null)
             {
