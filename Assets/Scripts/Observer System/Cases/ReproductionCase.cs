@@ -101,6 +101,13 @@ public class ReproductionCase : MonoBehaviour, ICase
             CaseContainer.Adjust(ai.caseDatas, Case.REPRODUCTION, reproductionUrge);
         else if(e.state == Case.IDENTITY_UPDATE)
             UpdateData();
+        else if(e.state == Case.RESET)
+        {
+            reproductionUrge = 0;
+            alerted = false;
+            isRunning = false;
+            canReproduce = false;
+        }
     }
 
     private void UpdateData()

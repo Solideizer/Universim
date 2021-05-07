@@ -27,7 +27,6 @@ public class AnimalAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         CreateIdentity();
 
-        print("2");
         Subscribe();
         decisionMaker.Decision();
     }
@@ -37,6 +36,13 @@ public class AnimalAI : MonoBehaviour
         EventHandler<CaseChangedEventArgs> handler = CaseChanged;
         if(handler != null)
             handler(this, e);
+
+        if(e.state == Case.RESET)
+        {
+            isBaby = true;
+            currentState = Case.AVAILABLE;
+            // TODO Burada bir OnEnable ile Decision methodu gerekebilir.
+        }
     }
 
     public void CreateIdentity()

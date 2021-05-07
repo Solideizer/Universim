@@ -73,6 +73,12 @@ public class HungryCase : MonoBehaviour, ICase
         }
         else if (e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.HUNGER, hunger);
+        else if(e.state == Case.RESET)
+        {
+            isRunning = false;
+            hunger = 0;
+            alerted = false;
+        }
     }
 
     public bool IsRunning() { return isRunning; }

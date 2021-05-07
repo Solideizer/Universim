@@ -14,10 +14,12 @@ public class AnimalManager : MonoBehaviour
     [SerializeField] int herbivoreCount = 100;
     [SerializeField] int carnivoreCount = 20;
 
-    private ObjectPool<AnimalAI> herbivorePool;
-    private ObjectPool<AnimalAI> carnivorePool;
-    
+    public Vector3 chickSize = new Vector3(2, 2, 2);
+    public Vector3 cubSize = new Vector3(2, 2, 2);
 
+    public ObjectPool<AnimalAI> herbivorePool;
+    public ObjectPool<AnimalAI> carnivorePool;
+    
     private void Awake()
     {
         instance = this;

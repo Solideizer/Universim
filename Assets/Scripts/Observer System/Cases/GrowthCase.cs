@@ -10,13 +10,14 @@ public class GrowthCase : MonoBehaviour, ICase
     [SerializeField] int phaseCount = 3;
 
     float growth = 0;
+    int phase;
     AnimalAI ai;
 
     private void Start() 
     {
         ai = GetComponent<AnimalAI>();
         //ai.CaseChanged += OnCaseChanged;    
-        
+        phase = phaseCount;
         StartCoroutine(Growth());
         isRunning = false;
     }
@@ -24,14 +25,14 @@ public class GrowthCase : MonoBehaviour, ICase
     private IEnumerator Growth()
     {
         ai.AnimalIdentity.canReproduce = false;
-        while(phaseCount > 0)
+        while(phase > 0)
         {
             growth += Time.deltaTime;
             if (growth > growthTime)
             {
                 growth = 0;
                 GrowUp();
-                phaseCount--;
+                phase--;
             }
             yield return new WaitForFixedUpdate();
         }
@@ -53,6 +54,11 @@ public class GrowthCase : MonoBehaviour, ICase
     {
         if(e.state == Case.IDENTITY_UPDATE)
             UpdateData();
+        else if(e.state == Case.RESET)
+        {
+            phase = phaseCount;
+            growth = 0;
+        }
     }
 
     private void UpdateData()

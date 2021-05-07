@@ -14,7 +14,7 @@ public class ThirstyCase : MonoBehaviour, ICase
     public float thirst = 0;
     public bool alerted;
 
-    Transform tForm;
+    Transform thisTransform;
     Transform target;
     AnimalAI ai;
     
@@ -23,7 +23,7 @@ public class ThirstyCase : MonoBehaviour, ICase
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
         ai.caseDatas.Add(new CaseContainer(Case.THIRST, thirst, thirstTreshold));
-        tForm = transform;
+        thisTransform = transform;
 
         isRunning = false;
         alerted = false;
@@ -35,7 +35,7 @@ public class ThirstyCase : MonoBehaviour, ICase
 
         if (isRunning)
         {
-            if(target != null && Vector3.Distance(target.position, tForm.position) < targetRange)
+            if(target != null && Vector3.Distance(target.position, thisTransform.position) < targetRange)
             {
                 thirst = 0;
                 isRunning = false;
@@ -75,6 +75,13 @@ public class ThirstyCase : MonoBehaviour, ICase
         }
         else if(e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.THIRST, thirst);
+        else if(e.state == Case.RESET)
+        {
+            thirst = 0;
+            alerted = false;
+            isRunning = false;
+            target = null;
+        }
     }
 
     public bool IsRunning() { return isRunning; }

@@ -55,6 +55,12 @@ public class PregnancyCase : MonoBehaviour, ICase
         }
         else if(e.state == Case.IDENTITY_UPDATE)
             IdentityUpdate();
+        else if(e.state == Case.RESET)
+        {
+            isRunning = false;
+            canPregnant = false;
+            pregnancy = 0;
+        }
     }
 
     private void IdentityUpdate()

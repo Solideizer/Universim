@@ -43,7 +43,11 @@ public class ObjectPool<T> where T : MonoBehaviour
     public void Push(T obj)
     {
         if (obj != null)
+        {
             objectPool.Push(obj);
+            obj.gameObject.SetActive(false);
+        }
+            
     }
 
     public bool IsObjectNull()
