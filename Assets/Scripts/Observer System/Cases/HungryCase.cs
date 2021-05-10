@@ -21,7 +21,7 @@ public class HungryCase : MonoBehaviour, ICase
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold));
+        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold, CasePriority.LOW));
 
         isRunning = false;
         alerted = false;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DecisionMaker
@@ -17,7 +18,7 @@ public class DecisionMaker
     {
         if(ai.currentState != Case.AVAILABLE) return;
 
-        List<CaseContainer> cases = ai.caseDatas;
+        List<CaseContainer> cases = ai.caseDatas.OrderByDescending(x => (int) x.priority).ToList();
 
         for (var i = 0; i < cases.Count; i++)
         {

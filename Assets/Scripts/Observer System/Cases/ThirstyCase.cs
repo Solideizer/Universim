@@ -23,7 +23,7 @@ public class ThirstyCase : MonoBehaviour, ICase
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.THIRST, thirst, thirstTreshold));
+        ai.caseDatas.Add(new CaseContainer(Case.THIRST, thirst, thirstTreshold, CasePriority.MID));
         thisTransform = transform;
 
         isRunning = false;

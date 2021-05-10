@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class CaseContainer
 {
-    public CaseContainer(Case state, float value, float valueTreshold)
+    public CaseContainer(Case state, float value, float valueTreshold, CasePriority priority)
     {
         this.state = state;
+        this.priority = priority;
         this.value = value;
         this.valueTreshold = valueTreshold;
     }
 
     public Case state;
+    public CasePriority priority;
     public float value;
     public float valueTreshold;
 
@@ -37,4 +39,12 @@ public class CaseContainer
             }
         }
     }
+}
+
+public enum CasePriority
+{
+    TOO_LOW,
+    LOW,
+    MID,
+    HIGH
 }
