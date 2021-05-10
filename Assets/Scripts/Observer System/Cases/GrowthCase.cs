@@ -8,6 +8,7 @@ public class GrowthCase : MonoBehaviour, ICase
     [SerializeField] bool isRunning;
     [SerializeField, Range(3f, 6f)] float growthTime = 4f;
     [SerializeField] int phaseCount = 3;
+    [SerializeField] int growthMultiplier;
 
     float growth = 0;
     int phase;
@@ -47,7 +48,7 @@ public class GrowthCase : MonoBehaviour, ICase
     {
         Vector3 scale = transform.localScale;
         // TODO Bu kısmın daha genelleşmesi lazım.
-        scale += Vector3.one * 2;
+        scale += Vector3.one * growthMultiplier;
         transform.localScale = scale;
     }
 

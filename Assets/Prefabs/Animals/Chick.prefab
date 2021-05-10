@@ -387,7 +387,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 16
-  thirstTreshold: 15.85
+  thirstTreshold: 10
+  deathTreshold: 1
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -408,7 +409,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 2048
-  hungerTreshold: 16.28
+  hungerTreshold: 13
+  deathTreshold: 1
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -461,7 +463,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 512
-  reproductionTreshold: 5
+  reproductionTreshold: 20
   targetRange: 10
   vision: 40
   reproductionUrge: 0
@@ -483,6 +485,7 @@ MonoBehaviour:
   isRunning: 0
   growthTime: 3
   phaseCount: 2
+  growthMultiplier: 2
 --- !u!114 &1545598136397422139
 MonoBehaviour:
   m_ObjectHideFlags: 0

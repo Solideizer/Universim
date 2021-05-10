@@ -31,19 +31,28 @@ public class HungryCase : MonoBehaviour, ICase
     {
         hunger += Time.deltaTime;
 
+        // TODO Belki bunun bir benzeri thirst içinde olabilir.
         if (isRunning)
         {
-            ai.Move(target.position);
-            if (target != null && Vector3.Distance(target.position, transform.position) < targetRange)
+            if(target != null)
             {
-                if(target.tag == "Chicken")
-                    target.GetComponent<AnimalAI>().OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
+                ai.Move(target.position);
+                if (Vector3.Distance(target.position, transform.position) < targetRange)
+                {
+                    if (target.tag == "Chicken")
+                        target.GetComponent<AnimalAI>().OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
 
-                hunger = 0;
+                    hunger = 0;
+                    isRunning = false;
+                    alerted = false;
+                    target = null;
+
+                    ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
+                }
+            }
+            else
+            {
                 isRunning = false;
-                alerted = false;
-                target = null;
-                
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
             }
         }

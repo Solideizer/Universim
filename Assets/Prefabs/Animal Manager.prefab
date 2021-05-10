@@ -43,5 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db27bcd2657ddf45bbc34bef394967f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  herbivorCub: {fileID: 0}
-  carnivoreCub: {fileID: 0}
+  herbivorCub: {fileID: 7695632154700739695, guid: 1f43750cd2d784b42a276ce698475df5,
+    type: 3}
+  carnivoreCub: {fileID: 6828734618895329932, guid: f1742d3c3b1567342ad425835703d96e,
+    type: 3}
+  herbivoreCount: 100
+  carnivoreCount: 20
+  chickSize: {x: 2, y: 2, z: 2}
+  cubSize: {x: 1, y: 1, z: 1}

@@ -504,6 +504,7 @@ MonoBehaviour:
   isRunning: 0
   growthTime: 3
   phaseCount: 2
+  growthMultiplier: 2
 --- !u!1 &3508986316076429900
 GameObject:
   m_ObjectHideFlags: 0

@@ -795,9 +795,9 @@ GameObject:
   - component: {fileID: 79499759510757231}
   - component: {fileID: 3508856125468983848}
   - component: {fileID: 8990392073320174693}
-  - component: {fileID: 5441553613523932822}
+  - component: {fileID: 931871341302875919}
   m_Layer: 10
-  m_Name: Fox
+  m_Name: Cub
   m_TagString: Fox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,7 +812,7 @@ Transform:
   m_GameObject: {fileID: 6828734618895329937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3306573857855891952}
   - {fileID: 7593873830775177814}
@@ -887,8 +887,8 @@ MonoBehaviour:
   currentState: 0
   animalIdentity:
     sex: 0
-    canReproduce: 1
-  isBaby: 0
+    canReproduce: 0
+  isBaby: 1
 --- !u!114 &6828734618895329933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHerbivore: 0
---- !u!114 &5441553613523932822
+--- !u!114 &931871341302875919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
