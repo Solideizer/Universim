@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 3511077923186765340}
   - component: {fileID: 1457782323236062843}
   - component: {fileID: 2971527307421717138}
+  - component: {fileID: 3508928677465238280}
   - component: {fileID: 3508928677465238281}
   - component: {fileID: 3508928677465238294}
   - component: {fileID: 3508928677465238292}
@@ -264,9 +265,10 @@ GameObject:
   - component: {fileID: 3508928677465238293}
   - component: {fileID: 7033927096291220401}
   - component: {fileID: 5696290405411488093}
-  - component: {fileID: 3508928677465238280}
+  - component: {fileID: 6155237351495295325}
+  - component: {fileID: -3739033844427268333}
   m_Layer: 9
-  m_Name: Chickenn
+  m_Name: Chicken
   m_TagString: Chicken
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -329,6 +331,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!136 &3508928677465238280
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508928677465238290}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.08021168
+  m_Height: 0.2332747
+  m_Direction: 1
+  m_Center: {x: -0.009127895, y: 0.22298571, z: 0}
 --- !u!114 &3508928677465238281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,8 +361,8 @@ MonoBehaviour:
   currentState: 0
   animalIdentity:
     sex: 0
-    canReproduce: 0
-    isPregnant: 0
+    canReproduce: 1
+  isBaby: 0
 --- !u!114 &3508928677465238294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +378,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 16
-  thirstTreshold: 18.6
+  thirstTreshold: 10
+  deathTreshold: 50
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -383,7 +400,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 2048
-  hungerTreshold: 10
+  hungerTreshold: 13
+  deathTreshold: 65
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -419,6 +437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleTime: 2
   isRunning: 0
+  idle: 0
+  tempTime: 0
 --- !u!114 &7033927096291220401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,15 +451,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3b99f1650956842afff2e3ddd38cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 512
-  reproductionTreshold: 40
+  reproductionTreshold: 20
   targetRange: 10
   vision: 40
   reproductionUrge: 0
   alerted: 0
+  isRunning: 0
+  target: {fileID: 0}
 --- !u!114 &5696290405411488093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,23 +473,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7dfdf90c0ad8ad4faa83cc9ce4afc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childPrefab: {fileID: 0}
-  pregnancyTime: 22
+  pregnancyTime: 15
+  pregnancy: 0
   isRunning: 0
---- !u!136 &3508928677465238280
-CapsuleCollider:
+--- !u!114 &6155237351495295325
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3508928677465238290}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.08021168
-  m_Height: 0.2332747
-  m_Direction: 1
-  m_Center: {x: -0.009127895, y: 0.22298571, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3db667b541a3f640bf4be92181f4999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHerbivore: 1
+--- !u!114 &-3739033844427268333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508928677465238290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb4ce4e2a075e84b9022bcdf3af3fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRunning: 0
+  growthTime: 3
+  phaseCount: 2
 --- !u!1 &3508986316076429900
 GameObject:
   m_ObjectHideFlags: 0

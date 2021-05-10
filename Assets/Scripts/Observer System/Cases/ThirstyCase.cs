@@ -7,6 +7,7 @@ public class ThirstyCase : MonoBehaviour, ICase
 {
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(10f, 30f)] float thirstTreshold = 0f;
+    [SerializeField, Range(45f, 65f)] float deathTreshold = 1f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
@@ -51,6 +52,9 @@ public class ThirstyCase : MonoBehaviour, ICase
             alerted = true;
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
         }
+
+        if(thirst > deathTreshold)
+            ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
     }
 
     private Transform FindWater()

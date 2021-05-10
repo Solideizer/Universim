@@ -10,9 +10,10 @@ public class ReproductionCase : MonoBehaviour, ICase
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     
-    private float reproductionUrge = 0;
-    private bool alerted;
-    private bool isRunning;
+    public float reproductionUrge = 0;
+    public bool alerted;
+    public bool isRunning;
+
     private AnimalAI ai;
     private Sex sex;
     private bool canReproduce;
@@ -28,6 +29,8 @@ public class ReproductionCase : MonoBehaviour, ICase
 
         isRunning = false;
         alerted = false;
+
+        UpdateData();
     }
 
     // Update is called once per frame

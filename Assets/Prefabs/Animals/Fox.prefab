@@ -786,14 +786,17 @@ GameObject:
   - component: {fileID: 6165244650226151467}
   - component: {fileID: 9022837591912243732}
   - component: {fileID: 1567671235427325165}
+  - component: {fileID: 6828734618895329931}
   - component: {fileID: 6828734618895329932}
   - component: {fileID: 6828734618895329933}
   - component: {fileID: 6828734618895329934}
   - component: {fileID: 6828734618895329935}
   - component: {fileID: 6828734618895329936}
-  - component: {fileID: 6828734618895329931}
+  - component: {fileID: 79499759510757231}
+  - component: {fileID: 3508856125468983848}
+  - component: {fileID: 8990392073320174693}
   m_Layer: 10
-  m_Name: Foxx
+  m_Name: Fox
   m_TagString: Fox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -853,6 +856,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!136 &6828734618895329931
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828734618895329937}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.16472457
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0.025310617, y: 0.56129587, z: 0}
 --- !u!114 &6828734618895329932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,6 +884,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   currentState: 0
+  animalIdentity:
+    sex: 0
+    canReproduce: 0
+  isBaby: 0
 --- !u!114 &6828734618895329933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,7 +903,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 512
-  hungerTreshold: 10
+  hungerTreshold: 20
+  deathTreshold: 65
   targetRange: 10.6
   vision: 54.7
   isRunning: 0
@@ -903,7 +925,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 16
-  thirstTreshold: 22.3
+  thirstTreshold: 16
+  deathTreshold: 50
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -921,8 +944,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8d0e030b17dfc4f865a7e4af66b655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleTime: 1
+  idleTime: 2
   isRunning: 0
+  idle: 0
+  tempTime: 0
 --- !u!114 &6828734618895329936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -935,24 +960,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608ad0fb3ff43e44e95cf0034e38d870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderTime: 1
+  wanderTime: 3
   wanderDistance: 18.1
   isRunning: 0
   wander: 0
---- !u!136 &6828734618895329931
-CapsuleCollider:
+--- !u!114 &79499759510757231
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6828734618895329937}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3b99f1650956842afff2e3ddd38cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  reproductionTreshold: 40
+  targetRange: 10
+  vision: 40
+  reproductionUrge: 0
+  alerted: 0
+  isRunning: 0
+  target: {fileID: 0}
+--- !u!114 &3508856125468983848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828734618895329937}
   m_Enabled: 1
-  m_Radius: 0.16472457
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0.025310617, y: 0.56129587, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7dfdf90c0ad8ad4faa83cc9ce4afc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pregnancyTime: 30
+  pregnancy: 0
+  isRunning: 0
+--- !u!114 &8990392073320174693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828734618895329937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3db667b541a3f640bf4be92181f4999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHerbivore: 0
 --- !u!1 &6963930471762620563
 GameObject:
   m_ObjectHideFlags: 0

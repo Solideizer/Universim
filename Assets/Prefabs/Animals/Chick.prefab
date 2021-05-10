@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 7694261861427884410}
   - component: {fileID: 5639999791961839901}
   - component: {fileID: 8305382043492240884}
+  - component: {fileID: 7695632154700739694}
   - component: {fileID: 7695632154700739695}
   - component: {fileID: 7695632154700739696}
   - component: {fileID: 7695632154700739698}
@@ -274,7 +275,7 @@ GameObject:
   - component: {fileID: 4315538936745362647}
   - component: {fileID: 7695632154700739711}
   - component: {fileID: 1545598136397422139}
-  - component: {fileID: 7695632154700739694}
+  - component: {fileID: 2569469529965043262}
   m_Layer: 9
   m_Name: Chick
   m_TagString: Chicken
@@ -339,6 +340,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!136 &7695632154700739694
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695632154700739700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.08021168
+  m_Height: 0.2332747
+  m_Direction: 1
+  m_Center: {x: -0.009127895, y: 0.22298571, z: 0}
 --- !u!114 &7695632154700739695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +444,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleTime: 2
   isRunning: 0
+  idle: 0
+  tempTime: 0
 --- !u!114 &4315538936745362647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +464,10 @@ MonoBehaviour:
   reproductionTreshold: 5
   targetRange: 10
   vision: 40
+  reproductionUrge: 0
+  alerted: 0
+  isRunning: 0
+  target: {fileID: 0}
 --- !u!114 &7695632154700739711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,8 +481,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRunning: 0
-  growthTime: 4
-  phaseCount: 3
+  growthTime: 3
+  phaseCount: 2
 --- !u!114 &1545598136397422139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,20 +496,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pregnancyTime: 15
---- !u!136 &7695632154700739694
-CapsuleCollider:
+  pregnancy: 0
+  isRunning: 0
+--- !u!114 &2569469529965043262
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695632154700739700}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.08021168
-  m_Height: 0.2332747
-  m_Direction: 1
-  m_Center: {x: -0.009127895, y: 0.22298571, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3db667b541a3f640bf4be92181f4999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHerbivore: 1
 --- !u!1 &7695650135144154974
 GameObject:
   m_ObjectHideFlags: 0

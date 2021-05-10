@@ -25,10 +25,10 @@ public class AnimalManager : MonoBehaviour
         instance = this;
 
         herbivorePool = new ObjectPool<AnimalAI>();
-        // carnivorePool = new ObjectPool<AnimalAI>();
+        carnivorePool = new ObjectPool<AnimalAI>();
 
         FillPool(herbivorePool, herbivorCub, herbivoreCount);
-        // FillPool(carnivorePool, carnivoreCub, carnivoreCount);
+        FillPool(carnivorePool, carnivoreCub, carnivoreCount);
     }
 
     private void FillPool(ObjectPool<AnimalAI> pool, AnimalAI ai, int count)

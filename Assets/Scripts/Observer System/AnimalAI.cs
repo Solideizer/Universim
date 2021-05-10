@@ -21,14 +21,25 @@ public class AnimalAI : MonoBehaviour
 
     [SerializeField] bool isBaby;
 
-    private void Start() 
+    private void Awake() 
     {
         decisionMaker = new DecisionMaker(this);
         agent = GetComponent<NavMeshAgent>();
         CreateIdentity();
+    }
 
+    private void Start() 
+    {
         Subscribe();
         decisionMaker.Decision();
+    }
+
+    private void OnEnable() 
+    {
+        CreateIdentity();
+        decisionMaker.Decision();
+        if(isBaby)
+            OnCaseChanged(new CaseChangedEventArgs(null, Case.GROWTH));
     }
 
     public virtual void OnCaseChanged(CaseChangedEventArgs e)
@@ -40,8 +51,8 @@ public class AnimalAI : MonoBehaviour
         if(e.state == Case.RESET)
         {
             isBaby = true;
+            animalIdentity.canReproduce = false;
             currentState = Case.AVAILABLE;
-            // TODO Burada bir OnEnable ile Decision methodu gerekebilir.
         }
     }
 

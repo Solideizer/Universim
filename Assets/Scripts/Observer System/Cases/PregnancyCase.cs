@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class PregnancyCase : MonoBehaviour, ICase
 {
-    [SerializeField, Range(1f, 35f)] float pregnancyTime = 22f;
-    
-    bool isRunning;
-    bool canPregnant;
+    [SerializeField, Range(15f, 35f)] float pregnancyTime = 22f;
     public float pregnancy = 0;
+    public bool isRunning;
 
+    bool canPregnant;
     AnimalAI ai;
 
     private void Start() 
@@ -18,6 +17,8 @@ public class PregnancyCase : MonoBehaviour, ICase
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
         isRunning = false;
+
+        IdentityUpdate();
     }
 
     private void Update() 

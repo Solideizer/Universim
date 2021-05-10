@@ -7,10 +7,9 @@ public class IdleCase : MonoBehaviour, ICase
 {
     [SerializeField, Range(1f, 3f)] float idleTime = 0f;
     [SerializeField] bool isRunning;
-
-    float idle = 0;
+    public float idle = 0;
+    
     AnimalAI ai;
-
     float defaultTime;
     [HideInInspector] public float tempTime;
 

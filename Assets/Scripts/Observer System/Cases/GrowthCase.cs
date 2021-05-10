@@ -13,12 +13,13 @@ public class GrowthCase : MonoBehaviour, ICase
     int phase;
     AnimalAI ai;
 
+    bool canGrow;
+
     private void Start() 
     {
         ai = GetComponent<AnimalAI>();
-        //ai.CaseChanged += OnCaseChanged;    
+        ai.CaseChanged += OnCaseChanged;    
         phase = phaseCount;
-        StartCoroutine(Growth());
         isRunning = false;
     }
 
@@ -52,19 +53,15 @@ public class GrowthCase : MonoBehaviour, ICase
 
     private void OnCaseChanged(object sender, CaseChangedEventArgs e)
     {
-        if(e.state == Case.IDENTITY_UPDATE)
-            UpdateData();
+        if(e.state == Case.GROWTH)
+        {
+            StartCoroutine(Growth());
+        }
         else if(e.state == Case.RESET)
         {
             phase = phaseCount;
             growth = 0;
         }
-    }
-
-    private void UpdateData()
-    {
-        if(ai.AnimalIdentity.canReproduce)
-            this.enabled = false;
     }
 
     public bool IsRunning() { return isRunning; }

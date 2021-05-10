@@ -6,6 +6,7 @@ public class HungryCase : MonoBehaviour, ICase
 {
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(10f, 30f)] float hungerTreshold = 0f;
+    [SerializeField, Range(45f, 65f)] float deathTreshold = 1f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
@@ -35,6 +36,9 @@ public class HungryCase : MonoBehaviour, ICase
             ai.Move(target.position);
             if (target != null && Vector3.Distance(target.position, transform.position) < targetRange)
             {
+                if(target.tag == "Chicken")
+                    target.GetComponent<AnimalAI>().OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
+
                 hunger = 0;
                 isRunning = false;
                 alerted = false;
@@ -49,6 +53,9 @@ public class HungryCase : MonoBehaviour, ICase
             alerted = true;
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
         }
+
+        if (hunger > deathTreshold)
+            ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
     }
 
     private Transform FindFood()
