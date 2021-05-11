@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 7695632154700739711}
   - component: {fileID: 1545598136397422139}
   - component: {fileID: 2569469529965043262}
+  - component: {fileID: 4173322999694569666}
   m_Layer: 9
   m_Name: Chick
   m_TagString: Chicken
@@ -514,6 +515,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHerbivore: 1
+--- !u!114 &4173322999694569666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695632154700739700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4155ceabba694458811eeb10e65b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  vision: 25
+  timeBetweenSearches: 0.5
+  enemyDistanceRun: 20
+  searchTime: 0
+  flee: 0
 --- !u!1 &7695650135144154974
 GameObject:
   m_ObjectHideFlags: 0

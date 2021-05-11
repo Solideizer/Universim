@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 5696290405411488093}
   - component: {fileID: 6155237351495295325}
   - component: {fileID: -3739033844427268333}
+  - component: {fileID: 1433745567}
   m_Layer: 9
   m_Name: Chicken
   m_TagString: Chicken
@@ -400,7 +401,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 2048
-  hungerTreshold: 13
+  hungerTreshold: 12
   deathTreshold: 65
   targetRange: 5
   vision: 40
@@ -454,7 +455,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 512
-  reproductionTreshold: 20
+  reproductionTreshold: 7
   targetRange: 10
   vision: 40
   reproductionUrge: 0
@@ -505,6 +506,26 @@ MonoBehaviour:
   growthTime: 3
   phaseCount: 2
   growthMultiplier: 2
+--- !u!114 &1433745567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508928677465238290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4155ceabba694458811eeb10e65b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  vision: 25
+  timeBetweenSearches: 0.5
+  enemyDistanceRun: 20
+  searchTime: 0
+  flee: 0
 --- !u!1 &3508986316076429900
 GameObject:
   m_ObjectHideFlags: 0

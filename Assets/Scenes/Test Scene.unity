@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -419,7 +419,7 @@ PrefabInstance:
     - target: {fileID: 3508928677465238290, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3508928677465238292, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
@@ -519,6 +519,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chickenn (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508928677465238290, guid: 5acdcf5278efc8f428560730b5eb6dcc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3511077923186765340, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
@@ -758,7 +763,7 @@ PrefabInstance:
     - target: {fileID: 3508928677465238290, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3508928677465238292, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
@@ -959,7 +964,7 @@ PrefabInstance:
     - target: {fileID: 3508928677465238290, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3508928677465238292, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
@@ -1224,16 +1229,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chickenn
       objectReference: {fileID: 0}
-    - target: {fileID: 3508928677465238292, guid: 5acdcf5278efc8f428560730b5eb6dcc,
-        type: 3}
-      propertyPath: hungerTreshold
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3508928677465238294, guid: 5acdcf5278efc8f428560730b5eb6dcc,
-        type: 3}
-      propertyPath: thirstTreshold
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3511077923186765340, guid: 5acdcf5278efc8f428560730b5eb6dcc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1288,11 +1283,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7033927096291220401, guid: 5acdcf5278efc8f428560730b5eb6dcc,
-        type: 3}
-      propertyPath: reproductionTreshold
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5acdcf5278efc8f428560730b5eb6dcc, type: 3}

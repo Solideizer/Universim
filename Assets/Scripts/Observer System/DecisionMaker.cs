@@ -14,6 +14,7 @@ public class DecisionMaker
         ai.CaseChanged += OnCaseChanged;
     }
 
+    // TODO Ekstra bir seviye daha ekle.
     public void Decision()
     {
         if(ai.currentState != Case.AVAILABLE) return;
