@@ -59,7 +59,13 @@ public class ThirstyCase : MonoBehaviour, ICase
 
     private Transform FindWater()
     {
-        return ai.FindClosestThing(ai.transform.position, targetMask, vision);
+        Transform t = ai.FindClosestThing(ai.transform.position, targetMask, vision);
+        if (t != null)
+            ai.memory.FillMemory(t, Memory.MemoryType.WATER);
+        else
+            t = ai.memory.GetPoint(transform.position, Memory.MemoryType.WATER);
+
+        return t;
     }
 
     public void OnCaseChanged(object sender, CaseChangedEventArgs e)

@@ -69,7 +69,19 @@ public class HungryCase : MonoBehaviour, ICase
 
     private Transform FindFood()
     {
-        return ai.FindClosestThing(ai.transform.position, targetMask, vision);
+        Transform t = ai.FindClosestThing(ai.transform.position, targetMask, vision);
+
+        if(targetMask == LayerMask.GetMask("Herbivore"))
+            return t;
+        else
+        {
+            if (t != null)
+                ai.memory.FillMemory(t, Memory.MemoryType.FOOD);
+            else
+                t = ai.memory.GetPoint(transform.position, Memory.MemoryType.FOOD);
+
+            return t;
+        }
     }
 
     public void OnCaseChanged(object sender, CaseChangedEventArgs e)

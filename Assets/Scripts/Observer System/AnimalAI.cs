@@ -11,6 +11,8 @@ public class AnimalAI : MonoBehaviour
     public Case currentState = Case.AVAILABLE;
 
     private DecisionMaker decisionMaker;
+    public Memory memory;
+
     public Identity animalIdentity;
 
     public Identity AnimalIdentity { get => animalIdentity; }
@@ -24,6 +26,7 @@ public class AnimalAI : MonoBehaviour
     private void Awake() 
     {
         decisionMaker = new DecisionMaker(this);
+        memory = new Memory(2, 2);
         agent = GetComponent<NavMeshAgent>();
         CreateIdentity();
     }

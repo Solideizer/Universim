@@ -88,7 +88,6 @@ public class RunCase : MonoBehaviour, ICase
     {
         if (e.state == Case.AVAILABLE)
         {
-            print(flee + " " + (flee ? 1 : 0));
             CaseContainer.Adjust(ai.caseDatas, Case.FLEE, flee ? 1 : 0);
         }
     }
