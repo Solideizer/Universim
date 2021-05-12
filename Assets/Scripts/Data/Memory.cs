@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Memory
@@ -41,27 +41,25 @@ public class Memory
 
     public Transform GetPoint(Vector3 position, MemoryType memoryType)
     {
-        int count = waters.Count;
+        Queue<Transform> queue = memoryType == MemoryType.WATER ? waters : foods;
+
+        int count = queue.Count;
         if (count == 0)
             return null;
         else if (count == 1)
-            return waters.Peek();
+            return queue.Peek();
         else
-            return FindNearest(position);
+            return FindNearest(position, queue);
     }
 
-    private Transform FindNearest(Vector3 position)
+    private Transform FindNearest(Vector3 position, Queue<Transform> queue)
     {
-        var item1 = waters.Dequeue();
-        var item2 = waters.Dequeue();
-
-        waters.Enqueue(item1);
-        waters.Enqueue(item2);
-
-        var d1 = Vector3.Distance(item1.position, position);
-        var d2 = Vector3.Distance(item2.position, position);
-
-        return d1 > d2 ? item2 : item1;
+        List<Transform> transforms = new List<Transform>(queue);
+        transforms = transforms.OrderBy(
+            x => Vector3.Distance(position, x.transform.position)
+        ).ToList();
+        return transforms.First();
     }
+
 }
 

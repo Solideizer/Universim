@@ -129,15 +129,12 @@ public class AnimalAI : MonoBehaviour
             var dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)
             {
-                // TODO En yakındakini bulmayı ekle.
-
                 closestDistanceSqr = dSqrToTarget;
                 closestTarget = hitColliders[i];
-                return closestTarget;
             }
         }
 
-        return null;
+        return closestTarget;
     }
 
     public static int GetColliders(Vector3 currentPosition, float radius, int layerMask, out Collider[] hitColliders)
