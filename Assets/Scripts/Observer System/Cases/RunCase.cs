@@ -25,7 +25,7 @@ public class RunCase : MonoBehaviour, ICase
         ai.CaseChanged += OnCaseChanged;
 
         flee = false;    
-        ai.caseDatas.Add(new CaseContainer(Case.FLEE, 0, 0.5f, CasePriority.HIGH));
+        ai.caseDatas.Add(new CaseContainer(Case.FLEE, 0, 0.5f, 0.5f, CasePriority.HIGH));
     
         isRunning = false;
     }
@@ -76,7 +76,7 @@ public class RunCase : MonoBehaviour, ICase
         flee = false;
         target = null;
         ai.Stop();
-        ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
+        ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
     }
 
     private Transform Search()

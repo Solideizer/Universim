@@ -8,31 +8,47 @@ public class DecisionMaker
     AnimalAI ai;
     bool decisionMade;
 
+    List<CaseContainer> cases;
+
     public DecisionMaker(AnimalAI ai)
     {
         this.ai = ai;
         ai.CaseChanged += OnCaseChanged;
     }
 
-    // TODO Ekstra bir seviye daha ekle.
     public void Decision()
     {
         if(ai.currentState != Case.AVAILABLE) return;
 
-        List<CaseContainer> cases = ai.caseDatas.OrderByDescending(x => (int) x.priority).ToList();
+        cases = ai.caseDatas.OrderByDescending(x => (int) x.priority).ToList();
+
+        for (var i = 0; i < cases.Count; i++)
+        {
+            if (cases[i].value > cases[i].criticalTreshold)
+            {
+                MakeDecision(i);
+                return;
+            }
+        }
 
         for (var i = 0; i < cases.Count; i++)
         {
             if(cases[i].value > cases[i].valueTreshold)
             {
-                decisionMade = true;
-                ai.OnCaseChanged(new CaseChangedEventArgs(null, cases[i].state));
-
+                MakeDecision(i);
                 return;
             }
         }
 
+        cases.Clear();
         ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
+    }
+
+    private void MakeDecision(int index)
+    {
+        decisionMade = true;
+        ai.OnCaseChanged(new CaseChangedEventArgs(null, cases[index].state));
+        cases.Clear();
     }
 
     public void OnCaseChanged(object sender, CaseChangedEventArgs e)

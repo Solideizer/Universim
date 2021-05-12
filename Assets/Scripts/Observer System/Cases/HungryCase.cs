@@ -7,6 +7,7 @@ public class HungryCase : MonoBehaviour, ICase
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(10f, 30f)] float hungerTreshold = 0f;
     [SerializeField, Range(45f, 65f)] float deathTreshold = 1f;
+    [SerializeField, Range(25f, 45f)] float criticalTreshold = 30f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
@@ -21,7 +22,7 @@ public class HungryCase : MonoBehaviour, ICase
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold, CasePriority.LOW));
+        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold, criticalTreshold,CasePriority.LOW));
 
         isRunning = false;
         alerted = false;

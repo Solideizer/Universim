@@ -25,7 +25,7 @@ public class ReproductionCase : MonoBehaviour, ICase
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.REPRODUCTION, reproductionUrge, reproductionTreshold, CasePriority.TOO_LOW));
+        ai.caseDatas.Add(new CaseContainer(Case.REPRODUCTION, reproductionUrge, reproductionTreshold, 1000f, CasePriority.TOO_LOW));
 
         isRunning = false;
         alerted = false;

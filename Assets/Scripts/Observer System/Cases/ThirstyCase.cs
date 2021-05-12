@@ -8,6 +8,7 @@ public class ThirstyCase : MonoBehaviour, ICase
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(10f, 30f)] float thirstTreshold = 0f;
     [SerializeField, Range(45f, 65f)] float deathTreshold = 1f;
+    [SerializeField, Range(25f, 50f)] float criticalTreshold = 30f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
@@ -23,7 +24,7 @@ public class ThirstyCase : MonoBehaviour, ICase
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.THIRST, thirst, thirstTreshold, CasePriority.MID));
+        ai.caseDatas.Add(new CaseContainer(Case.THIRST, thirst, thirstTreshold, criticalTreshold, CasePriority.MID));
         thisTransform = transform;
 
         isRunning = false;
