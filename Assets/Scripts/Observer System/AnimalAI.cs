@@ -12,7 +12,7 @@ public class AnimalAI : MonoBehaviour
 
     private DecisionMaker decisionMaker;
     public Memory memory;
-
+    public Genetic genetic;
     public Identity animalIdentity;
 
     public Identity AnimalIdentity { get => animalIdentity; }

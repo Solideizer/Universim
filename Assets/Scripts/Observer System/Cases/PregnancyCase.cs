@@ -21,6 +21,7 @@ public class PregnancyCase : MonoBehaviour, ICase
         IdentityUpdate();
     }
 
+    // TODO BURASI COUROTINE OLMALI.
     private void Update() 
     {
         if(!canPregnant) return;

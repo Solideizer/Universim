@@ -381,6 +381,7 @@ MonoBehaviour:
     m_Bits: 16
   thirstTreshold: 10
   deathTreshold: 50
+  criticalTreshold: 30
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -403,6 +404,7 @@ MonoBehaviour:
     m_Bits: 2048
   hungerTreshold: 12
   deathTreshold: 65
+  criticalTreshold: 30
   targetRange: 5
   vision: 40
   isRunning: 0
