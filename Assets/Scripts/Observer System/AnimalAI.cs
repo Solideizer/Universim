@@ -12,7 +12,6 @@ public class AnimalAI : MonoBehaviour
 
     private DecisionMaker decisionMaker;
     public Memory memory;
-    public Genetic genetic;
     public Identity animalIdentity;
 
     public Identity AnimalIdentity { get => animalIdentity; }
@@ -125,6 +124,8 @@ public class AnimalAI : MonoBehaviour
 
         for (int i = 0; i < numColliders; i++)
         {
+            if(hitColliders[i].transform.position == currentPosition) continue;
+
             var directionToTarget = hitColliders[i].transform.position - currentPosition;
             var dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)

@@ -15,7 +15,7 @@ public class ReproductionCase : MonoBehaviour, ICase
     public bool isRunning;
 
     private AnimalAI ai;
-    private Sex sex;
+    public Sex sex;
     private bool canReproduce;
 
     [HideInInspector] public Transform target;
@@ -68,7 +68,8 @@ public class ReproductionCase : MonoBehaviour, ICase
     {
         Transform partnerTransform = ai.FindClosestThing(transform.position, targetMask, vision);
 
-        if(partnerTransform == null || partnerTransform.gameObject == null) return null;
+        if(partnerTransform == null || partnerTransform.gameObject == null) 
+            return null;
 
         AnimalAI partner = AnimalManager.Instance.animals[partnerTransform.gameObject.GetInstanceID()]; 
         Identity identity = partner.AnimalIdentity;

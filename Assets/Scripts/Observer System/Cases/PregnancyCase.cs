@@ -21,22 +21,23 @@ public class PregnancyCase : MonoBehaviour, ICase
         IdentityUpdate();
     }
 
-    // TODO BURASI COUROTINE OLMALI.
-    private void Update() 
+    private IEnumerator Pregnancy() 
     {
-        if(!canPregnant) return;
-
-        if(isRunning)
+        bool isPregnant = true;
+        while(isPregnant)
         {
             pregnancy += Time.deltaTime;
-            if(pregnancy > pregnancyTime)
+            if (pregnancy > pregnancyTime)
             {
                 pregnancy = 0;
-                isRunning = false;
-                GiveBirth();
-                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
+                isPregnant = false;
             }
+
+            yield return new WaitForFixedUpdate();
         }
+
+        GiveBirth();
+        ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE)); 
     }
 
     private void GiveBirth()
@@ -53,7 +54,8 @@ public class PregnancyCase : MonoBehaviour, ICase
             ai.currentState = Case.PREGNANCY;
             ai.Stop();
             ai.AnimalIdentity.canReproduce = false;
-            Run();
+
+            StartCoroutine(Pregnancy());
         }
         else if(e.state == Case.IDENTITY_UPDATE)
             IdentityUpdate();

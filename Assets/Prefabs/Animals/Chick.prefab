@@ -369,6 +369,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   currentState: 0
+  genetic:
+    sex: 0
+    vision: 0
+    speed: 0
+    fertility: 0
+    memory: 0
+    scale: 0
   animalIdentity:
     sex: 0
     canReproduce: 0
@@ -389,7 +396,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   thirstTreshold: 10
-  deathTreshold: 1
+  deathTreshold: 50
+  criticalTreshold: 30
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -411,7 +419,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   hungerTreshold: 13
-  deathTreshold: 1
+  deathTreshold: 50
+  criticalTreshold: 30
   targetRange: 5
   vision: 40
   isRunning: 0
@@ -470,6 +479,7 @@ MonoBehaviour:
   reproductionUrge: 0
   alerted: 0
   isRunning: 0
+  sex: 0
   target: {fileID: 0}
 --- !u!114 &7695632154700739711
 MonoBehaviour:

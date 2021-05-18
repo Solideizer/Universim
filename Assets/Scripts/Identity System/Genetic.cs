@@ -13,28 +13,7 @@ public class Genetic
     public byte memory;
     public byte scale;
 
-    public void SetGen(AnimalAI child, AnimalAI parent1, AnimalAI parent2)
-    {
-        Genetic newGen = Cross(parent1.genetic, parent2.genetic);
-
-        sex = newGen.sex;
-        vision = newGen.vision;
-        speed = newGen.speed;
-        fertility = newGen.fertility;
-        memory = newGen.memory;
-        scale = newGen.scale;
-
-        SetSex(child);
-        SetVision(child);
-        SetSpeed(child);
-        SetFertility(child);
-        SetMemory(child);
-        SetScale(child);
-    }
-
-    #region CROSSOVER
-
-    public Genetic Cross(Genetic gen1, Genetic gen2)
+    public static Genetic Cross(Genetic gen1, Genetic gen2)
     {
         Genetic newGen = new Genetic();
 
@@ -48,7 +27,7 @@ public class Genetic
         return newGen;
     }
 
-    private byte GetByte(byte bit1, byte bit2)
+    private static byte GetByte(byte bit1, byte bit2)
     {
         byte bit = bit1;
         if(bit1 != bit2)
@@ -60,41 +39,4 @@ public class Genetic
 
         return bit;
     }
-
-    #endregion
-
-    #region CONFIGURE METHODS
-
-    public void SetSex(AnimalAI animalAI)
-    {
-        animalAI.AnimalIdentity.sex = (Sex)sex;
-    }
-
-    public void SetVision(AnimalAI animalAI)
-    {
-        // AnimalAI'da vision ayarlanır ve diğer case'lere haber gider.
-    }
-
-    public void SetSpeed(AnimalAI animalAI)
-    {
-        // Burada ki speed'i struct gibi düşündüm. Kaçarken farklı bir hız gezerken farklı bir hıza böylelikle sahip olabilecek.
-    }
-
-    public void SetFertility(AnimalAI animalAI)
-    {
-        // Pregnancy case'e bir event gönderilmesi şeklinde olacak.
-    }
-
-    public void SetMemory(AnimalAI animalAI)
-    {
-        // Aşağıdaki kullanım yapılmalı.
-        // animalAI.memory = new Memory(2, 2);
-    }
-
-    public void SetScale(AnimalAI animalAI)
-    {
-        // Transform üzerinden değişiklik
-    }
-
-    #endregion
 }
