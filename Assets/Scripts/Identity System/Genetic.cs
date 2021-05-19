@@ -39,4 +39,23 @@ public class Genetic
 
         return bit;
     }
+
+    public static Sex GetSex()
+    {
+        byte bit = GetByte(0, 1);
+        return (Sex)bit;
+    }
+
+    public static Genetic GetRandomizedGene()
+    {
+        Genetic genetic = new Genetic();
+        genetic.sex = (byte)UnityEngine.Random.Range(0, 2);
+        genetic.vision = (byte)UnityEngine.Random.Range(0, GeneticDataManager.Instance.vision.Length);
+        genetic.speed = (byte)UnityEngine.Random.Range(0, GeneticDataManager.Instance.speed.Length);
+        genetic.fertility = (byte)UnityEngine.Random.Range(0, GeneticDataManager.Instance.fertility.Length);
+        genetic.memory = (byte)UnityEngine.Random.Range(0, GeneticDataManager.Instance.memory.Length);
+        genetic.scale = (byte)UnityEngine.Random.Range(0, GeneticDataManager.Instance.scale.Length);
+
+        return genetic;
+    }
 }

@@ -4,61 +4,81 @@ using UnityEngine;
 [Serializable]
 public class Identity 
 {   
-    public Genetic geneticCode;
-
-    public Sex sex;
-    public float vision;
-    public Speed speed;
-    public int fertility;
-    public Memory memory;
-    public Vector3 scale;
+    [SerializeField] Genetic genetic;
 
     public bool canReproduce;
 
-    public Identity(Sex sex, bool isBaby)
+    private Sex sex;
+    private float vision;
+    private Speed speed;
+    private int fertility;
+    private Memory memory;
+    private Vector3 scale;
+
+    public Sex Sex { get => sex; }
+    public float Vision { get => vision; }
+    public Speed Speed { get => speed; }
+    public int Fertility { get => fertility; }
+    public Memory Memory { get => memory; }
+    public Vector3 Scale { get => scale; }
+    public Genetic GeneticCode { get => genetic; set => genetic = value; }
+
+    public Identity(bool isBaby, Genetic genetic)
     {
-        this.sex = sex;
         if(isBaby)
             canReproduce = false;
         else
             canReproduce = true;
         
+        this.genetic = genetic;
+        SetGenes();
     }
 
-    public void SetSex(AnimalAI animalAI)
+    private void SetGenes()
     {
-        sex = (Sex)geneticCode.sex;
+        SetSex();
+        SetVision();
+        SetSpeed();
+        SetFertility();
+        SetMemory();
+        SetScale();
     }
 
-    public void SetVision(AnimalAI animalAI)
+    private void SetSex()
     {
-        vision = GeneticDataManager.Instance.vision[geneticCode.vision];
+        sex = Genetic.GetSex();
     }
 
-    public void SetSpeed(AnimalAI animalAI)
+    private void SetVision()
+    {
+        vision = GeneticDataManager.Instance.vision[genetic.vision];
+    }
+
+    private void SetSpeed()
     {
         // Burada ki speed'i struct gibi düşündüm. Kaçarken farklı bir hız gezerken farklı bir hıza böylelikle sahip olabilecek.
-        speed = GeneticDataManager.Instance.speed[geneticCode.speed];
+        speed = GeneticDataManager.Instance.speed[genetic.speed];
     }
 
-    public void SetFertility(AnimalAI animalAI)
+    private void SetFertility()
     {
         // Pregnancy case'e bir event gönderilmesi şeklinde olacak.
-        fertility = GeneticDataManager.Instance.fertility[geneticCode.fertility];
+        fertility = GeneticDataManager.Instance.fertility[genetic.fertility];
     }
 
-    public void SetMemory(AnimalAI animalAI)
+    private void SetMemory()
     {
         // Aşağıdaki kullanım yapılmalı.
         // animalAI.memory = new Memory(2, 2);
-        int count = GeneticDataManager.Instance.memory[geneticCode.memory];
+        int count = GeneticDataManager.Instance.memory[genetic.memory];
         memory = new Memory(count, count);
     }
 
-    public void SetScale(AnimalAI animalAI)
+    private void SetScale()
     {
+        // Growth Multiplier üzerinen değişiklik gerekli.
         // Transform üzerinden değişiklik
-        scale = GeneticDataManager.Instance.scale[geneticCode.scale];
+        scale = GeneticDataManager.Instance.scale[genetic.scale];
     }
 }
 

@@ -32,7 +32,6 @@ public class HungryCase : MonoBehaviour, ICase
     {
         hunger += Time.deltaTime;
 
-        // TODO Belki bunun bir benzeri thirst içinde olabilir.
         if (isRunning)
         {
             if(target != null)
@@ -77,9 +76,9 @@ public class HungryCase : MonoBehaviour, ICase
         else
         {
             if (t != null)
-                ai.memory.FillMemory(t, Memory.MemoryType.FOOD);
+                ai.Memory.FillMemory(t, Memory.MemoryType.FOOD);
             else
-                t = ai.memory.GetPoint(transform.position, Memory.MemoryType.FOOD);
+                t = ai.Memory.GetPoint(transform.position, Memory.MemoryType.FOOD);
 
             return t;
         }
@@ -99,6 +98,10 @@ public class HungryCase : MonoBehaviour, ICase
             else
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
 
+        }
+        else if(e.state == Case.IDENTITY_UPDATE)
+        {
+            vision = ai.Identity.Vision;
         }
         else if (e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.HUNGER, hunger);

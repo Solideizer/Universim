@@ -72,9 +72,9 @@ public class ReproductionCase : MonoBehaviour, ICase
             return null;
 
         AnimalAI partner = AnimalManager.Instance.animals[partnerTransform.gameObject.GetInstanceID()]; 
-        Identity identity = partner.AnimalIdentity;
+        Identity identity = partner.Identity;
 
-        if(partner != null && identity.sex != sex && identity.canReproduce && partner.currentState != Case.HUNGER && partner.currentState != Case.THIRST) 
+        if(partner != null && identity.Sex != sex && identity.canReproduce && partner.currentState != Case.HUNGER && partner.currentState != Case.THIRST) 
         {
             partner.OnCaseChanged(new CaseChangedEventArgs(new ReproductionCaseData(this.transform), Case.REPRODUCTION));
             return partnerTransform;
@@ -116,8 +116,9 @@ public class ReproductionCase : MonoBehaviour, ICase
 
     private void UpdateData()
     {
-        Identity identity = ai.AnimalIdentity;
-        sex = identity.sex;
+        Identity identity = ai.Identity;
+        sex = identity.Sex;
+        vision = identity.Vision;
 
         if(identity.canReproduce)
             canReproduce = true;

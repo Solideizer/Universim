@@ -37,9 +37,19 @@ public class AnimalManager : MonoBehaviour
         pool.Fill(count);
     }
 
-    public void GetHerbivore(Vector3 pos)
+    public AnimalAI GetHerbivore(Vector3 pos)
     {
         var chick = herbivorePool.Pop();
-        chick.transform.position = new Vector3(pos.x - 0.5f, pos.y, pos.z - 0.5f);
+        float range = UnityEngine.Random.Range(-0.5f, 0.5f);
+        chick.transform.position = new Vector3(pos.x - range, pos.y, pos.z - range);
+        return chick;
+    }
+
+    public AnimalAI GetCarnivore(Vector3 pos)
+    {
+        var cub = carnivorePool.Pop();
+        float range = UnityEngine.Random.Range(-0.5f, 0.5f);
+        cub.transform.position = new Vector3(pos.x - range, pos.y, pos.z - range);
+        return cub;
     }
 }

@@ -26,7 +26,7 @@ public class GrowthCase : MonoBehaviour, ICase
 
     private IEnumerator Growth()
     {
-        ai.AnimalIdentity.canReproduce = false;
+        ai.Identity.canReproduce = false;
         while(phase > 0)
         {
             growth += Time.deltaTime;
@@ -39,7 +39,7 @@ public class GrowthCase : MonoBehaviour, ICase
             yield return new WaitForFixedUpdate();
         }
         
-        ai.AnimalIdentity.canReproduce = true;
+        ai.Identity.canReproduce = true;
         this.enabled = false;
         ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDENTITY_UPDATE));
     }
@@ -57,6 +57,10 @@ public class GrowthCase : MonoBehaviour, ICase
         if(e.state == Case.GROWTH)
         {
             StartCoroutine(Growth());
+        }
+        else if(e.state == Case.IDENTITY_UPDATE)
+        {
+            // TODO GROWTH MULTIPLIER DEGISECEK.
         }
         else if(e.state == Case.RESET)
         {

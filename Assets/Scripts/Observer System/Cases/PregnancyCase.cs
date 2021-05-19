@@ -11,6 +11,10 @@ public class PregnancyCase : MonoBehaviour, ICase
 
     bool canPregnant;
     AnimalAI ai;
+    int fertility;
+    Genetic partnerGene;
+
+    public Genetic PartnerGene { set => partnerGene = value; }
 
     private void Start() 
     {
@@ -21,7 +25,7 @@ public class PregnancyCase : MonoBehaviour, ICase
         IdentityUpdate();
     }
 
-    private IEnumerator Pregnancy() 
+    private IEnumerator Pregnancy(Genetic parent) 
     {
         bool isPregnant = true;
         while(isPregnant)
@@ -36,14 +40,31 @@ public class PregnancyCase : MonoBehaviour, ICase
             yield return new WaitForFixedUpdate();
         }
 
-        GiveBirth();
+        GiveBirth(parent);
         ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE)); 
     }
 
-    private void GiveBirth()
+    private void GiveBirth(Genetic parent)
     {
-        AnimalManager.Instance.GetHerbivore(transform.position);
-        ai.AnimalIdentity.canReproduce = true;
+        if(gameObject.tag == "Chicken")
+        {
+            for (var i = 0; i < fertility; i++)
+            {
+                var animal = AnimalManager.Instance.GetHerbivore(transform.position);
+                animal.AwakeAnimal(Genetic.Cross(parent, ai.Identity.GeneticCode));
+            }
+        }
+        else
+        {
+            for (var i = 0; i < 1; i++)
+            {
+                var animal = AnimalManager.Instance.GetCarnivore(transform.position);
+                animal.AwakeAnimal(Genetic.Cross(parent, ai.Identity.GeneticCode));
+            }
+        }
+
+        ai.Identity.canReproduce = true;
+        partnerGene = null;
         ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDENTITY_UPDATE));
     }
 
@@ -53,9 +74,12 @@ public class PregnancyCase : MonoBehaviour, ICase
         {
             ai.currentState = Case.PREGNANCY;
             ai.Stop();
-            ai.AnimalIdentity.canReproduce = false;
+            ai.Identity.canReproduce = false;
+            
+            var data = e.data as PregnancyCaseData;
+            data.SetData(this);
 
-            StartCoroutine(Pregnancy());
+            StartCoroutine(Pregnancy(partnerGene));
         }
         else if(e.state == Case.IDENTITY_UPDATE)
             IdentityUpdate();
@@ -69,10 +93,12 @@ public class PregnancyCase : MonoBehaviour, ICase
 
     private void IdentityUpdate()
     {
-        if (ai.AnimalIdentity.sex == Sex.MALE)
+        if (ai.Identity.Sex == Sex.MALE)
             canPregnant = false;
         else
             canPregnant = true;
+
+        fertility = ai.Identity.Fertility;
     }
 
     public bool IsRunning() { return isRunning; }

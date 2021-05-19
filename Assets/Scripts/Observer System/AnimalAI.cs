@@ -11,11 +11,12 @@ public class AnimalAI : MonoBehaviour
     public Case currentState = Case.AVAILABLE;
 
     private DecisionMaker decisionMaker;
-    public Memory memory;
-    public Identity animalIdentity;
+    private Memory memory;
+    public Identity identity;
+    private Speed speed;
 
-    public Identity AnimalIdentity { get => animalIdentity; }
-    public DecisionMaker DecisionMaker { get => decisionMaker; }
+    public Identity Identity { get => identity; }
+    public Memory Memory { get => memory; }
 
     public event EventHandler<CaseChangedEventArgs> CaseChanged;
     public List<CaseContainer> caseDatas = new List<CaseContainer>();
@@ -27,21 +28,16 @@ public class AnimalAI : MonoBehaviour
         decisionMaker = new DecisionMaker(this);
         memory = new Memory(2, 2);
         agent = GetComponent<NavMeshAgent>();
-        CreateIdentity();
+
+        // TODO Başlangıçta default başlayan ama rasgele genlere sahip agentlar oluştur.
+        //CreateIdentity();
+        
     }
 
     private void Start() 
     {
+        AwakeAnimal(Genetic.GetRandomizedGene());
         Subscribe();
-        decisionMaker.Decision();
-    }
-
-    private void OnEnable() 
-    {
-        CreateIdentity();
-        decisionMaker.Decision();
-        if(isBaby)
-            OnCaseChanged(new CaseChangedEventArgs(null, Case.GROWTH));
     }
 
     public virtual void OnCaseChanged(CaseChangedEventArgs e)
@@ -50,20 +46,34 @@ public class AnimalAI : MonoBehaviour
         if(handler != null)
             handler(this, e);
 
-        if(e.state == Case.RESET)
+        if(e.state == Case.IDENTITY_UPDATE)
+        {
+            memory = identity.Memory;
+            speed = identity.Speed;
+        }
+        else if(e.state == Case.RESET)
         {
             isBaby = true;
-            animalIdentity.canReproduce = false;
+            identity.canReproduce = false;
             currentState = Case.AVAILABLE;
         }
     }
 
-    public void CreateIdentity()
+    #region IDENTITY METHODS
+
+    public void AwakeAnimal(Genetic genetic)
     {
-        int rand = UnityEngine.Random.Range(0, 2);
-        Sex sex = (Sex)rand;
-        Identity identity = new Identity(sex, isBaby);
-        animalIdentity = identity;
+        CreateIdentity(genetic);
+        if (isBaby)
+            OnCaseChanged(new CaseChangedEventArgs(null, Case.GROWTH));
+
+        decisionMaker.Decision();
+    }
+
+    private void CreateIdentity(Genetic genetic)
+    {
+        Identity identity = new Identity(isBaby, genetic);
+        this.identity = identity;
 
         OnCaseChanged(new CaseChangedEventArgs(null, Case.IDENTITY_UPDATE));
     }
@@ -77,6 +87,7 @@ public class AnimalAI : MonoBehaviour
     {
         AnimalManager.Instance.animals.Remove(gameObject.GetInstanceID());
     }
+    #endregion
 
     #region NavMeshAgent
 
@@ -150,6 +161,6 @@ public class AnimalAI : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(base.transform.position, 20f);
+        Gizmos.DrawWireSphere(base.transform.position, identity.Vision);
     }
 }

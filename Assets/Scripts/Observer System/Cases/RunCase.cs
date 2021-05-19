@@ -49,7 +49,6 @@ public class RunCase : MonoBehaviour, ICase
         }
         else
         {
-            print("kaçıyom");
             if(target != null)
             {
                 float distance = Vector3.Distance(transform.position, target.position);
@@ -90,6 +89,8 @@ public class RunCase : MonoBehaviour, ICase
         {
             CaseContainer.Adjust(ai.caseDatas, Case.FLEE, flee ? 1 : 0);
         }
+        else if(e.state == Case.IDENTITY_UPDATE)
+            vision = ai.Identity.Vision;
     }
 
     public bool IsRunning() { return isRunning; }

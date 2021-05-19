@@ -62,9 +62,9 @@ public class ThirstyCase : MonoBehaviour, ICase
     {
         Transform t = ai.FindClosestThing(ai.transform.position, targetMask, vision);
         if (t != null)
-            ai.memory.FillMemory(t, Memory.MemoryType.WATER);
+            ai.Memory.FillMemory(t, Memory.MemoryType.WATER);
         else
-            t = ai.memory.GetPoint(transform.position, Memory.MemoryType.WATER);
+            t = ai.Memory.GetPoint(transform.position, Memory.MemoryType.WATER);
 
         return t;
     }
@@ -84,6 +84,8 @@ public class ThirstyCase : MonoBehaviour, ICase
             else
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));    
         }
+        else if(e.state == Case.IDENTITY_UPDATE)
+            vision = ai.Identity.Vision;
         else if(e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.THIRST, thirst);
         else if(e.state == Case.RESET)
