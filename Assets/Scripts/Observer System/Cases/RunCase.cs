@@ -75,6 +75,7 @@ public class RunCase : MonoBehaviour, ICase
         flee = false;
         target = null;
         ai.Stop();
+        ai.HandleSpeed(SpeedPhase.WALK);
         ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
     }
 

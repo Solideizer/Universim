@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum SpeedPhase { WALK, RUN, SPRINT }
+
 public class AnimalAI : MonoBehaviour
 {
     [HideInInspector] public NavMeshAgent agent;
 
     public Case currentState = Case.AVAILABLE;
 
+    [SerializeField] Identity identity;
     private DecisionMaker decisionMaker;
     private Memory memory;
-    public Identity identity;
     private Speed speed;
 
     public Identity Identity { get => identity; }
@@ -21,22 +23,23 @@ public class AnimalAI : MonoBehaviour
     public event EventHandler<CaseChangedEventArgs> CaseChanged;
     public List<CaseContainer> caseDatas = new List<CaseContainer>();
 
-    [SerializeField] bool isBaby;
+    [Header("Growth Variables")]
+    [Space]
+    [SerializeField] int phase;
+    [SerializeField] float growthTime;
+    [SerializeField] float growthMultiplier;
+    private float growth;
 
     private void Awake() 
     {
         decisionMaker = new DecisionMaker(this);
         memory = new Memory(2, 2);
         agent = GetComponent<NavMeshAgent>();
-
-        // TODO Başlangıçta default başlayan ama rasgele genlere sahip agentlar oluştur.
-        //CreateIdentity();
-        
+        AwakeAnimal(Genetic.GetRandomizedGene(), false);
     }
 
     private void Start() 
     {
-        AwakeAnimal(Genetic.GetRandomizedGene());
         Subscribe();
     }
 
@@ -53,24 +56,42 @@ public class AnimalAI : MonoBehaviour
         }
         else if(e.state == Case.RESET)
         {
-            isBaby = true;
             identity.canReproduce = false;
             currentState = Case.AVAILABLE;
         }
     }
 
+    public void HandleSpeed(SpeedPhase phase)
+    {
+        switch (phase)
+        {
+            case SpeedPhase.WALK:
+                agent.speed = speed.walking;
+                break;
+            case SpeedPhase.RUN:
+                agent.speed = speed.running;
+                break;
+            case SpeedPhase.SPRINT:
+                agent.speed = speed.sprinting;
+                break;
+        }
+
+    }
+
     #region IDENTITY METHODS
 
-    public void AwakeAnimal(Genetic genetic)
+    public void AwakeAnimal(Genetic genetic, bool isBaby)
     {
-        CreateIdentity(genetic);
-        if (isBaby)
-            OnCaseChanged(new CaseChangedEventArgs(null, Case.GROWTH));
+        print("awke" + isBaby);
+        CreateIdentity(genetic, isBaby);
+        
+        if(isBaby)
+            StartCoroutine(Growth());
 
         decisionMaker.Decision();
     }
 
-    private void CreateIdentity(Genetic genetic)
+    private void CreateIdentity(Genetic genetic, bool isBaby)
     {
         Identity identity = new Identity(isBaby, genetic);
         this.identity = identity;
@@ -87,6 +108,38 @@ public class AnimalAI : MonoBehaviour
     {
         AnimalManager.Instance.animals.Remove(gameObject.GetInstanceID());
     }
+    #endregion
+
+    #region GROWTH METHODS
+
+    private IEnumerator Growth()
+    {
+        identity.canReproduce = false;
+        while (phase > 0)
+        {
+            growth += Time.deltaTime;
+            if (growth > growthTime)
+            {
+                growth = 0;
+                GrowUp();
+                phase--;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        Identity.canReproduce = true;
+        this.enabled = false;
+        OnCaseChanged(new CaseChangedEventArgs(null, Case.IDENTITY_UPDATE));
+    }
+
+    private void GrowUp()
+    {
+        Vector3 scale = transform.localScale;
+        // TODO Bu kısmın daha genelleşmesi lazım.
+        scale += Vector3.one * growthMultiplier;
+        transform.localScale = scale;
+    }
+
     #endregion
 
     #region NavMeshAgent

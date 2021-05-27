@@ -369,17 +369,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   currentState: 0
-  genetic:
-    sex: 0
-    vision: 0
-    speed: 0
-    fertility: 0
-    memory: 0
-    scale: 0
-  animalIdentity:
-    sex: 0
+  identity:
+    genetic:
+      sex: 0
+      vision: 0
+      speed: 0
+      fertility: 0
+      memory: 0
+      scale: 0
     canReproduce: 0
-  isBaby: 1
+  phase: 3
+  growthTime: 3
+  growthMultiplier: 2
 --- !u!114 &7695632154700739696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +489,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695632154700739700}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fb4ce4e2a075e84b9022bcdf3af3fb2, type: 3}
   m_Name: 

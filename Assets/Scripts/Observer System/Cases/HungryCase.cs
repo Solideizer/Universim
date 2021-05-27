@@ -22,7 +22,7 @@ public class HungryCase : MonoBehaviour, ICase
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold, criticalTreshold,CasePriority.LOW));
+        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold, criticalTreshold, CasePriority.LOW));
 
         isRunning = false;
         alerted = false;
@@ -96,8 +96,10 @@ public class HungryCase : MonoBehaviour, ICase
                 Run();
             }
             else
+            {
+                ai.HandleSpeed(SpeedPhase.WALK);
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
-
+            }
         }
         else if(e.state == Case.IDENTITY_UPDATE)
         {

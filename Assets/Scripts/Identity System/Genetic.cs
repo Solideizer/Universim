@@ -24,6 +24,13 @@ public class Genetic
         byte _memory = GetByte(gen1.memory, gen2.memory);
         byte _scale = GetByte(gen1.scale, gen2.scale);
 
+        newGen.sex = _sex;
+        newGen.vision = _vision;
+        newGen.speed = _speed;
+        newGen.fertility = _fertility;
+        newGen.memory = _memory;
+        newGen.scale = _scale;
+
         return newGen;
     }
 
@@ -57,5 +64,17 @@ public class Genetic
         genetic.scale = (byte)UnityEngine.Random.Range(0, GeneticDataManager.Instance.scale.Length);
 
         return genetic;
+    }
+
+    public void Display()
+    {
+        Debug.Log("----");
+        Debug.Log(sex);
+        Debug.Log(vision);
+        Debug.Log(speed);
+        Debug.Log(fertility);
+        Debug.Log(memory);
+        Debug.Log(scale);
+        Debug.Log("----");
     }
 }

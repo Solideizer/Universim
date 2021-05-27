@@ -82,7 +82,10 @@ public class ThirstyCase : MonoBehaviour, ICase
                 ai.Move(target.position);
             }
             else
+            {
+                ai.HandleSpeed(SpeedPhase.WALK);
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));    
+            }
         }
         else if(e.state == Case.IDENTITY_UPDATE)
             vision = ai.Identity.Vision;

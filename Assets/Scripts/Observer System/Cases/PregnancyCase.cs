@@ -9,10 +9,10 @@ public class PregnancyCase : MonoBehaviour, ICase
     public float pregnancy = 0;
     public bool isRunning;
 
-    bool canPregnant;
     AnimalAI ai;
     int fertility;
     Genetic partnerGene;
+    bool isPregnant = false;
 
     public Genetic PartnerGene { set => partnerGene = value; }
 
@@ -27,31 +27,33 @@ public class PregnancyCase : MonoBehaviour, ICase
 
     private IEnumerator Pregnancy(Genetic parent) 
     {
-        bool isPregnant = true;
+        isPregnant = true;
         while(isPregnant)
         {
             pregnancy += Time.deltaTime;
             if (pregnancy > pregnancyTime)
             {
-                pregnancy = 0;
                 isPregnant = false;
+                pregnancy = 0;
+                GiveBirth(parent);
+                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
+                break;
             }
 
             yield return new WaitForFixedUpdate();
         }
-
-        GiveBirth(parent);
-        ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE)); 
     }
 
     private void GiveBirth(Genetic parent)
     {
+        
+
         if(gameObject.tag == "Chicken")
         {
             for (var i = 0; i < fertility; i++)
             {
                 var animal = AnimalManager.Instance.GetHerbivore(transform.position);
-                animal.AwakeAnimal(Genetic.Cross(parent, ai.Identity.GeneticCode));
+                animal.AwakeAnimal(Genetic.Cross(parent, ai.Identity.GeneticCode), true);
             }
         }
         else
@@ -59,7 +61,7 @@ public class PregnancyCase : MonoBehaviour, ICase
             for (var i = 0; i < 1; i++)
             {
                 var animal = AnimalManager.Instance.GetCarnivore(transform.position);
-                animal.AwakeAnimal(Genetic.Cross(parent, ai.Identity.GeneticCode));
+                animal.AwakeAnimal(Genetic.Cross(parent, ai.Identity.GeneticCode), true);
             }
         }
 
@@ -70,7 +72,7 @@ public class PregnancyCase : MonoBehaviour, ICase
 
     private void OnCaseChanged(object sender, CaseChangedEventArgs e)
     {
-        if(e.state == Case.PREGNANCY)
+        if(e.state == Case.PREGNANCY && !isPregnant)
         {
             ai.currentState = Case.PREGNANCY;
             ai.Stop();
@@ -86,18 +88,12 @@ public class PregnancyCase : MonoBehaviour, ICase
         else if(e.state == Case.RESET)
         {
             isRunning = false;
-            canPregnant = false;
             pregnancy = 0;
         }
     }
 
     private void IdentityUpdate()
     {
-        if (ai.Identity.Sex == Sex.MALE)
-            canPregnant = false;
-        else
-            canPregnant = true;
-
         fertility = ai.Identity.Fertility;
     }
 

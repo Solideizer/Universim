@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ReproductionCaseData : CaseData
 {
-    Transform target;
+    AnimalAI target;
 
-    public ReproductionCaseData(Transform target)
+    public ReproductionCaseData(AnimalAI target)
     {
         this.target = target;
     }

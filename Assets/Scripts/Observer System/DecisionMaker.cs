@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DecisionMaker
 {
@@ -26,6 +27,7 @@ public class DecisionMaker
         {
             if (cases[i].value > cases[i].criticalTreshold)
             {
+                ai.HandleSpeed(SpeedPhase.SPRINT);
                 MakeDecision(i);
                 return;
             }
@@ -35,12 +37,14 @@ public class DecisionMaker
         {
             if(cases[i].value > cases[i].valueTreshold)
             {
+                ai.HandleSpeed(SpeedPhase.RUN);
                 MakeDecision(i);
                 return;
             }
         }
 
         cases.Clear();
+        ai.HandleSpeed(SpeedPhase.WALK);
         ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
     }
 
@@ -59,4 +63,5 @@ public class DecisionMaker
             Decision();
         }
     }
+
 }

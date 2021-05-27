@@ -18,7 +18,7 @@ public class ReproductionCase : MonoBehaviour, ICase
     public Sex sex;
     private bool canReproduce;
 
-    [HideInInspector] public Transform target;
+    [HideInInspector] public AnimalAI target;
 
     // Start is called before the first frame update
     void Start()
@@ -41,19 +41,20 @@ public class ReproductionCase : MonoBehaviour, ICase
         reproductionUrge += Time.deltaTime;
         if(isRunning && target != null)
         {
-            ai.Move(target.position);
-            if(Vector3.Distance(target.position, transform.position) < targetRange)
+            ai.Move(target.transform.position);
+            if(Vector3.Distance(target.transform.position, transform.position) < targetRange)
             {
                 reproductionUrge = 0;
                 isRunning = false;
                 alerted = false;
-                target = null;
 
                 // ÖNEMLİ NOT : DİREK HAMİLELİĞE GEÇİLDİĞİNDEN HAMİLELİĞİ BİRAZDA IDLE SÜRESİ EKLENMELİ!
                 if(sex == Sex.FEMALE)
-                    ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.PREGNANCY));
+                    ai.OnCaseChanged(new CaseChangedEventArgs(new PregnancyCaseData(target.Identity.GeneticCode), Case.PREGNANCY));
                 else
                     ai.OnCaseChanged(new CaseChangedEventArgs(new IdleCaseData(10f), Case.IDLE));
+
+                target = null;
             }
         }
 
@@ -64,23 +65,27 @@ public class ReproductionCase : MonoBehaviour, ICase
         }
     }
 
-    private Transform FindPartner()
+    private AnimalAI FindPartner()
     {
         Transform partnerTransform = ai.FindClosestThing(transform.position, targetMask, vision);
 
         if(partnerTransform == null || partnerTransform.gameObject == null) 
             return null;
 
-        AnimalAI partner = AnimalManager.Instance.animals[partnerTransform.gameObject.GetInstanceID()]; 
-        Identity identity = partner.Identity;
-
-        if(partner != null && identity.Sex != sex && identity.canReproduce && partner.currentState != Case.HUNGER && partner.currentState != Case.THIRST) 
+        if(AnimalManager.Instance.animals.ContainsKey(partnerTransform.gameObject.GetInstanceID()))
         {
-            partner.OnCaseChanged(new CaseChangedEventArgs(new ReproductionCaseData(this.transform), Case.REPRODUCTION));
-            return partnerTransform;
+            AnimalAI partner = AnimalManager.Instance.animals[partnerTransform.gameObject.GetInstanceID()];
+            Identity identity = partner.Identity;
+            if (identity.Sex != sex && identity.canReproduce && partner.currentState != Case.HUNGER && partner.currentState != Case.THIRST)
+            {
+                partner.OnCaseChanged(new CaseChangedEventArgs(new ReproductionCaseData(ai), Case.REPRODUCTION));
+                return partner;
+            }
+            else
+                return null;
         }
-        else
-            return null;
+
+        return null;
     }
 
     private void OnCaseChanged(object sender, CaseChangedEventArgs e)
@@ -99,7 +104,10 @@ public class ReproductionCase : MonoBehaviour, ICase
                 Run();
             }
             else
+            {
+                ai.HandleSpeed(SpeedPhase.WALK);
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
+            }
         }
         else if(e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.REPRODUCTION, reproductionUrge);

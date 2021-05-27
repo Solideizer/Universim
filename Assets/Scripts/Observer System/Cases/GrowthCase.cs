@@ -56,11 +56,8 @@ public class GrowthCase : MonoBehaviour, ICase
     {
         if(e.state == Case.GROWTH)
         {
+            print("1");
             StartCoroutine(Growth());
-        }
-        else if(e.state == Case.IDENTITY_UPDATE)
-        {
-            // TODO GROWTH MULTIPLIER DEGISECEK.
         }
         else if(e.state == Case.RESET)
         {
