@@ -12,6 +12,8 @@ public class ThirstyCase : MonoBehaviour, ICase
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
+    public bool isVFXUsed;
+
 
     public float thirst = 0;
     public bool alerted;
@@ -19,8 +21,9 @@ public class ThirstyCase : MonoBehaviour, ICase
     Transform thisTransform;
     Transform target;
     AnimalAI ai;
-    
-    private void Start() 
+    VFXScript vfx;
+
+    private void Start()
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
@@ -29,6 +32,7 @@ public class ThirstyCase : MonoBehaviour, ICase
 
         isRunning = false;
         alerted = false;
+        isVFXUsed = false;
     }
 
     private void Update()
@@ -37,24 +41,31 @@ public class ThirstyCase : MonoBehaviour, ICase
 
         if (isRunning)
         {
-            if(target != null && Vector3.Distance(target.position, thisTransform.position) < targetRange)
+            if (!isVFXUsed)
+            {
+                isVFXUsed = true;
+                vfx = VFXManager.Instance.GetThirst(transform.position, ai);
+            }
+            if (target != null && Vector3.Distance(target.position, thisTransform.position) < targetRange)
             {
                 thirst = 0;
                 isRunning = false;
                 alerted = false;
                 target = null;
-                
+                isVFXUsed = false;
+                VFXManager.Instance.thirstPool.Push(vfx);
+
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
             }
         }
 
-        if(!alerted && thirst > thirstTreshold)
+        if (!alerted && thirst > thirstTreshold)
         {
             alerted = true;
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
         }
 
-        if(thirst > deathTreshold)
+        if (thirst > deathTreshold)
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
     }
 
@@ -75,7 +86,7 @@ public class ThirstyCase : MonoBehaviour, ICase
         {
             target = FindWater();
 
-            if(target != null)
+            if (target != null)
             {
                 ai.currentState = Case.THIRST;
                 Run();
@@ -84,14 +95,14 @@ public class ThirstyCase : MonoBehaviour, ICase
             else
             {
                 ai.HandleSpeed(SpeedPhase.WALK);
-                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));    
+                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
             }
         }
-        else if(e.state == Case.IDENTITY_UPDATE)
+        else if (e.state == Case.IDENTITY_UPDATE)
             vision = ai.Identity.Vision;
-        else if(e.state == Case.AVAILABLE)
+        else if (e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.THIRST, thirst);
-        else if(e.state == Case.RESET)
+        else if (e.state == Case.RESET)
         {
             thirst = 0;
             alerted = false;

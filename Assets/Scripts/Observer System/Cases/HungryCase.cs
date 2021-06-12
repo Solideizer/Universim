@@ -15,9 +15,13 @@ public class HungryCase : MonoBehaviour, ICase
     public float hunger = 0;
     public bool alerted;
 
+    public bool isVFXUsed;
+
     Transform target;
     AnimalAI ai;
-    
+
+    VFXScript vfx;
+
     private void Start()
     {
         ai = GetComponent<AnimalAI>();
@@ -26,6 +30,7 @@ public class HungryCase : MonoBehaviour, ICase
 
         isRunning = false;
         alerted = false;
+        isVFXUsed = false;
     }
 
     private void Update()
@@ -34,7 +39,12 @@ public class HungryCase : MonoBehaviour, ICase
 
         if (isRunning)
         {
-            if(target != null)
+            if (!isVFXUsed)
+            {
+                isVFXUsed = true;
+                vfx = VFXManager.Instance.GetHunger(transform.position, ai);
+            }
+            if (target != null)
             {
                 ai.Move(target.position);
                 if (Vector3.Distance(target.position, transform.position) < targetRange)
@@ -45,7 +55,9 @@ public class HungryCase : MonoBehaviour, ICase
                     hunger = 0;
                     isRunning = false;
                     alerted = false;
+                    isVFXUsed = false;
                     target = null;
+                    VFXManager.Instance.hungerPool.Push(vfx);
 
                     ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
                 }
@@ -71,7 +83,7 @@ public class HungryCase : MonoBehaviour, ICase
     {
         Transform t = ai.FindClosestThing(ai.transform.position, targetMask, vision);
 
-        if(targetMask == LayerMask.GetMask("Herbivore"))
+        if (targetMask == LayerMask.GetMask("Herbivore"))
             return t;
         else
         {
@@ -90,7 +102,7 @@ public class HungryCase : MonoBehaviour, ICase
         {
             target = FindFood();
 
-            if(target != null)
+            if (target != null)
             {
                 ai.currentState = Case.HUNGER;
                 Run();
@@ -101,13 +113,13 @@ public class HungryCase : MonoBehaviour, ICase
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
             }
         }
-        else if(e.state == Case.IDENTITY_UPDATE)
+        else if (e.state == Case.IDENTITY_UPDATE)
         {
             vision = ai.Identity.Vision;
         }
         else if (e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.HUNGER, hunger);
-        else if(e.state == Case.RESET)
+        else if (e.state == Case.RESET)
         {
             isRunning = false;
             hunger = 0;

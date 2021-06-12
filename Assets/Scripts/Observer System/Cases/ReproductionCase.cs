@@ -9,14 +9,16 @@ public class ReproductionCase : MonoBehaviour, ICase
     [SerializeField, Range(5f, 75f)] float reproductionTreshold = 40f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
-    
+
     public float reproductionUrge = 0;
     public bool alerted;
     public bool isRunning;
+    public bool isVFXUsed;
 
     private AnimalAI ai;
     public Sex sex;
     private bool canReproduce;
+    VFXScript vfx;
 
     [HideInInspector] public AnimalAI target;
 
@@ -29,6 +31,7 @@ public class ReproductionCase : MonoBehaviour, ICase
 
         isRunning = false;
         alerted = false;
+        isVFXUsed = false;
 
         UpdateData();
     }
@@ -36,30 +39,37 @@ public class ReproductionCase : MonoBehaviour, ICase
     // Update is called once per frame
     void Update()
     {
-        if(!canReproduce) return;
+        if (!canReproduce) return;
 
         reproductionUrge += Time.deltaTime;
-        if(isRunning && target != null)
+        if (isRunning && target != null)
         {
+            if (!isVFXUsed)
+            {
+                isVFXUsed = true;
+                vfx = VFXManager.Instance.GetLove(transform.position, ai);
+            }
             ai.Move(target.transform.position);
-            if(Vector3.Distance(target.transform.position, transform.position) < targetRange)
+            if (Vector3.Distance(target.transform.position, transform.position) < targetRange)
             {
                 reproductionUrge = 0;
                 isRunning = false;
                 alerted = false;
 
                 // ÖNEMLİ NOT : DİREK HAMİLELİĞE GEÇİLDİĞİNDEN HAMİLELİĞİ BİRAZDA IDLE SÜRESİ EKLENMELİ!
-                if(sex == Sex.FEMALE)
+                if (sex == Sex.FEMALE)
                     ai.OnCaseChanged(new CaseChangedEventArgs(new PregnancyCaseData(target.Identity.GeneticCode), Case.PREGNANCY));
                 else
                     ai.OnCaseChanged(new CaseChangedEventArgs(new IdleCaseData(10f), Case.IDLE));
 
                 target = null;
+                isVFXUsed = false;
+                VFXManager.Instance.lovePool.Push(vfx);
             }
         }
 
         if (!alerted && reproductionUrge > reproductionTreshold)
-        {      
+        {
             alerted = true;
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
         }
@@ -69,10 +79,10 @@ public class ReproductionCase : MonoBehaviour, ICase
     {
         Transform partnerTransform = ai.FindClosestThing(transform.position, targetMask, vision);
 
-        if(partnerTransform == null || partnerTransform.gameObject == null) 
+        if (partnerTransform == null || partnerTransform.gameObject == null)
             return null;
 
-        if(AnimalManager.Instance.animals.ContainsKey(partnerTransform.gameObject.GetInstanceID()))
+        if (AnimalManager.Instance.animals.ContainsKey(partnerTransform.gameObject.GetInstanceID()))
         {
             AnimalAI partner = AnimalManager.Instance.animals[partnerTransform.gameObject.GetInstanceID()];
             Identity identity = partner.Identity;
@@ -90,15 +100,15 @@ public class ReproductionCase : MonoBehaviour, ICase
 
     private void OnCaseChanged(object sender, CaseChangedEventArgs e)
     {
-        if(e.state == Case.REPRODUCTION)
+        if (e.state == Case.REPRODUCTION)
         {
-            if(e.data != null)
+            if (e.data != null)
                 e.data.SetData(this);
 
-            if(target == null)
+            if (target == null)
                 target = FindPartner();
 
-            if(target != null)
+            if (target != null)
             {
                 ai.currentState = Case.REPRODUCTION;
                 Run();
@@ -109,11 +119,11 @@ public class ReproductionCase : MonoBehaviour, ICase
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
             }
         }
-        else if(e.state == Case.AVAILABLE)
+        else if (e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.REPRODUCTION, reproductionUrge);
-        else if(e.state == Case.IDENTITY_UPDATE)
+        else if (e.state == Case.IDENTITY_UPDATE)
             UpdateData();
-        else if(e.state == Case.RESET)
+        else if (e.state == Case.RESET)
         {
             reproductionUrge = 0;
             alerted = false;
@@ -128,7 +138,7 @@ public class ReproductionCase : MonoBehaviour, ICase
         sex = identity.Sex;
         vision = identity.Vision;
 
-        if(identity.canReproduce)
+        if (identity.canReproduce)
             canReproduce = true;
         else
             canReproduce = false;
