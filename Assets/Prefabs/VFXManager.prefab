@@ -49,5 +49,11 @@ MonoBehaviour:
     type: 3}
   thirstPrefab: {fileID: 1219623422531968942, guid: ee2743bdb0a7aef4cad279d1ad8a8058,
     type: 3}
+  hungerDeadPrefab: {fileID: -3648022228428427960, guid: 41062c1272e065346b9962d0a2847fca,
+    type: 3}
+  thirstDeadPrefab: {fileID: 7401765315664925110, guid: 18912d63008007840920087cdc5bf8dd,
+    type: 3}
+  eatDeadPrefab: {fileID: -8276465952932240038, guid: 6f5a8999cdd20804db6cf49e953e61d4,
+    type: 3}
   vfxCount: 500
   vfxSize: {x: 0.5, y: 0.5, z: 0.5}

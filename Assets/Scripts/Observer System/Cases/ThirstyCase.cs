@@ -47,7 +47,7 @@ public class ThirstyCase : MonoBehaviour, ICase
             if (!isVFXUsed)
             {
                 isVFXUsed = true;
-                vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.THIRST);
+                vfx = VFXManager.Instance.GetStateVFX(transform.position, ai, VFXType.THIRST);
             }
 
             if (target != null && Vector3.Distance(target.position, thisTransform.position) < targetRange)
@@ -71,7 +71,12 @@ public class ThirstyCase : MonoBehaviour, ICase
         }
 
         if (thirst > deathTreshold)
+        {
+            vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.THIRSTDEAD);
+            StartCoroutine(VFXManager.Instance.WaitAndPush(vfx, VFXType.THIRSTDEAD));
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
+
+        }
     }
 
     private Transform FindWater()

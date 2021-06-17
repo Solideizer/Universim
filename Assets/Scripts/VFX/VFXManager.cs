@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum VFXType { HUNGER, THIRST, LOVE }
+public enum VFXType { HUNGER, THIRST, LOVE, HUNGERDEAD, THIRSTDEAD, EATDEAD }
 
 public class VFXManager : MonoBehaviour
 {
@@ -12,6 +12,9 @@ public class VFXManager : MonoBehaviour
     [SerializeField] VFXScript lovePrefab;
     [SerializeField] VFXScript hungerPrefab;
     [SerializeField] VFXScript thirstPrefab;
+    [SerializeField] VFXScript hungerDeadPrefab;
+    [SerializeField] VFXScript thirstDeadPrefab;
+    [SerializeField] VFXScript eatDeadPrefab;
     [SerializeField] int vfxCount = 500;
 
     public Vector3 vfxSize = new Vector3(0.5f, 0.5f, 0.5f);
@@ -19,6 +22,9 @@ public class VFXManager : MonoBehaviour
     public ObjectPool<VFXScript> lovePool;
     public ObjectPool<VFXScript> hungerPool;
     public ObjectPool<VFXScript> thirstPool;
+    public ObjectPool<VFXScript> hungerDeadPool;
+    public ObjectPool<VFXScript> thirstDeadPool;
+    public ObjectPool<VFXScript> eatDeadPool;
 
     private void Awake()
     {
@@ -27,10 +33,16 @@ public class VFXManager : MonoBehaviour
         lovePool = new ObjectPool<VFXScript>();
         hungerPool = new ObjectPool<VFXScript>();
         thirstPool = new ObjectPool<VFXScript>();
+        hungerDeadPool = new ObjectPool<VFXScript>();
+        thirstDeadPool = new ObjectPool<VFXScript>();
+        eatDeadPool = new ObjectPool<VFXScript>();
 
         FillPool(lovePool, lovePrefab, vfxCount);
         FillPool(hungerPool, hungerPrefab, vfxCount);
         FillPool(thirstPool, thirstPrefab, vfxCount);
+        FillPool(hungerDeadPool, hungerDeadPrefab, vfxCount);
+        FillPool(thirstDeadPool, thirstDeadPrefab, vfxCount);
+        FillPool(eatDeadPool, eatDeadPrefab, vfxCount);
     }
 
     private void FillPool(ObjectPool<VFXScript> pool, VFXScript vfx, int count)
@@ -39,11 +51,11 @@ public class VFXManager : MonoBehaviour
         pool.Fill(count);
     }
 
-    public VFXScript GetVFX(Vector3 pos, AnimalAI ai, VFXType vfxType)
+    public VFXScript GetStateVFX(Vector3 pos, AnimalAI ai, VFXType vfxType)
     {
         VFXScript vfx = null;
         switch (vfxType)
-        {   
+        {
             case VFXType.HUNGER:
                 vfx = hungerPool.Pop();
                 break;
@@ -55,11 +67,35 @@ public class VFXManager : MonoBehaviour
                 break;
         }
 
-        if(vfx == null) return null;
+        if (vfx == null) return null;
 
         float up = 6;
         vfx.transform.parent = ai.transform;
         vfx.transform.position = new Vector3(pos.x, pos.y + up, pos.z);
+        return vfx;
+    }
+
+    public VFXScript GetDeadVFX(Vector3 pos, AnimalAI ai, VFXType vfxType)
+    {
+        VFXScript vfx = null;
+        switch (vfxType)
+        {
+            case VFXType.HUNGERDEAD:
+                vfx = hungerDeadPool.Pop();
+                break;
+            case VFXType.THIRSTDEAD:
+                vfx = thirstDeadPool.Pop();
+                break;
+            case VFXType.EATDEAD:
+                vfx = eatDeadPool.Pop();
+                break;
+        }
+
+        if (vfx == null) return null;
+
+        float up = 3;
+        vfx.transform.position = new Vector3(pos.x, pos.y + up, pos.z);
+        Debug.Log("var edicem");
         return vfx;
     }
 
@@ -76,7 +112,22 @@ public class VFXManager : MonoBehaviour
             case VFXType.LOVE:
                 lovePool.Push(vfx);
                 break;
+            case VFXType.HUNGERDEAD:
+                hungerDeadPool.Push(vfx);
+                break;
+            case VFXType.THIRSTDEAD:
+                thirstDeadPool.Push(vfx);
+                break;
+            case VFXType.EATDEAD:
+                eatDeadPool.Push(vfx);
+                break;
         }
-        
+    }
+    public IEnumerator WaitAndPush(VFXScript vfx, VFXType vfxType)
+    {
+        Debug.Log("yok edicem");
+        yield return new WaitForSeconds(1);
+        Push(vfx, vfxType);
+        Debug.Log("yok edebildim mi");
     }
 }

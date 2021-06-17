@@ -44,7 +44,7 @@ public class HungryCase : MonoBehaviour, ICase
             if (!isVFXUsed)
             {
                 isVFXUsed = true;
-                vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.HUNGER);
+                vfx = VFXManager.Instance.GetStateVFX(transform.position, ai, VFXType.HUNGER);
             }
 
             if (target != null)
@@ -54,7 +54,13 @@ public class HungryCase : MonoBehaviour, ICase
                 if (Vector3.Distance(target.position, transform.position) < targetRange)
                 {
                     if (target.tag == "Chicken")
+                    {
+                        AnimalAI targetAi = target.GetComponent<AnimalAI>();
+                        vfx = VFXManager.Instance.GetDeadVFX(transform.position, targetAi, VFXType.EATDEAD);
+                        StartCoroutine(VFXManager.Instance.WaitAndPush(vfx, VFXType.EATDEAD));
                         target.GetComponent<AnimalAI>().OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
+
+                    }
 
                     hunger = 0;
                     isRunning = false;
@@ -81,7 +87,12 @@ public class HungryCase : MonoBehaviour, ICase
         }
 
         if (hunger > deathTreshold)
+        {
+            vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.HUNGERDEAD);
+            StartCoroutine(VFXManager.Instance.WaitAndPush(vfx, VFXType.HUNGERDEAD));
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
+
+        }
     }
 
     private Transform FindFood()

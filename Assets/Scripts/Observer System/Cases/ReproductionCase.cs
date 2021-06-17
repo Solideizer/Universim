@@ -49,7 +49,7 @@ public class ReproductionCase : MonoBehaviour, ICase
             if (!isVFXUsed)
             {
                 isVFXUsed = true;
-                vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.LOVE);
+                vfx = VFXManager.Instance.GetStateVFX(transform.position, ai, VFXType.LOVE);
             }
             _animationManager.SetState(AnimationType.Walk);
             ai.Move(target.transform.position);
