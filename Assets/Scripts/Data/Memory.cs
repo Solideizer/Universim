@@ -8,8 +8,8 @@ public class Memory
 {
     public enum MemoryType{ WATER, FOOD }
 
-    private List<Transform> waters;
-    private List<Transform> foods;
+    public List<Transform> waters;
+    public List<Transform> foods;
 
     private readonly int waterCount;
     private readonly int foodCount;

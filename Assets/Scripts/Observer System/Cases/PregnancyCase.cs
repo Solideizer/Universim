@@ -46,12 +46,11 @@ public class PregnancyCase : MonoBehaviour, ICase
 
     private void GiveBirth(Genetic parent)
     {
-        
-
         if(gameObject.tag == "Chicken")
         {
             for (var i = 0; i < fertility; i++)
             {
+                print(gameObject.transform.position);
                 var animal = AnimalManager.Instance.GetHerbivore(transform.position);
                 animal.AwakeAnimal(Genetic.Cross(parent, ai.Identity.GeneticCode), true);
             }

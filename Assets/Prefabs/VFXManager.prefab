@@ -43,8 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca389b6d1cb92294587a9e9c54f2c13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  love: {fileID: 8711733479723140260, guid: e9445b90e7ee19c44a0ef1694ae8a0af, type: 3}
-  hunger: {fileID: -4829052721622617180, guid: 3d2cb19172a4db54787dfaa3d09fdd79, type: 3}
-  thirst: {fileID: 1219623422531968942, guid: ee2743bdb0a7aef4cad279d1ad8a8058, type: 3}
+  lovePrefab: {fileID: 8711733479723140260, guid: e9445b90e7ee19c44a0ef1694ae8a0af,
+    type: 3}
+  hungerPrefab: {fileID: -4829052721622617180, guid: 3d2cb19172a4db54787dfaa3d09fdd79,
+    type: 3}
+  thirstPrefab: {fileID: 1219623422531968942, guid: ee2743bdb0a7aef4cad279d1ad8a8058,
+    type: 3}
   vfxCount: 500
   vfxSize: {x: 0.5, y: 0.5, z: 0.5}

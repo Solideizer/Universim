@@ -20,7 +20,7 @@ public class AnimalAI : MonoBehaviour
 
     private float growth;
     private DecisionMaker decisionMaker;
-    private Memory memory;
+    public Memory memory;
     private Speed speed;
     
     [HideInInspector] public LayerMask ownMask;
@@ -131,7 +131,6 @@ public class AnimalAI : MonoBehaviour
         }
 
         Identity.canReproduce = true;
-        this.enabled = false;
         OnCaseChanged(new CaseChangedEventArgs(null, Case.IDENTITY_UPDATE));
     }
 
@@ -162,9 +161,8 @@ public class AnimalAI : MonoBehaviour
     public void Warp(Vector3 target)
     {
         agent.enabled = true;
-        NavMeshHit hit;
-        if(NavMesh.SamplePosition(target, out hit, 15, 0))
-            agent.Warp(hit.position);
+        print(target + Vector3.up * 0.2f);
+        agent.Warp(target + Vector3.up * 0.2f);
     }
 
     #endregion

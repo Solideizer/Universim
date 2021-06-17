@@ -86,7 +86,7 @@ public class HungryCase : MonoBehaviour, ICase
         Transform food = ai.FindClosestThing (ai.transform.position, targetMask, vision);
 
         // Otçulların yemek hafızası varken etçillerin yok.
-        if (targetMask == LayerMask.GetMask ("Herbivore"))
+        if (targetMask == LayerMask.GetMask ("Food"))
         {
             if (food != null)
                 ai.Memory.CompareLocations (transform.position, food, Memory.MemoryType.FOOD);

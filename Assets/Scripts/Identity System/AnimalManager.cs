@@ -41,7 +41,7 @@ public class AnimalManager : MonoBehaviour
     {
         var chick = herbivorePool.Pop();
         float range = UnityEngine.Random.Range(-0.5f, 0.5f);
-        chick.Warp(new Vector3(pos.x - range, pos.y + 2f, pos.z - range));
+        chick.Warp(new Vector3(pos.x - range, pos.y, pos.z - range));
         return chick;
     }
 
