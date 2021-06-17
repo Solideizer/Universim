@@ -73,7 +73,7 @@ public class ThirstyCase : MonoBehaviour, ICase
         if (thirst > deathTreshold)
         {
             vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.THIRSTDEAD);
-            StartCoroutine(VFXManager.Instance.WaitAndPush(vfx, VFXType.THIRSTDEAD));
+            VFXManager.Instance.WaitPush(vfx, VFXType.THIRSTDEAD);
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
 
         }

@@ -123,11 +123,16 @@ public class VFXManager : MonoBehaviour
                 break;
         }
     }
-    public IEnumerator WaitAndPush(VFXScript vfx, VFXType vfxType)
+    private IEnumerator WaitAndPush(VFXScript vfx, VFXType vfxType)
     {
         Debug.Log("yok edicem");
         yield return new WaitForSeconds(1);
         Push(vfx, vfxType);
         Debug.Log("yok edebildim mi");
+    }
+
+    public void WaitPush(VFXScript vfx, VFXType vfxType)
+    {
+        StartCoroutine(WaitAndPush(vfx, vfxType));
     }
 }

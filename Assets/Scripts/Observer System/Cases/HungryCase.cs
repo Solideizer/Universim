@@ -57,7 +57,7 @@ public class HungryCase : MonoBehaviour, ICase
                     {
                         AnimalAI targetAi = target.GetComponent<AnimalAI>();
                         vfx = VFXManager.Instance.GetDeadVFX(transform.position, targetAi, VFXType.EATDEAD);
-                        StartCoroutine(VFXManager.Instance.WaitAndPush(vfx, VFXType.EATDEAD));
+                        VFXManager.Instance.WaitPush(vfx, VFXType.EATDEAD);
                         target.GetComponent<AnimalAI>().OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
 
                     }
@@ -89,7 +89,7 @@ public class HungryCase : MonoBehaviour, ICase
         if (hunger > deathTreshold)
         {
             vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.HUNGERDEAD);
-            StartCoroutine(VFXManager.Instance.WaitAndPush(vfx, VFXType.HUNGERDEAD));
+            VFXManager.Instance.WaitPush(vfx, VFXType.HUNGERDEAD);
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
 
         }
