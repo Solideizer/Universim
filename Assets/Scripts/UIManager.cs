@@ -4,29 +4,27 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
 #pragma warning disable 0649
-    [SerializeField] private TextMeshProUGUI numberOfChickenText;
-    [SerializeField] private TextMeshProUGUI numberOfFoxText;
+    [SerializeField] private GameObject stats;
+
 #pragma warning restore 0649
-    private int numberOfFoxes;
-    private int numberOfChickens;
+
     private void Update ()
     {
-        UpdateStats ();
+        if (Input.GetKey (KeyCode.Space))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+            stats.SetActive (true);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
+            stats.SetActive (false);
+        }
+
     }
 
-    private void UpdateStats ()
-    {
-        //bunu kullanmıycaz
-        //üreme stateleri falan yazıldıktan sonra eventler ile güncelliycez ui'ı
-        //çünkü böyle yapmak performans açısından çok kötü
-        //şimdilik sayıları görelim diye yaptım
-        var foxes = GameObject.FindGameObjectsWithTag ("Fox");
-        numberOfFoxes = foxes.Length;
-
-        var chicken = GameObject.FindGameObjectsWithTag ("Chicken");
-        numberOfChickens = chicken.Length;
-
-        numberOfChickenText.text = "Chicken: " + numberOfChickens;
-        numberOfFoxText.text = "Fox: " + numberOfFoxes;
-    }
 }

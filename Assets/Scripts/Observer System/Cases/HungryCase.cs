@@ -6,11 +6,11 @@ using UnityEngine;
 public class HungryCase : MonoBehaviour, ICase
 {
     [SerializeField] LayerMask targetMask;
-    [SerializeField, Range(10f, 30f)] float hungerTreshold = 0f;
-    [SerializeField, Range(45f, 65f)] float deathTreshold = 1f;
-    [SerializeField, Range(25f, 45f)] float criticalTreshold = 30f;
-    [SerializeField, Range(5f, 20f)] float targetRange = 10f;
-    [SerializeField, Range(30f, 60f)] float vision = 40f;
+    [SerializeField, Range (10f, 30f)] float hungerTreshold = 0f;
+    [SerializeField, Range (45f, 65f)] float deathTreshold = 1f;
+    [SerializeField, Range (25f, 45f)] float criticalTreshold = 30f;
+    [SerializeField, Range (5f, 20f)] float targetRange = 10f;
+    [SerializeField, Range (30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
 
     public float hunger = 0;
@@ -22,36 +22,36 @@ public class HungryCase : MonoBehaviour, ICase
     AnimalAI ai;
     VFXScript vfx;
 
-    private void Start()
+    private void Start ()
     {
-        ai = GetComponent<AnimalAI>();
+        ai = GetComponent<AnimalAI> ();
         ai.CaseChanged += OnCaseChanged;
-        ai.caseDatas.Add(new CaseContainer(Case.HUNGER, hunger, hungerTreshold, criticalTreshold, CasePriority.LOW));
+        ai.caseDatas.Add (new CaseContainer (Case.HUNGER, hunger, hungerTreshold, criticalTreshold, CasePriority.LOW));
 
         isRunning = false;
         alerted = false;
         isVFXUsed = false;
     }
 
-    private void Update()
+    private void Update ()
     {
         hunger += Time.deltaTime;
 
         if (isRunning)
         {
-            if(!isVFXUsed)
+            if (!isVFXUsed)
             {
                 isVFXUsed = true;
-                vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.HUNGER);
+                vfx = VFXManager.Instance.GetVFX (transform.position, ai, VFXType.HUNGER);
             }
 
             if (target != null)
             {
-                ai.Move(target.position);
-                if (Vector3.Distance(target.position, transform.position) < targetRange)
+                ai.Move (target.position);
+                if (Vector3.Distance (target.position, transform.position) < targetRange)
                 {
                     if (target.tag == "Chicken")
-                        target.GetComponent<AnimalAI>().OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
+                        target.GetComponent<AnimalAI> ().OnCaseChanged (new CaseChangedEventArgs (null, Case.DEATH));
 
                     hunger = 0;
                     isRunning = false;
@@ -59,83 +59,83 @@ public class HungryCase : MonoBehaviour, ICase
                     target = null;
 
                     isVFXUsed = false;
-                    VFXManager.Instance.Push(vfx, VFXType.HUNGER);
+                    VFXManager.Instance.Push (vfx, VFXType.HUNGER);
 
-                    ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
+                    ai.OnCaseChanged (new CaseChangedEventArgs (null, Case.IDLE));
                 }
             }
             else
             {
                 isRunning = false;
-                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
+                ai.OnCaseChanged (new CaseChangedEventArgs (null, Case.IDLE));
             }
         }
 
         if (!alerted && hunger > hungerTreshold)
         {
             alerted = true;
-            ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
+            ai.OnCaseChanged (new CaseChangedEventArgs (null, Case.AVAILABLE));
         }
 
         if (hunger > deathTreshold)
-            ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
+            ai.OnCaseChanged (new CaseChangedEventArgs (null, Case.DEATH));
     }
 
-    private Transform FindFood()
+    private Transform FindFood ()
     {
-        Transform food = ai.FindClosestThing(ai.transform.position, targetMask, vision);
+        Transform food = ai.FindClosestThing (ai.transform.position, targetMask, vision);
 
         // Otçulların yemek hafızası varken etçillerin yok.
-        if (targetMask == LayerMask.GetMask("Herbivore"))
+        if (targetMask == LayerMask.GetMask ("Herbivore"))
         {
             if (food != null)
-                ai.Memory.CompareLocations(transform.position, food, Memory.MemoryType.FOOD);
+                ai.Memory.CompareLocations (transform.position, food, Memory.MemoryType.FOOD);
             else
-                food = ai.Memory.GetNearest(transform.position, Memory.MemoryType.FOOD);
+                food = ai.Memory.GetNearest (transform.position, Memory.MemoryType.FOOD);
         }
 
         if (food != null)
-            Inform(food);
+            Inform (food);
 
         return food;
     }
 
-    private void Inform(Transform food)
+    private void Inform (Transform food)
     {
-        print("food informed");
+        //print("food informed");
 
         LayerMask targets = ai.ownMask;
         Collider[] hits;
-        int hitCount = AnimalAI.GetColliders(transform.position, vision, targets, out hits);
+        int hitCount = AnimalAI.GetColliders (transform.position, vision, targets, out hits);
 
         for (var i = 0; i < hitCount; i++)
         {
-            if (AnimalManager.Instance.animals.ContainsKey(hits[i].gameObject.GetInstanceID()))
-                AnimalManager.Instance.animals[hits[i].gameObject.GetInstanceID()].
-                    OnCaseChanged(new CaseChangedEventArgs(new HungerCaseData(food), Case.HUNGER));
+            if (AnimalManager.Instance.animals.ContainsKey (hits[i].gameObject.GetInstanceID ()))
+                AnimalManager.Instance.animals[hits[i].gameObject.GetInstanceID ()].
+            OnCaseChanged (new CaseChangedEventArgs (new HungerCaseData (food), Case.HUNGER));
         }
     }
 
-    public void OnCaseChanged(object sender, CaseChangedEventArgs e)
+    public void OnCaseChanged (object sender, CaseChangedEventArgs e)
     {
         if (e.state == Case.HUNGER)
         {
             if (e.data != null)
             {
-                SetReportedData(e.data);
+                SetReportedData (e.data);
                 return;
             }
 
-            target = FindFood();
+            target = FindFood ();
             if (target != null)
             {
                 ai.currentState = Case.HUNGER;
-                Run();
+                Run ();
             }
             else
             {
-                ai.HandleSpeed(SpeedPhase.WALK);
-                ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.WANDER));
+                ai.HandleSpeed (SpeedPhase.WALK);
+                ai.OnCaseChanged (new CaseChangedEventArgs (null, Case.WANDER));
             }
         }
         else if (e.state == Case.IDENTITY_UPDATE)
@@ -143,7 +143,7 @@ public class HungryCase : MonoBehaviour, ICase
             vision = ai.Identity.Vision;
         }
         else if (e.state == Case.AVAILABLE)
-            CaseContainer.Adjust(ai.caseDatas, Case.HUNGER, hunger);
+            CaseContainer.Adjust (ai.caseDatas, Case.HUNGER, hunger);
         else if (e.state == Case.RESET)
         {
             isRunning = false;
@@ -152,14 +152,14 @@ public class HungryCase : MonoBehaviour, ICase
         }
     }
 
-    private void SetReportedData(CaseData data)
+    private void SetReportedData (CaseData data)
     {
-        data.SetData(this);
+        data.SetData (this);
 
         reportedTarget = null;
-        ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
+        ai.OnCaseChanged (new CaseChangedEventArgs (null, Case.AVAILABLE));
     }
 
-    public bool IsRunning() { return isRunning; }
-    public void Run() { isRunning = true; }
+    public bool IsRunning () { return isRunning; }
+    public void Run () { isRunning = true; }
 }

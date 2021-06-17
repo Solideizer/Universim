@@ -44,9 +44,11 @@ public class Window_Graph : MonoBehaviour
     private bool startYScaleAtZero;
 
     private int numberOfFoxes;
+    private StatisticsManager statisticsManager;
     private void Awake ()
     {
         instance = this;
+        statisticsManager = GameObject.FindObjectOfType<StatisticsManager> ();
         // Grab base objects references
         graphContainer = transform.Find ("graphContainer").GetComponent<RectTransform> ();
         labelTemplateX = graphContainer.Find ("labelTemplateX").GetComponent<RectTransform> ();
@@ -83,26 +85,13 @@ public class Window_Graph : MonoBehaviour
             IncreaseVisibleAmount ();
         };
 
-        transform.Find ("dollarBtn").GetComponent<Button_UI> ().ClickFunc = () =>
-        {
-            SetGetAxisLabelY ((float _f) => "$" + Mathf.RoundToInt (_f));
-        };
-        transform.Find ("euroBtn").GetComponent<Button_UI> ().ClickFunc = () =>
-        {
-            SetGetAxisLabelY ((float _f) => "€" + Mathf.RoundToInt (_f / 1.18f));
-        };
-
         HideTooltip ();
 
         // Set up base values
-        List<int> valueList = new List<int> () { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 };
-        // List<int> valueList = new List<int> ();
+        //List<int> valueList = new List<int> () { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 };
 
-        // var foxes = GameObject.FindGameObjectsWithTag ("Fox");
-        // numberOfFoxes = foxes.Length;
-        // valueList.Add (numberOfFoxes);
-
-        ShowGraph (valueList, barChartVisual, -1, (int _i) => "Day " + (_i + 1), (float _f) => "Number of foxes" + Mathf.RoundToInt (_f));
+        // List<int> valueList = statisticsManager.numberOfChickens;
+        // ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Chickens " + Mathf.RoundToInt (_f));
 
         /*
         // Automatically modify graph values and visual
@@ -121,16 +110,79 @@ public class Window_Graph : MonoBehaviour
         }, .5f);
         //*/
 
-        int index = 0;
-        FunctionPeriodic.Create (() =>
+        // int index = 0;
+        // FunctionPeriodic.Create (() =>
+        // {
+        //     index = (index + 1) % valueList.Count;
+        // }, .1f);
+        // FunctionPeriodic.Create (() =>
+        // {
+        //     //int index = UnityEngine.Random.Range(0, valueList.Count);
+        //     UpdateValue (index, valueList[index] + UnityEngine.Random.Range (1, 3));
+        // }, .02f);
+    }
+    public void ChickenPopulationStats ()
+    {
+        IGraphVisual lineGraphVisual, barChartVisual;
+        HandleReferences (out lineGraphVisual, out barChartVisual);
+        SetUpButtons (lineGraphVisual, barChartVisual);
+        HideTooltip ();
+
+        List<int> valueList = statisticsManager.numberOfChickens;
+        ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Chickens " + Mathf.RoundToInt (_f));
+    }
+
+    public void FoxPopulationStats ()
+    {
+        IGraphVisual lineGraphVisual, barChartVisual;
+        HandleReferences (out lineGraphVisual, out barChartVisual);
+        SetUpButtons (lineGraphVisual, barChartVisual);
+        HideTooltip ();
+
+        List<int> valueList = statisticsManager.numberOfFoxes;
+        ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Foxes " + Mathf.RoundToInt (_f));
+    }
+
+    private void HandleReferences (out IGraphVisual lineGraphVisual, out IGraphVisual barChartVisual)
+    {
+        statisticsManager = GameObject.FindObjectOfType<StatisticsManager> ();
+        // Grab base objects references
+        graphContainer = transform.Find ("graphContainer").GetComponent<RectTransform> ();
+        labelTemplateX = graphContainer.Find ("labelTemplateX").GetComponent<RectTransform> ();
+        labelTemplateY = graphContainer.Find ("labelTemplateY").GetComponent<RectTransform> ();
+        dashContainer = graphContainer.Find ("dashContainer").GetComponent<RectTransform> ();
+        dashTemplateX = dashContainer.Find ("dashTemplateX").GetComponent<RectTransform> ();
+        dashTemplateY = dashContainer.Find ("dashTemplateY").GetComponent<RectTransform> ();
+        tooltipGameObject = graphContainer.Find ("tooltip").gameObject;
+
+        startYScaleAtZero = true;
+        gameObjectList = new List<GameObject> ();
+        yLabelList = new List<RectTransform> ();
+        graphVisualObjectList = new List<IGraphVisualObject> ();
+
+        lineGraphVisual = new LineGraphVisual (graphContainer, dotSprite, Color.green, new Color (1, 1, 1, .5f));
+        barChartVisual = new BarChartVisual (graphContainer, Color.white, .8f);
+    }
+
+    private void SetUpButtons (IGraphVisual lineGraphVisual, IGraphVisual barChartVisual)
+    {
+        transform.Find ("barChartBtn").GetComponent<Button_UI> ().ClickFunc = () =>
         {
-            index = (index + 1) % valueList.Count;
-        }, .1f);
-        FunctionPeriodic.Create (() =>
+            SetGraphVisual (barChartVisual);
+        };
+        transform.Find ("lineGraphBtn").GetComponent<Button_UI> ().ClickFunc = () =>
         {
-            //int index = UnityEngine.Random.Range(0, valueList.Count);
-            UpdateValue (index, valueList[index] + UnityEngine.Random.Range (1, 3));
-        }, .02f);
+            SetGraphVisual (lineGraphVisual);
+        };
+
+        transform.Find ("decreaseVisibleAmountBtn").GetComponent<Button_UI> ().ClickFunc = () =>
+        {
+            DecreaseVisibleAmount ();
+        };
+        transform.Find ("increaseVisibleAmountBtn").GetComponent<Button_UI> ().ClickFunc = () =>
+        {
+            IncreaseVisibleAmount ();
+        };
     }
 
     public static void ShowTooltip_Static (string tooltipText, Vector2 anchoredPosition)
