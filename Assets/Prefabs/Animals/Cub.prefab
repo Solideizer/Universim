@@ -796,6 +796,8 @@ GameObject:
   - component: {fileID: 3508856125468983848}
   - component: {fileID: 8990392073320174693}
   - component: {fileID: 931871341302875919}
+  - component: {fileID: 1585886531134566047}
+  - component: {fileID: -4453717367034127122}
   m_Layer: 10
   m_Name: Cub
   m_TagString: Fox
@@ -893,9 +895,13 @@ MonoBehaviour:
       scale: 0
     canReproduce: 0
   agent: {fileID: 9022837591912243732}
+  starter: 0
   phase: 0
   growthTime: 0
   growthMultiplier: 0
+  memory:
+    waters: []
+    foods: []
   ownMask:
     serializedVersion: 2
     m_Bits: 0
@@ -923,6 +929,7 @@ MonoBehaviour:
   isRunning: 0
   hunger: 0
   alerted: 0
+  isVFXUsed: 0
   reportedTarget: {fileID: 0}
 --- !u!114 &6828734618895329934
 MonoBehaviour:
@@ -947,6 +954,7 @@ MonoBehaviour:
   isRunning: 0
   thirst: 0
   alerted: 0
+  isVFXUsed: 0
   reportedTarget: {fileID: 0}
 --- !u!114 &6828734618895329935
 MonoBehaviour:
@@ -1001,6 +1009,7 @@ MonoBehaviour:
   reproductionUrge: 0
   alerted: 0
   isRunning: 0
+  isVFXUsed: 0
   sex: 0
   target: {fileID: 0}
 --- !u!114 &3508856125468983848
@@ -1047,6 +1056,37 @@ MonoBehaviour:
   growthTime: 6
   phaseCount: 2
   growthMultiplier: 1
+--- !u!114 &1585886531134566047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828734618895329937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31498abc05fd29e4c96c77ba7a0a467f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &-4453717367034127122
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828734618895329937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 91e4778cdfb185d4d9bfe81556dc4333, type: 3}
+  m_Controller: {fileID: 9100000, guid: b00aa7e7df82d014d81692bbc431f092, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6963930471762620563
 GameObject:
   m_ObjectHideFlags: 0

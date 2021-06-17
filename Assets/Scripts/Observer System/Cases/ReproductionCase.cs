@@ -19,6 +19,7 @@ public class ReproductionCase : MonoBehaviour, ICase
     public Sex sex;
     private bool canReproduce;
     VFXScript vfx;
+    AnimationManager _animationManager;
 
     [HideInInspector] public AnimalAI target;
 
@@ -26,6 +27,7 @@ public class ReproductionCase : MonoBehaviour, ICase
     void Start()
     {
         ai = GetComponent<AnimalAI>();
+        _animationManager = GetComponent<AnimationManager>();
         ai.CaseChanged += OnCaseChanged;
         ai.caseDatas.Add(new CaseContainer(Case.REPRODUCTION, reproductionUrge, reproductionTreshold, 1000f, CasePriority.TOO_LOW));
 
@@ -49,6 +51,7 @@ public class ReproductionCase : MonoBehaviour, ICase
                 isVFXUsed = true;
                 vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.LOVE);
             }
+            _animationManager.SetState(AnimationType.Walk);
             ai.Move(target.transform.position);
             if (Vector3.Distance(target.transform.position, transform.position) < targetRange)
             {

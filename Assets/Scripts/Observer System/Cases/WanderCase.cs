@@ -12,10 +12,12 @@ public class WanderCase : MonoBehaviour, ICase
     [SerializeField] float wander = 0;
     AnimalAI ai;
     Vector3 target;
+    AnimationManager _animationManager;
 
     private void Start()
     {
         ai = GetComponent<AnimalAI>();
+        _animationManager = GetComponent<AnimationManager>();
         ai.CaseChanged += OnCaseChanged;
 
         isRunning = false;
@@ -26,7 +28,7 @@ public class WanderCase : MonoBehaviour, ICase
         if (isRunning)
         {
             wander += Time.deltaTime;
-            if(wanderTime < wander)
+            if (wanderTime < wander)
             {
                 wander = 0;
                 isRunning = false;
@@ -38,6 +40,7 @@ public class WanderCase : MonoBehaviour, ICase
     private void Wander()
     {
         target = ai.RandomNavSphere(ai.transform.position, wanderDistance);
+        _animationManager.SetState(AnimationType.Walk);
         ai.Move(target);
     }
 

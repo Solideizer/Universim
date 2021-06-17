@@ -14,25 +14,29 @@ public class RunCase : MonoBehaviour, ICase
 
     // Bu kısmın işlenişi diğer caselere benzer.
     // Treshold 0,5 tir. Boolean değer ile tespit yapılır.
-    
+
     private bool isRunning;
     private AnimalAI ai;
     private Transform target;
 
-    private void Start() 
+    AnimationManager _animationManager;
+
+    private void Start()
     {
         ai = GetComponent<AnimalAI>();
         ai.CaseChanged += OnCaseChanged;
 
-        flee = false;    
+        _animationManager = GetComponent<AnimationManager>();
+
+        flee = false;
         ai.caseDatas.Add(new CaseContainer(Case.FLEE, 0, 0.5f, 0.5f, CasePriority.HIGH));
-    
+
         isRunning = false;
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(!flee)
+        if (!flee)
         {
             searchTime += Time.deltaTime;
             if (searchTime >= timeBetweenSearches)
@@ -49,10 +53,10 @@ public class RunCase : MonoBehaviour, ICase
         }
         else
         {
-            if(target != null)
+            if (target != null)
             {
                 float distance = Vector3.Distance(transform.position, target.position);
-                if(distance < enemyDistanceRun)
+                if (distance < enemyDistanceRun)
                     RunAway();
                 else
                     Stop();
@@ -60,13 +64,14 @@ public class RunCase : MonoBehaviour, ICase
             else
                 Stop();
         }
-        
+
     }
 
     private void RunAway()
     {
         Vector3 dirToPlayer = transform.position - target.position;
         Vector3 newPos = transform.position + dirToPlayer;
+        _animationManager.SetState(AnimationType.Walk);
         ai.Move(newPos);
     }
 
@@ -90,7 +95,7 @@ public class RunCase : MonoBehaviour, ICase
         {
             CaseContainer.Adjust(ai.caseDatas, Case.FLEE, flee ? 1 : 0);
         }
-        else if(e.state == Case.IDENTITY_UPDATE)
+        else if (e.state == Case.IDENTITY_UPDATE)
             vision = ai.Identity.Vision;
     }
 

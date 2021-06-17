@@ -277,6 +277,8 @@ GameObject:
   - component: {fileID: 1545598136397422139}
   - component: {fileID: 2569469529965043262}
   - component: {fileID: 4173322999694569666}
+  - component: {fileID: -4554745845061528644}
+  - component: {fileID: 5398455623169432910}
   m_Layer: 9
   m_Name: Chick
   m_TagString: Chicken
@@ -377,9 +379,13 @@ MonoBehaviour:
       scale: 0
     canReproduce: 0
   agent: {fileID: 5639999791961839901}
+  starter: 0
   phase: 3
   growthTime: 3
   growthMultiplier: 2
+  memory:
+    waters: []
+    foods: []
   ownMask:
     serializedVersion: 2
     m_Bits: 0
@@ -407,6 +413,7 @@ MonoBehaviour:
   isRunning: 0
   thirst: 0
   alerted: 0
+  isVFXUsed: 0
   reportedTarget: {fileID: 0}
 --- !u!114 &7695632154700739698
 MonoBehaviour:
@@ -431,6 +438,7 @@ MonoBehaviour:
   isRunning: 0
   hunger: 0
   alerted: 0
+  isVFXUsed: 0
   reportedTarget: {fileID: 0}
 --- !u!114 &7695632154700739697
 MonoBehaviour:
@@ -485,6 +493,7 @@ MonoBehaviour:
   reproductionUrge: 0
   alerted: 0
   isRunning: 0
+  isVFXUsed: 0
   sex: 0
   target: {fileID: 0}
 --- !u!114 &7695632154700739711
@@ -551,6 +560,37 @@ MonoBehaviour:
   enemyDistanceRun: 20
   searchTime: 0
   flee: 0
+--- !u!114 &-4554745845061528644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695632154700739700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31498abc05fd29e4c96c77ba7a0a467f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &5398455623169432910
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695632154700739700}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: d623cd35a78380d4eb0457c4e483abed, type: 3}
+  m_Controller: {fileID: 9100000, guid: c832959a64384434ebe57f9c4a793d21, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7695650135144154974
 GameObject:
   m_ObjectHideFlags: 0

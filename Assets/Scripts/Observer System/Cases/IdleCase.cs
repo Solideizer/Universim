@@ -8,41 +8,44 @@ public class IdleCase : MonoBehaviour, ICase
     [SerializeField, Range(1f, 3f)] float idleTime = 0f;
     [SerializeField] bool isRunning;
     public float idle = 0;
-    
+
     AnimalAI ai;
     float defaultTime;
     [HideInInspector] public float tempTime;
+    AnimationManager _animationManager;
 
     private void Start()
     {
         ai = GetComponent<AnimalAI>();
+        _animationManager = GetComponent<AnimationManager>();
         ai.CaseChanged += OnCaseChanged;
 
         defaultTime = idleTime;
         isRunning = false;
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(isRunning)
+        if (isRunning)
         {
+            _animationManager.SetState(AnimationType.Idle);
             idle += Time.deltaTime;
-            if(idle > tempTime)
+            if (idle > tempTime)
             {
                 idle = 0;
                 isRunning = false;
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
-            }   
-        }    
+            }
+        }
     }
 
     public void OnCaseChanged(object sender, CaseChangedEventArgs e)
     {
-        if(e.state == Case.IDLE)
+        if (e.state == Case.IDLE)
         {
             defaultTime = idleTime;
 
-            if(e.data != null)
+            if (e.data != null)
                 e.data.SetData(this);
             else
                 tempTime = defaultTime;
