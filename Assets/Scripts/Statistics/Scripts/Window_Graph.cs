@@ -143,6 +143,50 @@ public class Window_Graph : MonoBehaviour
         ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Foxes " + Mathf.RoundToInt (_f));
     }
 
+    public void MaleChickenStats ()
+    {
+        IGraphVisual lineGraphVisual, barChartVisual;
+        HandleReferences (out lineGraphVisual, out barChartVisual);
+        SetUpButtons (lineGraphVisual, barChartVisual);
+        HideTooltip ();
+
+        List<int> valueList = statisticsManager.numberOfMaleChickens;
+        ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Male Chickens " + Mathf.RoundToInt (_f));
+    }
+
+    public void FemaleChickenStats ()
+    {
+        IGraphVisual lineGraphVisual, barChartVisual;
+        HandleReferences (out lineGraphVisual, out barChartVisual);
+        SetUpButtons (lineGraphVisual, barChartVisual);
+        HideTooltip ();
+
+        List<int> valueList = statisticsManager.numberOfFemaleChickens;
+        ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Female Chickens " + Mathf.RoundToInt (_f));
+    }
+
+    public void MaleFoxStats ()
+    {
+        IGraphVisual lineGraphVisual, barChartVisual;
+        HandleReferences (out lineGraphVisual, out barChartVisual);
+        SetUpButtons (lineGraphVisual, barChartVisual);
+        HideTooltip ();
+
+        List<int> valueList = statisticsManager.numberOfMaleFoxes;
+        ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Male Fox " + Mathf.RoundToInt (_f));
+    }
+
+    public void FemaleFoxStats ()
+    {
+        IGraphVisual lineGraphVisual, barChartVisual;
+        HandleReferences (out lineGraphVisual, out barChartVisual);
+        SetUpButtons (lineGraphVisual, barChartVisual);
+        HideTooltip ();
+
+        List<int> valueList = statisticsManager.numberOfFemaleFoxes;
+        ShowGraph (valueList, barChartVisual, -1, (int _i) => "" + (_i + 1), (float _f) => "Female Fox " + Mathf.RoundToInt (_f));
+    }
+
     private void HandleReferences (out IGraphVisual lineGraphVisual, out IGraphVisual barChartVisual)
     {
         statisticsManager = GameObject.FindObjectOfType<StatisticsManager> ();
