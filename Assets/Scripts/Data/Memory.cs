@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,8 +8,8 @@ public class Memory
 {
     public enum MemoryType{ WATER, FOOD }
 
-    private Queue<Transform> waters;
-    private Queue<Transform> foods;
+    private List<Transform> waters;
+    private List<Transform> foods;
 
     private readonly int waterCount;
     private readonly int foodCount;
@@ -19,48 +19,61 @@ public class Memory
         this.waterCount = waterCount;
         this.foodCount = foodCount;
 
-        waters = new Queue<Transform>();
-        foods = new Queue<Transform>();
+        waters = new List<Transform>();
+        foods = new List<Transform>();
     }
 
-    public void FillMemory(Transform location, MemoryType memoryType)
+    public Transform CompareLocations(Vector3 position, Transform target, MemoryType memoryType)
     {
         if(memoryType == MemoryType.WATER)
         {
-            if(waters.Count > waterCount)
-                waters.Dequeue();
-            
-            waters.Enqueue(location);
+            waters = SetList(waters, position, target, waterCount);
+            return waters.First();
         }
         else
         {
-            if(foods.Count > foodCount)
-                foods.Dequeue();
-
-            foods.Enqueue(location);
+            foods = SetList(foods, position, target, foodCount);
+            return foods.First();
         }
     }
 
-    public Transform GetPoint(Vector3 position, MemoryType memoryType)
+    public Transform GetNearest(Vector3 position, MemoryType memoryType)
     {
-        Queue<Transform> queue = memoryType == MemoryType.WATER ? waters : foods;
+        if(memoryType == MemoryType.WATER)
+        {
+            if(waters.Count == 0) return null;
 
-        int count = queue.Count;
-        if (count == 0)
-            return null;
-        else if (count == 1)
-            return queue.Peek();
+            waters = Sort(waters, position);
+            return waters.First();
+        }
         else
-            return FindNearest(position, queue);
+        {
+            if(foods.Count == 0) return null;
+
+            foods = Sort(foods, position);
+            return foods.First();
+        }
     }
 
-    private Transform FindNearest(Vector3 position, Queue<Transform> queue)
+    private List<Transform> SetList(List<Transform> transforms, Vector3 position, Transform target, int maxCount)
     {
-        List<Transform> transforms = new List<Transform>(queue);
+        if (!transforms.Contains(target))
+            transforms.Add(target);
+        // sort
+        transforms = Sort(transforms, position);
+
+        if (transforms.Count > maxCount)
+            transforms.RemoveAt(transforms.Count - 1);
+
+        return transforms;
+    }
+
+    private List<Transform> Sort(List<Transform> transforms, Vector3 position)
+    {
         transforms = transforms.OrderBy(
-            x => Vector3.Distance(position, x.transform.position)
-        ).ToList();
-        return transforms.First();
+                    x => Vector3.Distance(position, x.transform.position)
+                ).ToList();
+        return transforms;
     }
 
 }

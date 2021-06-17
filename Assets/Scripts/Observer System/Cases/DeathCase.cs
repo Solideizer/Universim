@@ -20,11 +20,13 @@ public class DeathCase : MonoBehaviour, ICase
     {
         if (isHerbivore)
         {
+            ai.agent.enabled = false;
             transform.localScale = AnimalManager.Instance.chickSize;
             AnimalManager.Instance.herbivorePool.Push(ai);
         }
         else
         {
+            ai.agent.enabled = false;
             transform.localScale = AnimalManager.Instance.cubSize;
             AnimalManager.Instance.carnivorePool.Push(ai);
         }

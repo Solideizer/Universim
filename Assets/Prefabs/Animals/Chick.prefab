@@ -310,7 +310,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695632154700739700}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.2
   m_Speed: 5
@@ -367,8 +367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68963dadaff6f849bbc20bc2d496384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
-  currentState: 0
   identity:
     genetic:
       sex: 0
@@ -378,9 +376,14 @@ MonoBehaviour:
       memory: 0
       scale: 0
     canReproduce: 0
+  agent: {fileID: 5639999791961839901}
   phase: 3
   growthTime: 3
   growthMultiplier: 2
+  ownMask:
+    serializedVersion: 2
+    m_Bits: 0
+  currentState: 0
 --- !u!114 &7695632154700739696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +407,7 @@ MonoBehaviour:
   isRunning: 0
   thirst: 0
   alerted: 0
+  reportedTarget: {fileID: 0}
 --- !u!114 &7695632154700739698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +431,7 @@ MonoBehaviour:
   isRunning: 0
   hunger: 0
   alerted: 0
+  reportedTarget: {fileID: 0}
 --- !u!114 &7695632154700739697
 MonoBehaviour:
   m_ObjectHideFlags: 0

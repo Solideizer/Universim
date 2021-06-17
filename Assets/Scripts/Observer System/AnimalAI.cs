@@ -8,34 +8,38 @@ public enum SpeedPhase { WALK, RUN, SPRINT }
 
 public class AnimalAI : MonoBehaviour
 {
-    [HideInInspector] public NavMeshAgent agent;
-
-    public Case currentState = Case.AVAILABLE;
-
     [SerializeField] Identity identity;
-    private DecisionMaker decisionMaker;
-    private Memory memory;
-    private Speed speed;
-
-    public Identity Identity { get => identity; }
-    public Memory Memory { get => memory; }
-
-    public event EventHandler<CaseChangedEventArgs> CaseChanged;
-    public List<CaseContainer> caseDatas = new List<CaseContainer>();
+    public NavMeshAgent agent;
+    [SerializeField] bool starter;
 
     [Header("Growth Variables")]
     [Space]
     [SerializeField] int phase;
     [SerializeField] float growthTime;
     [SerializeField] float growthMultiplier;
+
     private float growth;
+    private DecisionMaker decisionMaker;
+    private Memory memory;
+    private Speed speed;
+    
+    [HideInInspector] public LayerMask ownMask;
+
+    public Case currentState = Case.AVAILABLE;
+    public Identity Identity { get => identity; }
+    public Memory Memory { get => memory; }
+    public event EventHandler<CaseChangedEventArgs> CaseChanged;
+    public List<CaseContainer> caseDatas = new List<CaseContainer>();
 
     private void Awake() 
     {
         decisionMaker = new DecisionMaker(this);
         memory = new Memory(2, 2);
-        agent = GetComponent<NavMeshAgent>();
+        ownMask = gameObject.layer;
+
         AwakeAnimal(Genetic.GetRandomizedGene(), false);
+        if(starter)
+            agent.enabled = true;
     }
 
     private void Start() 
@@ -82,9 +86,8 @@ public class AnimalAI : MonoBehaviour
 
     public void AwakeAnimal(Genetic genetic, bool isBaby)
     {
-        print("awke" + isBaby);
         CreateIdentity(genetic, isBaby);
-        
+
         if(isBaby)
             StartCoroutine(Growth());
 
@@ -154,6 +157,14 @@ public class AnimalAI : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         agent.isStopped = true;
+    }
+
+    public void Warp(Vector3 target)
+    {
+        agent.enabled = true;
+        NavMeshHit hit;
+        if(NavMesh.SamplePosition(target, out hit, 15, 0))
+            agent.Warp(hit.position);
     }
 
     #endregion

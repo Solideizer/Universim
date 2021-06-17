@@ -47,7 +47,7 @@ public class ReproductionCase : MonoBehaviour, ICase
             if (!isVFXUsed)
             {
                 isVFXUsed = true;
-                vfx = VFXManager.Instance.GetLove(transform.position, ai);
+                vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.LOVE);
             }
             ai.Move(target.transform.position);
             if (Vector3.Distance(target.transform.position, transform.position) < targetRange)
@@ -64,7 +64,7 @@ public class ReproductionCase : MonoBehaviour, ICase
 
                 target = null;
                 isVFXUsed = false;
-                VFXManager.Instance.lovePool.Push(vfx);
+                VFXManager.Instance.Push(vfx, VFXType.LOVE);
             }
         }
 

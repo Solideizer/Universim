@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum VFXType { HUNGER, THIRST, LOVE }
+
 public class VFXManager : MonoBehaviour
 {
     private static VFXManager instance;
     public static VFXManager Instance { get => instance; }
 
-    [SerializeField] VFXScript love;
-    [SerializeField] VFXScript hunger;
-    [SerializeField] VFXScript thirst;
+    [SerializeField] VFXScript lovePrefab;
+    [SerializeField] VFXScript hungerPrefab;
+    [SerializeField] VFXScript thirstPrefab;
     [SerializeField] int vfxCount = 500;
 
     public Vector3 vfxSize = new Vector3(0.5f, 0.5f, 0.5f);
@@ -26,9 +28,9 @@ public class VFXManager : MonoBehaviour
         hungerPool = new ObjectPool<VFXScript>();
         thirstPool = new ObjectPool<VFXScript>();
 
-        FillPool(lovePool, love, vfxCount);
-        FillPool(hungerPool, hunger, vfxCount);
-        FillPool(thirstPool, thirst, vfxCount);
+        FillPool(lovePool, lovePrefab, vfxCount);
+        FillPool(hungerPool, hungerPrefab, vfxCount);
+        FillPool(thirstPool, thirstPrefab, vfxCount);
     }
 
     private void FillPool(ObjectPool<VFXScript> pool, VFXScript vfx, int count)
@@ -37,30 +39,44 @@ public class VFXManager : MonoBehaviour
         pool.Fill(count);
     }
 
-    public VFXScript GetLove(Vector3 pos, AnimalAI ai)
+    public VFXScript GetVFX(Vector3 pos, AnimalAI ai, VFXType vfxType)
     {
-        var love = lovePool.Pop();
+        VFXScript vfx = null;
+        switch (vfxType)
+        {   
+            case VFXType.HUNGER:
+                vfx = hungerPool.Pop();
+                break;
+            case VFXType.THIRST:
+                vfx = thirstPool.Pop();
+                break;
+            case VFXType.LOVE:
+                vfx = lovePool.Pop();
+                break;
+        }
+
+        if(vfx == null) return null;
+
         float up = 6;
-        love.transform.parent = ai.transform;
-        love.transform.position = new Vector3(pos.x, pos.y + up, pos.z);
-        return love;
+        vfx.transform.parent = ai.transform;
+        vfx.transform.position = new Vector3(pos.x, pos.y + up, pos.z);
+        return vfx;
     }
 
-    public VFXScript GetHunger(Vector3 pos, AnimalAI ai)
+    public void Push(VFXScript vfx, VFXType vfxType)
     {
-        var hunger = hungerPool.Pop();
-        float up = 6;
-        hunger.transform.parent = ai.transform;
-        hunger.transform.position = new Vector3(pos.x, pos.y + up, pos.z);
-        return hunger;
-    }
-
-    public VFXScript GetThirst(Vector3 pos, AnimalAI ai)
-    {
-        var thirst = thirstPool.Pop();
-        float up = 6;
-        thirst.transform.parent = ai.transform;
-        thirst.transform.position = new Vector3(pos.x, pos.y + up, pos.z);
-        return thirst;
+        switch (vfxType)
+        {
+            case VFXType.HUNGER:
+                hungerPool.Push(vfx);
+                break;
+            case VFXType.THIRST:
+                thirstPool.Push(vfx);
+                break;
+            case VFXType.LOVE:
+                lovePool.Push(vfx);
+                break;
+        }
+        
     }
 }

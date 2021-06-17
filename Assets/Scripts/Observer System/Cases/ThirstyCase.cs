@@ -12,11 +12,11 @@ public class ThirstyCase : MonoBehaviour, ICase
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
-    public bool isVFXUsed;
-
 
     public float thirst = 0;
     public bool alerted;
+    public bool isVFXUsed;
+    [HideInInspector] public Transform reportedTarget;
 
     Transform thisTransform;
     Transform target;
@@ -44,16 +44,18 @@ public class ThirstyCase : MonoBehaviour, ICase
             if (!isVFXUsed)
             {
                 isVFXUsed = true;
-                vfx = VFXManager.Instance.GetThirst(transform.position, ai);
+                vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.THIRST);
             }
+
             if (target != null && Vector3.Distance(target.position, thisTransform.position) < targetRange)
             {
                 thirst = 0;
                 isRunning = false;
                 alerted = false;
                 target = null;
+
                 isVFXUsed = false;
-                VFXManager.Instance.thirstPool.Push(vfx);
+                VFXManager.Instance.Push(vfx, VFXType.THIRST);
 
                 ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
             }
@@ -71,21 +73,44 @@ public class ThirstyCase : MonoBehaviour, ICase
 
     private Transform FindWater()
     {
-        Transform t = ai.FindClosestThing(ai.transform.position, targetMask, vision);
-        if (t != null)
-            ai.Memory.FillMemory(t, Memory.MemoryType.WATER);
+        Transform water = ai.FindClosestThing(ai.transform.position, targetMask, vision);
+        if (water != null)
+            ai.Memory.CompareLocations(transform.position, water, Memory.MemoryType.WATER);
         else
-            t = ai.Memory.GetPoint(transform.position, Memory.MemoryType.WATER);
+            water = ai.Memory.GetNearest(transform.position, Memory.MemoryType.WATER);
 
-        return t;
+        Inform(water);
+
+        return water;
+    }
+
+    private void Inform(Transform water)
+    {
+        print("water informed");
+
+        LayerMask targets = ai.ownMask;
+        Collider[] hits;
+        int hitCount = AnimalAI.GetColliders(transform.position, vision, targets, out hits);
+
+        for (var i = 0; i < hitCount; i++)
+        {
+            if (AnimalManager.Instance.animals.ContainsKey(hits[i].gameObject.GetInstanceID()))
+                AnimalManager.Instance.animals[hits[i].gameObject.GetInstanceID()].
+                    OnCaseChanged(new CaseChangedEventArgs(new ThirstCaseData(water), Case.THIRST));
+        }
     }
 
     public void OnCaseChanged(object sender, CaseChangedEventArgs e)
     {
         if (e.state == Case.THIRST)
         {
-            target = FindWater();
+            if (e.data != null)
+            {
+                SetReportedData(e.data);
+                return;
+            }
 
+            target = FindWater();
             if (target != null)
             {
                 ai.currentState = Case.THIRST;
@@ -109,6 +134,14 @@ public class ThirstyCase : MonoBehaviour, ICase
             isRunning = false;
             target = null;
         }
+    }
+
+    private void SetReportedData(CaseData data)
+    {
+        data.SetData(this);
+
+        reportedTarget = null;
+        ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
     }
 
     public bool IsRunning() { return isRunning; }

@@ -34,7 +34,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         if (objectPool.Count > 0)
             obj = objectPool.Pop();
         else
-            obj = Object.Instantiate(prefab);
+            obj = Object.Instantiate(prefab) as T;
             
         obj.gameObject.SetActive(true);
         return obj;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,12 +15,11 @@ public class HungryCase : MonoBehaviour, ICase
 
     public float hunger = 0;
     public bool alerted;
-
     public bool isVFXUsed;
+    [HideInInspector] public Transform reportedTarget;
 
     Transform target;
     AnimalAI ai;
-
     VFXScript vfx;
 
     private void Start()
@@ -39,11 +39,12 @@ public class HungryCase : MonoBehaviour, ICase
 
         if (isRunning)
         {
-            if (!isVFXUsed)
+            if(!isVFXUsed)
             {
                 isVFXUsed = true;
-                vfx = VFXManager.Instance.GetHunger(transform.position, ai);
+                vfx = VFXManager.Instance.GetVFX(transform.position, ai, VFXType.HUNGER);
             }
+
             if (target != null)
             {
                 ai.Move(target.position);
@@ -55,9 +56,10 @@ public class HungryCase : MonoBehaviour, ICase
                     hunger = 0;
                     isRunning = false;
                     alerted = false;
-                    isVFXUsed = false;
                     target = null;
-                    VFXManager.Instance.hungerPool.Push(vfx);
+
+                    isVFXUsed = false;
+                    VFXManager.Instance.Push(vfx, VFXType.HUNGER);
 
                     ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.IDLE));
                 }
@@ -81,18 +83,36 @@ public class HungryCase : MonoBehaviour, ICase
 
     private Transform FindFood()
     {
-        Transform t = ai.FindClosestThing(ai.transform.position, targetMask, vision);
+        Transform food = ai.FindClosestThing(ai.transform.position, targetMask, vision);
 
+        // Otçulların yemek hafızası varken etçillerin yok.
         if (targetMask == LayerMask.GetMask("Herbivore"))
-            return t;
-        else
         {
-            if (t != null)
-                ai.Memory.FillMemory(t, Memory.MemoryType.FOOD);
+            if (food != null)
+                ai.Memory.CompareLocations(transform.position, food, Memory.MemoryType.FOOD);
             else
-                t = ai.Memory.GetPoint(transform.position, Memory.MemoryType.FOOD);
+                food = ai.Memory.GetNearest(transform.position, Memory.MemoryType.FOOD);
+        }
 
-            return t;
+        if (food != null)
+            Inform(food);
+
+        return food;
+    }
+
+    private void Inform(Transform food)
+    {
+        print("food informed");
+
+        LayerMask targets = ai.ownMask;
+        Collider[] hits;
+        int hitCount = AnimalAI.GetColliders(transform.position, vision, targets, out hits);
+
+        for (var i = 0; i < hitCount; i++)
+        {
+            if (AnimalManager.Instance.animals.ContainsKey(hits[i].gameObject.GetInstanceID()))
+                AnimalManager.Instance.animals[hits[i].gameObject.GetInstanceID()].
+                    OnCaseChanged(new CaseChangedEventArgs(new HungerCaseData(food), Case.HUNGER));
         }
     }
 
@@ -100,8 +120,13 @@ public class HungryCase : MonoBehaviour, ICase
     {
         if (e.state == Case.HUNGER)
         {
-            target = FindFood();
+            if (e.data != null)
+            {
+                SetReportedData(e.data);
+                return;
+            }
 
+            target = FindFood();
             if (target != null)
             {
                 ai.currentState = Case.HUNGER;
@@ -125,6 +150,14 @@ public class HungryCase : MonoBehaviour, ICase
             hunger = 0;
             alerted = false;
         }
+    }
+
+    private void SetReportedData(CaseData data)
+    {
+        data.SetData(this);
+
+        reportedTarget = null;
+        ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.AVAILABLE));
     }
 
     public bool IsRunning() { return isRunning; }
