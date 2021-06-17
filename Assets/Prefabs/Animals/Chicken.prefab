@@ -371,9 +371,9 @@ MonoBehaviour:
     canReproduce: 0
   agent: {fileID: 1457782323236062843}
   starter: 1
-  phase: 0
-  growthTime: 0
-  growthMultiplier: 0
+  phase: 2
+  growthTime: 3
+  growthMultiplier: 2
   memory:
     waters: []
     foods: []

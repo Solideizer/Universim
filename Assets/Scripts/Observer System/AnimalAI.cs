@@ -8,6 +8,7 @@ public enum SpeedPhase { WALK, RUN, SPRINT }
 
 public class AnimalAI : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField] Identity identity;
     public NavMeshAgent agent;
     [SerializeField] bool starter;
@@ -17,6 +18,7 @@ public class AnimalAI : MonoBehaviour
     [SerializeField] int phase;
     [SerializeField] float growthTime;
     [SerializeField] float growthMultiplier;
+#pragma warning restore 0649
 
     private float growth;
     private DecisionMaker decisionMaker;

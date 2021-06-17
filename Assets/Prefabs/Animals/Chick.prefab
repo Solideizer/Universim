@@ -380,7 +380,7 @@ MonoBehaviour:
     canReproduce: 0
   agent: {fileID: 5639999791961839901}
   starter: 0
-  phase: 3
+  phase: 2
   growthTime: 3
   growthMultiplier: 2
   memory:

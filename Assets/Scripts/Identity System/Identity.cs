@@ -3,8 +3,10 @@ using UnityEngine;
 
 [Serializable]
 public class Identity 
-{   
+{
+#pragma warning disable 0649
     [SerializeField] Genetic genetic;
+#pragma warning restore 0649
 
     public bool canReproduce;
 

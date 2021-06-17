@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class RunCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(20f, 30f)] float vision;
     [SerializeField, Range(0.5f, 3f)] float timeBetweenSearches;
     [SerializeField, Range(5f, 25f)] float enemyDistanceRun;
+#pragma warning restore 0649
+
     public float searchTime = 0;
     public bool flee;
 

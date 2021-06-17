@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class PregnancyCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField, Range(15f, 35f)] float pregnancyTime = 22f;
+#pragma warning restore 0649
+
     public float pregnancy = 0;
     public bool isRunning;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ThirstyCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(10f, 30f)] float thirstTreshold = 0f;
     [SerializeField, Range(45f, 65f)] float deathTreshold = 1f;
@@ -12,6 +13,7 @@ public class ThirstyCase : MonoBehaviour, ICase
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
+#pragma warning restore 0649
 
     public float thirst = 0;
     public bool alerted;
@@ -72,8 +74,8 @@ public class ThirstyCase : MonoBehaviour, ICase
 
         if (thirst > deathTreshold)
         {
-            vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.THIRSTDEAD);
-            VFXManager.Instance.WaitPush(vfx, VFXType.THIRSTDEAD);
+            // vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.THIRSTDEAD);
+            // VFXManager.Instance.WaitPush(vfx, VFXType.THIRSTDEAD);
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
 
         }

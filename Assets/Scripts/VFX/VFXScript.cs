@@ -26,18 +26,9 @@ public class VFXScript : MonoBehaviour
     public float scaleRate;
     private float scaleTimer;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-
-
-
         if (isAnimated)
         {
             if (isRotating)

@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class ReproductionCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(5f, 75f)] float reproductionTreshold = 40f;
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
+#pragma warning restore 0649
 
     public float reproductionUrge = 0;
     public bool alerted;

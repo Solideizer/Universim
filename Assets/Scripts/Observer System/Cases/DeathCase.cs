@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class DeathCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField] bool isHerbivore;
+#pragma warning restore 0649
 
     AnimalAI ai;
     bool isRunning;

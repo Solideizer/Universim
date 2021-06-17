@@ -8,11 +8,13 @@ public class AnimalManager : MonoBehaviour
     public static AnimalManager Instance { get => instance; }
 
     public Dictionary<int, AnimalAI> animals = new Dictionary<int, AnimalAI>();
-
+    
+#pragma warning disable 0649
     [SerializeField] AnimalAI herbivorCub;
     [SerializeField] AnimalAI carnivoreCub;
     [SerializeField] int herbivoreCount = 100;
     [SerializeField] int carnivoreCount = 20;
+#pragma warning restore 0649
 
     public Vector3 chickSize = new Vector3(2, 2, 2);
     public Vector3 cubSize = new Vector3(2, 2, 2);

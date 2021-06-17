@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class IdleCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField, Range(1f, 3f)] float idleTime = 0f;
     [SerializeField] bool isRunning;
     public float idle = 0;
+#pragma warning restore 0649
 
     AnimalAI ai;
     float defaultTime;

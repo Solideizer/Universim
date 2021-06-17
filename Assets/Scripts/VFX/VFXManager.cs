@@ -9,6 +9,7 @@ public class VFXManager : MonoBehaviour
     private static VFXManager instance;
     public static VFXManager Instance { get => instance; }
 
+#pragma warning disable 0649
     [SerializeField] VFXScript lovePrefab;
     [SerializeField] VFXScript hungerPrefab;
     [SerializeField] VFXScript thirstPrefab;
@@ -16,7 +17,7 @@ public class VFXManager : MonoBehaviour
     [SerializeField] VFXScript thirstDeadPrefab;
     [SerializeField] VFXScript eatDeadPrefab;
     [SerializeField] int vfxCount = 500;
-
+#pragma warning restore 0649
     public Vector3 vfxSize = new Vector3(0.5f, 0.5f, 0.5f);
 
     public ObjectPool<VFXScript> lovePool;

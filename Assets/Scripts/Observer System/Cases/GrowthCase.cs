@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class GrowthCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField] bool isRunning;
     [SerializeField, Range(3f, 6f)] float growthTime = 4f;
     [SerializeField] int phaseCount = 3;
     [SerializeField] int growthMultiplier;
+#pragma warning restore 0649
 
     float growth = 0;
     int phase;

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HungryCase : MonoBehaviour, ICase
 {
+#pragma warning disable 0649
     [SerializeField] LayerMask targetMask;
     [SerializeField, Range(10f, 30f)] float hungerTreshold = 0f;
     [SerializeField, Range(45f, 65f)] float deathTreshold = 1f;
@@ -12,6 +13,7 @@ public class HungryCase : MonoBehaviour, ICase
     [SerializeField, Range(5f, 20f)] float targetRange = 10f;
     [SerializeField, Range(30f, 60f)] float vision = 40f;
     [SerializeField] bool isRunning;
+#pragma warning restore 0649
 
     public float hunger = 0;
     public bool alerted;
@@ -56,8 +58,8 @@ public class HungryCase : MonoBehaviour, ICase
                     if (target.tag == "Chicken")
                     {
                         AnimalAI targetAi = target.GetComponent<AnimalAI>();
-                        vfx = VFXManager.Instance.GetDeadVFX(transform.position, targetAi, VFXType.EATDEAD);
-                        VFXManager.Instance.WaitPush(vfx, VFXType.EATDEAD);
+                        // vfx = VFXManager.Instance.GetDeadVFX(transform.position, targetAi, VFXType.EATDEAD);
+                        // VFXManager.Instance.WaitPush(vfx, VFXType.EATDEAD);
                         target.GetComponent<AnimalAI>().OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
 
                     }
@@ -88,8 +90,8 @@ public class HungryCase : MonoBehaviour, ICase
 
         if (hunger > deathTreshold)
         {
-            vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.HUNGERDEAD);
-            VFXManager.Instance.WaitPush(vfx, VFXType.HUNGERDEAD);
+            // vfx = VFXManager.Instance.GetDeadVFX(transform.position, ai, VFXType.HUNGERDEAD);
+            // VFXManager.Instance.WaitPush(vfx, VFXType.HUNGERDEAD);
             ai.OnCaseChanged(new CaseChangedEventArgs(null, Case.DEATH));
 
         }
