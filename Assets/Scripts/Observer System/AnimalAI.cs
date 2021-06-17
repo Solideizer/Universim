@@ -161,8 +161,24 @@ public class AnimalAI : MonoBehaviour
     public void Warp(Vector3 target)
     {
         agent.enabled = true;
-        print(target + Vector3.up * 0.2f);
-        agent.Warp(target + Vector3.up * 0.2f);
+        transform.position = target + Vector3.up * 0.2f;
+        OpenClose();
+        if(!agent.isOnNavMesh)
+        {
+            transform.position = target + Vector3.up * 0.4f;
+            OpenClose();
+        }
+        if(!agent.isOnNavMesh)
+            Destroy(agent.gameObject);
+    }
+
+    private void OpenClose()
+    {
+        if (!agent.isOnNavMesh)
+        {
+            agent.enabled = false;
+            agent.enabled = true;
+        }
     }
 
     #endregion
