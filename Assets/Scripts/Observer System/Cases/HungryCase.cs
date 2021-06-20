@@ -134,6 +134,8 @@ public class HungryCase : MonoBehaviour, ICase
 
     public void OnCaseChanged(object sender, CaseChangedEventArgs e)
     {
+        print(e.state);
+
         if (e.state == Case.HUNGER)
         {
             if (e.data != null)
@@ -157,6 +159,7 @@ public class HungryCase : MonoBehaviour, ICase
         else if (e.state == Case.IDENTITY_UPDATE)
         {
             vision = ai.Identity.Vision;
+            print("1");
         }
         else if (e.state == Case.AVAILABLE)
             CaseContainer.Adjust(ai.caseDatas, Case.HUNGER, hunger);

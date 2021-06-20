@@ -88,6 +88,7 @@ public class AnimalAI : MonoBehaviour
 
     public void AwakeAnimal(Genetic genetic, bool isBaby)
     {
+        print("11");
         CreateIdentity(genetic, isBaby);
 
         if(isBaby)
