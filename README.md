@@ -6,27 +6,28 @@ Universim is our senior design project. Our advisor is [Assoc.Prof. Zeynep Orman
  
 #### Simulating the fundamental interactions of Carnivore – Herbivore AI Agents in a procedurally generated environment with the help of Unity Engine
 
-We have 2 kinds of artificial intelligence agents: Carnivore and Herbivore agents. We are simulating fundamental urges such as thirst and hunger for every artificial intelligence agent. Reproduction will be added at a later date.
+There are 2 kinds of artificial intelligence agents in the simulation: Carnivore and Herbivore agents. Fundamental urges such as thirst and hunger is simulated for every artificial intelligence agent. 
 
-Carnivore agents are hunting and feeding on herbivore agents. Herbivore agents on the other hand are trying to find plants for food. Both agent types are searching for water on a procedurally generated environment. 
+Carnivore agents are hunting and feeding on herbivore agents. Herbivore agents on the other hand are trying to find plants for food. Both agent types are searching for water on a procedurally generated environment.
 
-We are using Perlin Noise to create our terrain. We are also procedurally placing objects such as plants,trees and ai agents on the terrain.
+Perlin Noise is used to create procedural terrain heights. Objects such as plants,trees and ai agents are also procedurally placed on the terrain.
 
-After adding a reproduction system our goal is to collect statistics about the simulation. After running the simulation for sufficient amount of time we are expecting to observe realistic behaviors and population numbers from our artificial intelligence agents. In order to observe realistic ecosystem populations we are planning to use real world values for our agents pregnancy duration.  
+Agents can reproduce if the requirements are met. After a pregnancy period, a new agent is deployed on to simulation area. This new agents genetic features (movement speed, vision radius, fertility etc) are determined based on its parents. 
 
-In the end of the simulation, the metrics we will observe and collect will be enlightening when it comes to understanding the complex behaviors of different creatures on different ecosystems. Those metrics will also shed light to ecosystems populations and the interactions between different creatures and the ecosystem which they live in. 
+Object Pooling is used in situations like deploying a new agent or handling the initialization of vfx objects.
 
+Certain metrics such as population numbers and gender statistics are obtained while the simulation is running. A statistics screen is created to visualize those metrics as bar/line charts. This system can be improved to show how natural selection is affecting ai agents.
 
 ## **Implemented Features** 
-*  Finite State Machine System for AI agents
 *  Event Based Decision Maker
 *  Procedurally Generated Terrain (Perlin Noise) 
 *  Procedurally Placed Objects 
 *  Hunger / Searching Food
 *  Thirst / Searching Water
+*  Reproduction System
+*  Genetic Features
+*  Natural Selection
+*  Particle Swarm Optimization
+*  Statistics System 
 
-
-## **Planned Features**
-* Reproduction System
-* Natural Selection
-
+![screenshot](https://github.com/Solideizer/Universim/blob/master/tiev3-9lr9f.png)
