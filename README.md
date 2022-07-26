@@ -1,5 +1,5 @@
 # **Universim**
-Universim is our senior design project. Our advisor is [Assoc.Prof. Zeynep Orman](https://profil.istanbulc.edu.tr/tr/p/ormanz)
+Universim is our senior design project. Our advisor is [Assoc.Prof. Zeynep Orman](https://avesis.iuc.edu.tr/ormanz)
 
 ![screenshot](https://github.com/Solideizer/Universim/blob/master/Frame001_0105.jpg)
 ## Summary
